@@ -3,7 +3,7 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-const port = 5001;
+const port = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
@@ -33,6 +33,6 @@ app.post('/api/extract-assets', runNetlifyFunction(extractAssetsFunction.handler
 app.post('/api/generate-script', runNetlifyFunction(generateScriptFunction.handler));
 app.post('/api/generate-video', runNetlifyFunction(generateVideoFunction.handler));
 
-app.listen(port, '127.0.0.1', () => {
-  console.log(`CTV Boss Backend API is running on http://127.0.0.1:${port}`);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`CTV Boss Backend API is running on port ${port}`);
 });
