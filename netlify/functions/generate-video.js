@@ -77,8 +77,33 @@ exports.handler = async (event, context) => {
     // Creatomate returns a render array. We need the ID and status.
     if (Array.isArray(renderData) && renderData.length > 0) {
         const renderId = renderData[0].id;
-        const status = renderData[0].status;
-        const url = renderData[0].url;
+        let status = renderData[0].status;
+        let url = renderData[0].url;
+        
+        // Poll Creatomate until the video finishes rendering
+        let attempts = 0;
+        const maxAttempts = 30; // Max 60 seconds (2s * 30)
+        
+        while (status !== 'succeeded' && status !== 'failed' && attempts < maxAttempts) {
+            await new Promise(resolve => setTimeout(resolve, 2000)); // wait 2 seconds
+            
+            const pollRes = await fetch(`https://api.creatomate.com/v1/renders/${renderId}`, {
+                headers: {
+                    'Authorization': `Bearer ${process.env.CREATOMATE_API_KEY}`
+                }
+            });
+            
+            if (pollRes.ok) {
+                const pollData = await pollRes.json();
+                status = pollData.status;
+                url = pollData.url;
+            }
+            attempts++;
+        }
+        
+        if (status === 'failed') {
+             throw new Error("Creatomate render failed.");
+        }
          
         return {
             statusCode: 200,
@@ -91,7 +116,7 @@ exports.handler = async (event, context) => {
                 render_id: renderId,
                 status: status,
                 url: url,
-                message: "Render started. Production apps should poll URL with this render_id until status='succeeded'."
+                message: "Render complete."
             })
         };
     } else {
