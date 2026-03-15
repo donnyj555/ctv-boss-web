@@ -43,6 +43,7 @@ exports.handler = async (event, context) => {
     // Build the payload by matching the template's required modification keys
     const creatomatePayload = {
       template_id: templateId,
+      output_format: "mp4",
       modifications: {
         "Description": script,
         "Subtext": cta || "Contact Us Today!",
@@ -96,7 +97,12 @@ exports.handler = async (event, context) => {
             if (pollRes.ok) {
                 const pollData = await pollRes.json();
                 status = pollData.status;
-                url = pollData.url;
+                
+                // Force .mp4 extension on the returned URL to prevent frontend player failure 
+                // if Creatomate tries to return the thumbnail preview URL string.
+                if (pollData.url) {
+                    url = pollData.url.replace('.png', '.mp4').replace('.jpg', '.mp4');
+                }
             }
             attempts++;
         }
