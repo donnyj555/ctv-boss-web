@@ -1,10 +1,5 @@
 const { OpenAI } = require('openai');
 
-// Netlify automatically injects environment variables from .env during local dev
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 exports.handler = async (event, context) => {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
@@ -21,6 +16,10 @@ exports.handler = async (event, context) => {
             body: JSON.stringify({ error: "OpenAI API key is missing or invalid in .env file." })
         };
     }
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
 
     const prompt = `
     Write a 60-word video commercial script for a local business.
