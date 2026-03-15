@@ -194,12 +194,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const topicEl = document.getElementById('adTopic');
         const voiceDirectionEl = document.getElementById('voiceDirection');
         const ctaEl = document.getElementById('ctaText');
+        const businessNameEl = document.getElementById('businessName');
         
         try {
             const response = await fetch(`${API_BASE_URL}/api/generate-script`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
+                    businessName: businessNameEl ? businessNameEl.value : '',
                     topic: topicEl ? topicEl.value : '',
                     voiceDirection: voiceDirectionEl ? voiceDirectionEl.options[voiceDirectionEl.selectedIndex].text : '',
                     cta: ctaEl ? ctaEl.value : ''
@@ -289,6 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // Gather form data to send to the backend
+        const businessNameEl = document.getElementById('businessName');
         const topicEl = document.getElementById('adTopic');
         const languageEl = document.getElementById('adLanguage');
         const durationEl = document.getElementById('adDuration');
@@ -298,6 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const scriptEl = document.getElementById('scriptText');
         const ctaEl = document.getElementById('ctaText');
 
+        const businessName = businessNameEl ? businessNameEl.value : '';
         const topic = topicEl ? topicEl.value : '';
         const language = languageEl ? languageEl.value : 'en-US';
         const duration = durationEl ? durationEl.value : '30';
@@ -313,6 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
+                    businessName: businessName,
                     script: script,
                     template: document.querySelector('.template-card.selected')?.dataset.template || 'modern',
                     voice: voiceDirectionEl ? voiceDirectionEl.value : 'rachel',

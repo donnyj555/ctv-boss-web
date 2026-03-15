@@ -8,7 +8,7 @@ exports.handler = async (event, context) => {
 
   try {
     const data = JSON.parse(event.body);
-    const { script = '', cta = '', images = [], voice = 'rachel' } = data;
+    const { businessName = '', script = '', cta = '', images = [], voice = 'rachel' } = data;
 
     if (!process.env.CREATOMATE_API_KEY || process.env.CREATOMATE_API_KEY === "PASTE_YOUR_CREATOMATE_KEY_HERE") {
         return {
@@ -52,7 +52,7 @@ exports.handler = async (event, context) => {
         "Video-3": img3,
         "Video-4": img4,
         "Picture": img1,
-        "Brand-Name": "CTV Boss Client",
+        "Brand-Name": businessName || "CTV Boss Client",
         "Phone-Number": "555-123-4567",
         "Email": "info@ctvbossclient.com",
         "Name": "" // Clear placeholder

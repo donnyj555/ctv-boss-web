@@ -8,7 +8,7 @@ exports.handler = async (event, context) => {
 
   try {
     const data = JSON.parse(event.body);
-    const { topic = 'promotional', voiceDirection = 'Professional and trustworthy', cta = 'Visit us today!' } = data;
+    const { businessName = '', topic = 'promotional', voiceDirection = 'Professional and trustworthy', cta = 'Visit us today!' } = data;
 
     if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "PASTE_YOUR_OPENAI_KEY_HERE") {
         return {
@@ -23,6 +23,7 @@ exports.handler = async (event, context) => {
 
     const prompt = `
     Write a 60-word video commercial script for a local business.
+    ${businessName ? `Business Name: ${businessName}` : ''}
     Topic/Theme: ${topic}
     Voice Direction/Tone: ${voiceDirection}
     Call to Action to include at the end: ${cta}
