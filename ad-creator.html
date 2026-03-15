@@ -396,6 +396,24 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group grid grid-2 gap-4">
+                                <div>
+                                    <label class="form-label">Presenter Style</label>
+                                    <select id="presenterStyle" class="form-input">
+                                        <option value="voiceover">Voiceover Only</option>
+                                        <option value="avatar">AI Talking Avatar</option>
+                                    </select>
+                                </div>
+                                <div id="avatarModelContainer" style="display: none;">
+                                    <label class="form-label">Avatar Model</label>
+                                    <select id="avatarId" class="form-input">
+                                        <option value="default_male">Professional Male</option>
+                                        <option value="default_female">Professional Female</option>
+                                        <option value="casual_male">Casual Male</option>
+                                        <option value="casual_female">Casual Female</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label class="form-label">AI Voice (Powered by ElevenLabs)</label>
                                 <select id="voiceDirection" class="form-input">

@@ -239,6 +239,19 @@ document.addEventListener('DOMContentLoaded', () => {
             wordCount.style.color = '';
         }
     });
+
+    // Presenter Style / Avatar Options Visibility
+    const presenterStyle = document.getElementById('presenterStyle');
+    const avatarModelContainer = document.getElementById('avatarModelContainer');
+    if (presenterStyle && avatarModelContainer) {
+        presenterStyle.addEventListener('change', (e) => {
+            if (e.target.value === 'avatar') {
+                avatarModelContainer.style.display = 'block';
+            } else {
+                avatarModelContainer.style.display = 'none';
+            }
+        });
+    }
     
     // --- Step 3 functionality ---
     generateVideoBtn.addEventListener('click', async (e) => {
@@ -280,6 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const languageEl = document.getElementById('adLanguage');
         const durationEl = document.getElementById('adDuration');
         const voiceDirectionEl = document.getElementById('voiceDirection');
+        const presenterStyleEl = document.getElementById('presenterStyle');
+        const avatarIdEl = document.getElementById('avatarId');
         const scriptEl = document.getElementById('scriptText');
         const ctaEl = document.getElementById('ctaText');
 
@@ -287,6 +302,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const language = languageEl ? languageEl.value : 'en-US';
         const duration = durationEl ? durationEl.value : '30';
         const voiceDirection = voiceDirectionEl ? voiceDirectionEl.value : '';
+        const presenterStyle = presenterStyleEl ? presenterStyleEl.value : 'voiceover';
+        const avatarId = avatarIdEl ? avatarIdEl.value : '';
         const script = scriptEl ? scriptEl.value : '';
         const cta = ctaEl ? ctaEl.value : '';
 
@@ -298,7 +315,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({
                     script: script,
                     template: document.querySelector('.template-card.selected')?.dataset.template || 'modern',
-                    voice: voiceDirectionEl ? voiceDirectionEl.value : 'rachel'
+                    voice: voiceDirectionEl ? voiceDirectionEl.value : 'rachel',
+                    presenterStyle: presenterStyle,
+                    avatarId: avatarId
                 })
             });
             
