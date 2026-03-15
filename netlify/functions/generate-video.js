@@ -8,7 +8,7 @@ exports.handler = async (event, context) => {
 
   try {
     const data = JSON.parse(event.body);
-    const { businessName = '', script = '', cta = '', images = [], voice = 'rachel', template = 'real_estate' } = data;
+    const { businessName = '', script = '', cta = '', images = [], voice = 'rachel', template = 'real_estate', duration = '30' } = data;
 
     if (!process.env.CREATOMATE_API_KEY || process.env.CREATOMATE_API_KEY === "PASTE_YOUR_CREATOMATE_KEY_HERE") {
         return {
@@ -23,14 +23,20 @@ exports.handler = async (event, context) => {
 
     console.log("Sending render request to Creatomate...");
     
-    // Map industry selections to specific Creatomate template UUIDs
+    // Map industry selections + duration to specific Creatomate template UUIDs
+    // The keys are structured as: {templateName}_{duration}
     const templateMap = {
-      'real_estate': '687822e4-5b8c-421e-a073-a23995ac2b9c',
-      'restaurant': '11a7819a-1c77-4741-a39e-b8f3e26959ec',
-      'home_services': 'd003b551-8628-42f8-a9ee-ea94e608208d'
+      'real_estate_30': '687822e4-5b8c-421e-a073-a23995ac2b9c',
+      'real_estate_15': '687822e4-5b8c-421e-a073-a23995ac2b9c', // Pending user 15s template ID
+      'restaurant_30': '11a7819a-1c77-4741-a39e-b8f3e26959ec', 
+      'restaurant_15': '11a7819a-1c77-4741-a39e-b8f3e26959ec', // Pending user 15s template ID
+      'home_services_30': 'd003b551-8628-42f8-a9ee-ea94e608208d',
+      'home_services_15': 'd003b551-8628-42f8-a9ee-ea94e608208d' // Pending user 15s template ID
     };
     
-    const templateId = templateMap[template] || templateMap['real_estate'];
+    // Construct the lookup key, e.g. "real_estate_30"
+    const mapKey = `${template}_${duration}`;
+    const templateId = templateMap[mapKey] || templateMap['real_estate_30'];
     
     // Fallback images if the user hasn't successfully scraped/uploaded any
     const defaultImages = [

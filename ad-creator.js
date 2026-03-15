@@ -322,7 +322,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     template: document.querySelector('.template-card.selected')?.dataset.template || 'modern',
                     voice: voiceDirectionEl ? voiceDirectionEl.value : 'rachel',
                     presenterStyle: presenterStyle,
-                    avatarId: avatarId
+                    avatarId: avatarId,
+                    duration: duration
                 })
             });
             
