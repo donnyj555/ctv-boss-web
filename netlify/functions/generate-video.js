@@ -54,6 +54,7 @@ exports.handler = async (event, context) => {
 
     // Build the payload by matching the template's required modification keys
     const creatomatePayload = {
+      output_format: "mp4",
       template_id: templateId,
       modifications: {
         "Description": script,
@@ -76,7 +77,7 @@ exports.handler = async (event, context) => {
             'Authorization': `Bearer ${process.env.CREATOMATE_API_KEY}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ source: creatomatePayload })
+        body: JSON.stringify(creatomatePayload)
     });
 
     if (!response.ok) {
