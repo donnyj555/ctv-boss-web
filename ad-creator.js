@@ -3,6 +3,11 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Environment Setup ---
+    const API_BASE_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+        ? 'http://127.0.0.1:5001' 
+        : 'https://ctv-boss-backend.onrender.com';
+
     // --- State variables ---
     let currentStep = 1;
     const totalSteps = 3;
@@ -81,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         extractBtn.disabled = true;
         
         try {
-            const response = await fetch('http://localhost:5001/api/extract-assets', {
+            const response = await fetch(`${API_BASE_URL}/api/extract-assets`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url: urlInput })
@@ -191,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctaEl = document.getElementById('ctaText');
         
         try {
-            const response = await fetch('http://localhost:5001/api/generate-script', {
+            const response = await fetch(`${API_BASE_URL}/api/generate-script`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -287,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Send payload to Node Express API mapped to Creatomate
-            const response = await fetch('http://localhost:5001/api/generate-video', {
+            const response = await fetch(`${API_BASE_URL}/api/generate-video`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
