@@ -4,7 +4,6 @@ node_modules/
 .env
 .DS_Store
 server.log
-netlify/
 venv/
 *.mp4
 *.png
