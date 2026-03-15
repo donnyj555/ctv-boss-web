@@ -8,7 +8,7 @@ exports.handler = async (event, context) => {
 
   try {
     const data = JSON.parse(event.body);
-    const { businessName = '', script = '', cta = '', images = [], voice = 'rachel' } = data;
+    const { businessName = '', script = '', cta = '', images = [], voice = 'rachel', template = 'real_estate' } = data;
 
     if (!process.env.CREATOMATE_API_KEY || process.env.CREATOMATE_API_KEY === "PASTE_YOUR_CREATOMATE_KEY_HERE") {
         return {
@@ -23,8 +23,14 @@ exports.handler = async (event, context) => {
 
     console.log("Sending render request to Creatomate...");
     
-    // Use the user's explicit custom template ID
-    const templateId = "b573fbe0-e1f2-4edc-a7fb-f358ee95bb0a";
+    // Map industry selections to specific Creatomate template UUIDs
+    const templateMap = {
+      'real_estate': '687822e4-5b8c-421e-a073-a23995ac2b9c',
+      'restaurant': '11a7819a-1c77-4741-a39e-b8f3e26959ec',
+      'home_services': 'd003b551-8628-42f8-a9ee-ea94e608208d'
+    };
+    
+    const templateId = templateMap[template] || templateMap['real_estate'];
     
     // Fallback images if the user hasn't successfully scraped/uploaded any
     const defaultImages = [
