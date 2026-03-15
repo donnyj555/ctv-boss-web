@@ -26,12 +26,12 @@ exports.handler = async (event, context) => {
     // Map industry selections + duration to specific Creatomate template UUIDs
     // The keys are structured as: {templateName}_{duration}
     const templateMap = {
-      'real_estate_30': '687822e4-5b8c-421e-a073-a23995ac2b9c',
-      'real_estate_15': '687822e4-5b8c-421e-a073-a23995ac2b9c', // Pending user 15s template ID
+      'real_estate_30': 'b573fbe0-e1f2-4edc-a7fb-f358ee95bb0a', // User's custom 30s template
+      'real_estate_15': 'b573fbe0-e1f2-4edc-a7fb-f358ee95bb0a', 
       'restaurant_30': '11a7819a-1c77-4741-a39e-b8f3e26959ec', 
-      'restaurant_15': '11a7819a-1c77-4741-a39e-b8f3e26959ec', // Pending user 15s template ID
+      'restaurant_15': '11a7819a-1c77-4741-a39e-b8f3e26959ec', 
       'home_services_30': 'd003b551-8628-42f8-a9ee-ea94e608208d',
-      'home_services_15': 'd003b551-8628-42f8-a9ee-ea94e608208d' // Pending user 15s template ID
+      'home_services_15': 'd003b551-8628-42f8-a9ee-ea94e608208d' 
     };
     
     // Construct the lookup key, e.g. "real_estate_30"
@@ -57,6 +57,7 @@ exports.handler = async (event, context) => {
       output_format: "mp4",
       template_id: templateId,
       modifications: {
+        "Voiceover": script,
         "Description": script,
         "Subtext": cta || "Contact Us Today!",
         "Video-1": img1,
