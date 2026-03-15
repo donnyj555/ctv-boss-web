@@ -49,7 +49,6 @@ exports.handler = async (event, context) => {
     // Build the payload by matching the template's required modification keys
     const creatomatePayload = {
       template_id: templateId,
-      output_format: "mp4",
       modifications: {
         "Description": script,
         "Subtext": cta || "Contact Us Today!",
