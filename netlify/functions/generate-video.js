@@ -44,17 +44,17 @@ exports.handler = async (event, context) => {
     const creatomatePayload = {
       template_id: templateId,
       modifications: {
-        // Voiceover (The template likely needs an Audio element we can modify, assuming 'Voiceover.text' based on standard practices, but injecting the AI script and Call to Action into the visual text fields first)
-        "Description.text": script,
-        "Subtext.text": cta || "Contact Us Today!",
-        // Connect the scraped brand assets
-        "Video-1.source": img1,
-        "Video-2.source": img2,
-        "Video-3.source": img3,
-        "Video-4.source": img4,
-        "Picture.source": img1, // Assuming Picture is the logo placement based on the screenshot context
-        "Brand-Name.text": "CTV Boss Client", // Placeholder for actual business name feature later
-        "Name.text": "" // Clear placeholder
+        "Description": script,
+        "Subtext": cta || "Contact Us Today!",
+        "Video-1": img1,
+        "Video-2": img2,
+        "Video-3": img3,
+        "Video-4": img4,
+        "Picture": img1,
+        "Brand-Name": "CTV Boss Client",
+        "Phone-Number": "555-123-4567",
+        "Email": "info@ctvbossclient.com",
+        "Name": "" // Clear placeholder
       }
     };
 
