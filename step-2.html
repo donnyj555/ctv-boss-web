@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MNMV8TKX');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step 2: Custom Strategy | CTV BOSS</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=2">
+
+    <!-- MNTN Conversion Pixel -->
+    <!-- Install ONLY on conversion page/event-->
+    <script type="text/javascript">
+    (function(){var x=null,p,q,m,
+        o="58737",
+        conversion_type="",
+        order_id="ORDER ID",
+        order_amt="ORDER AMOUNT",
+        b="",c="",k="",g="",j="",u="";try{p=top.document.referer!==""?encodeURIComponent(top.document.referrer.substring(0,2048)):""}catch(n){p=document.referrer!==null?document.referrer.toString().substring(0,2048):""}try{m=parent.location.href!==""?encodeURIComponent(parent.location.href.toString().substring(0,2048)):""}catch(z){try{m!==null?encodeURIComponent(i.toString().substring(0,2048)):""}catch(h){m=""}}
+    var A,y=document.createElement("script"),w=null,v=document.getElementsByTagName("script"),t=Number(v.length)-1,r=document.getElementsByTagName("script")[t];if(typeof A==="undefined"){A=Math.floor(Math.random()*1e17)}
+    w="https://dx.mountain.com/spx?conv=1"+"&shaid="+o+"&tdr="+p+"&plh="+m+"&cb="+A+"&shoid="+order_id+"&shoamt="+order_amt+"&type="+conversion_type+"&shocur="+c+"&shopid="+k+"&shoq="+g+"&shoup="+j+"&shpil="+u+b;y.type="text/javascript";y.src=w;r.parentNode.insertBefore(y,r)}());
+    </script>
+    <style>
+        .step2-container {
+            max-width: 600px;
+            margin: 4rem auto;
+            text-align: center;
+        }
+        .form-select {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            transition: border-color 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+        .form-select option {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+        }
+        .form-select:focus {
+            outline: none;
+            border-color: var(--accent-red);
+        }
+        select.form-select {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+        .radio-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+        .radio-label input[type="radio"] {
+            accent-color: var(--accent-red);
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNMV8TKX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="glow-bg"></div>
+    <header class="navbar">
+        <div class="container container-nav" style="justify-content: center;">
+            <a href="/" class="brand"><span class="logo-ctv">CTV</span> <span class="text-accent">BOSS</span></a>
+        </div>
+    </header>
+
+    <main>
+        <section class="section">
+            <div class="container step2-container">
+                <div class="cta-card fade-in-up">
+                    <div class="success-icon" style="margin: 0 auto 1.5rem auto; font-size: 2rem;">✓</div>
+                    <h2 style="font-size: 2rem;">Success! Request Received.</h2>
+                    <p class="text-muted mt-4" style="font-size: 1.125rem;">
+                        Before we pull the local viewership data and finalize your strategy, we need a few details to pinpoint your exact market.
+                    </p>
+
+                    <form class="lead-form mt-8" action="https://formspree.io/f/mojkvjdk" method="POST">
+                        <input type="hidden" name="form_stage" value="Qualification Questionnaire">
+                        <!-- Redirect to a clean final thank you page, or back home -->
+                        <input type="hidden" name="_next" value="https://ctvboss.com/">
+                        
+                        <!-- Captures the email passed from Step 1 via the URL -->
+                        <input type="hidden" id="passed_email" name="original_email" value="">
+                        
+                        <div class="form-group">
+                            <label for="industry">Primary Industry</label>
+                            <select id="industry" name="industry" class="form-select" required>
+                                <option value="" disabled selected>Select your industry</option>
+                                <option value="Home Services (HVAC, Plumbing, etc.)">Home Services (HVAC, Plumbing, etc.)</option>
+                                <option value="Legal (Personal Injury, etc.)">Legal</option>
+                                <option value="Medical / Dental / MedSpa">Medical / Dental / MedSpa</option>
+                                <option value="Real Estate">Real Estate</option>
+                                <option value="Retail / Brick & Mortar">Retail / Brick & Mortar</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Target Area (City or Zip Codes)</label>
+                            <input type="text" id="location" name="target_location" placeholder="e.g., Dallas, TX or 75001" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Are you currently running Facebook or Google Ads?</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="current_digital_ads" value="Yes" required> Yes
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="current_digital_ads" value="No" required> No
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-6">
+                            <label for="phone">Best Phone Number (For your strategy review)</label>
+                            <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block mt-4" style="font-size: 1.125rem; padding: 1.25rem;">Submit Strategy Details</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content text-center">
+            <p class="text-muted text-sm">&copy; 2026 CTV BOSS. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="app.js?v=5"></script>
+</body>
+</html>

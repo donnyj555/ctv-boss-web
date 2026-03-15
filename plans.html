@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MNMV8TKX');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing & Plans | CTV BOSS</title>
+    <meta name="description"
+        content="Affordable, premium CTV advertising plans for local businesses. Get started for as little as $499/mo.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=8">
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1060925498511098');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1060925498511098&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+    <style>
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2.5rem;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-color: rgba(220, 20, 60, 0.3);
+        }
+
+        .pricing-card.popular {
+            border-color: var(--accent-red);
+            background: linear-gradient(145deg, rgba(220, 20, 60, 0.05) 0%, var(--bg-card) 100%);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 1rem 0 0.5rem 0;
+            display: flex;
+            align-items: baseline;
+        }
+
+        .price small {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-left: 0.5rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .pricing-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .check-icon {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .fee-disclaimer {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNMV8TKX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="glow-bg"></div>
+    <header class="navbar">
+        <div class="container container-nav">
+            <a href="index.html" class="brand"><span class="logo-ctv">CTV</span> <span class="text-accent">BOSS</span></a>
+            <nav class="nav-links">
+                <a href="index.html">Platform</a>
+                <a href="plans.html" style="color: var(--accent-red);">Pricing</a>
+                <a href="blog.html">Resources</a>
+                <a href="order.html" class="btn btn-outline">Start Campaign</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" style="padding-top: 8rem; padding-bottom: 4rem;">
+            <div class="container text-center">
+                <span class="badge fade-in-up">Transparent Pricing</span>
+                <h1 class="hero-title mt-4 fade-in-up" style="animation-delay: 0.1s; font-size: 3rem;">
+                    Premium TV Placements.<br><span class="text-gradient">Small Business Budgets.</span>
+                </h1>
+                <p class="section-subtitle mt-4 text-muted fade-in-up" style="animation-delay: 0.2s;">
+                    We strip out the minimum spends usually required by national networks. Buy 30-second<br>commercials
+                    on streaming TV for incredible CPM rates.
+                </p>
+
+                <div class="pricing-grid">
+                    <!-- Basic Plan -->
+                    <div class="pricing-card fade-in-up" style="animation-delay: 0.3s; text-align: left;">
+                        <h3 style="font-size: 1.5rem;">Local Saturation</h3>
+                        <p class="text-muted mt-2 text-sm">Perfect for completely dominating a specific local
+                            neighborhood or zip code.</p>
+                        <div class="price">
+                            $499<small>/mo</small>
+                        </div>
+
+                        <ul class="pricing-features">
+                            <li><span class="check-icon">✓</span> 10,000 Completed Views</li>
+                            <li><span class="check-icon">✓</span> Target by Zip Code</li>
+                            <li><span class="check-icon">✓</span> Hulu, ESPN, Peacock & More</li>
+                            <li><span class="check-icon">✓</span> 15 or 30-Second Unskippable Ads</li>
+                            <li><span class="check-icon">✓</span> On-Demand Detailed Reporting</li>
+                        </ul>
+                        <a href="order.html" class="btn btn-outline btn-block">Order Local Saturation</a>
+                        <p class="fee-disclaimer">+ $139 Monthly Management Fee</p>
+                        <div class="mt-4 text-center"
+                            style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 1rem;">
+                            <span class="text-sm text-muted">Don't have a commercial?</span><br>
+                            <span class="text-sm text-accent" style="font-weight: 600;">+$495 Custom Ad Creation</span>
+                        </div>
+                    </div>
+
+                    <!-- Pro Plan -->
+                    <div class="pricing-card popular fade-in-up" style="animation-delay: 0.4s; text-align: left;">
+                        <div class="popular-badge">Most Advanced</div>
+                        <h3 style="font-size: 1.5rem;">Geo & Demo Precision</h3>
+                        <p class="text-muted mt-2 text-sm">For hyper-targeted campaigns reaching specific household
+                            demographics.</p>
+                        <div class="price">
+                            Custom<small>Budget</small>
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem; text-align: center;">Minimum $1,000/month</div>
+                        <p class="text-accent text-sm font-semibold">$50 - $70 CPM</p>
+
+                        <ul class="pricing-features">
+                            <li><span class="check-icon">✓</span> Custom Target Audience Size</li>
+                            <li><span class="check-icon">✓</span> Focus by 3,000+ Demographics</li>
+                            <li><span class="check-icon">✓</span> Address-List Geofencing</li>
+                            <li><span class="check-icon">✓</span> Verified Site Visit Attribution</li>
+                            <li><span class="check-icon">✓</span> On-Demand Detailed Reporting</li>
+                        </ul>
+                        <a href="order.html" class="btn btn-primary btn-block">Configure Custom Plan</a>
+                        <p class="fee-disclaimer">+ 15% Agency Fee on Monthly Ad Spend</p>
+                        <div class="mt-4 text-center"
+                            style="border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 1rem;">
+                            <span class="text-sm text-muted">Don't have a commercial?</span><br>
+                            <span class="text-sm text-accent" style="font-weight: 600;">+$495 Custom Ad Creation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 fade-in-up"
+                    style="animation-delay: 0.5s; max-width: 600px; margin-left: auto; margin-right: auto; text-align: left; background: rgba(255,255,255,0.03); padding: 2rem; border-radius: 8px;">
+                    <h4 style="margin-bottom: 1rem;"><span style="color: var(--accent-red);">Note on Terms:</span></h4>
+                    <ul class="text-muted text-sm"
+                        style="list-style-position: inside; display: flex; flex-direction: column; gap: 0.5rem;">
+                        <li>Recommended 3-month payment to start for optimal campaign momentum.</li>
+                        <li>Month-to-month billing available after the initial term.</li>
+                        <li>30-day cancellation notice required.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="grid grid-3" style="text-align: left; gap: 2rem;">
+                <div>
+                    <div class="brand mb-4"><span class="logo-ctv">CTV</span> <span class="text-accent">BOSS</span></div>
+                    <p class="text-muted text-sm">Turning Connected TV into your most powerful performance marketing
+                        channel.</p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Platform</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;"
+                        class="text-sm">
+                        <li><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Features</a>
+                        </li>
+                        <li><a href="plans.html" style="color: var(--text-muted); text-decoration: none;">Pricing &
+                                Plans</a></li>
+                        <li><a href="order.html" style="color: var(--text-muted); text-decoration: none;">Start
+                                Campaign</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Legal & Resources</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;"
+                        class="text-sm">
+                        <li><a href="blog.html" style="color: var(--text-muted); text-decoration: none;">Performance TV
+                                Blog</a></li>
+                        <li><a href="privacy.html" style="color: var(--text-muted); text-decoration: none;">Privacy
+                                Policy</a></li>
+                        <li><a href="terms.html" style="color: var(--text-muted); text-decoration: none;">Terms &
+                                Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 2rem; text-align: center;">
+                <p class="text-muted text-sm">&copy; 2026 CTV BOSS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js?v=7"></script>
+</body>
+
+</html>

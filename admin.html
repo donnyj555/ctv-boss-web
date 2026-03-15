@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MNMV8TKX');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTV BOSS Admin | Lead Management</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Base styles and common elements -->
+    <link rel="stylesheet" href="/styles.css?v=3">
+    
+    <style>
+        body { background-color: var(--bg-main); }
+        .hidden { display: none !important; }
+        
+        /* Auth Screen */
+        .admin-login-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .admin-login-card {
+            background: rgba(25, 25, 30, 0.9);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            border-radius: 1rem;
+            padding: 3rem;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .admin-input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        .admin-input:focus {
+            outline: none;
+            border-color: var(--accent-red);
+        }
+
+        /* Dashboard Screen */
+        .admin-header {
+            background: rgba(20, 20, 25, 0.95);
+            border-bottom: 1px solid rgba(255, 51, 102, 0.2);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+        }
+        
+        .table-container {
+            background: rgba(25, 25, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem 1.5rem;
+            text-align: left;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+        tr:last-child td { border-bottom: none; }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-new { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+        .status-active { background: rgba(74, 222, 128, 0.1); color: #4ade80; }
+
+        .btn-activate {
+            background: transparent;
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-activate:hover {
+            background: var(--accent-red);
+            color: white;
+        }
+        .btn-delete {
+            background: transparent;
+            border: none;
+            color: rgba(255, 51, 102, 0.7); /* Red by default */
+            padding: 0.5rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.2s;
+            margin-left: 0.5rem;
+        }
+        .btn-delete:hover {
+            color: #ff3366; /* Bright red on hover */
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--text-muted); }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 6px;
+            color: white;
+        }
+        .error-msg {
+            color: #ef4444;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNMV8TKX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- 1. AUTH PROMPT SCREEN -->
+    <div id="adminAuthScreen" class="admin-login-wrapper">
+        <div class="admin-login-card">
+            <h1 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; margin-bottom: 2rem;">Admin Access</h1>
+            <form id="adminAuthForm">
+                <input type="password" id="adminSecretInput" class="admin-input" placeholder="Enter Secret Key" required autofocus>
+                <button type="submit" class="btn btn-primary btn-block">Enter Command Center</button>
+                <div id="authErrorMsg" class="error-msg mt-4">Invalid Secret Key</div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- 2. MAIN ADMIN DASHBOARD -->
+    <div id="adminDashboardScreen" class="hidden">
+        
+        <header class="admin-header">
+            <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="brand" style="font-size: 1.2rem;"><span class="logo-ctv">CTV</span> BOSS <span style="color:var(--text-muted); font-size: 0.9rem; font-family:'Inter'; font-weight: 500;">| Admin</span></div>
+                <button id="logoutBtn" class="btn btn-outline" style="padding: 0.4rem 1rem; font-size: 0.8rem;">Lock Console</button>
+            </div>
+        </header>
+
+        <main class="container py-8" style="max-width: 1000px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                <div>
+                    <h2 style="font-family: 'Outfit', sans-serif; font-size: 2rem;">Inbound Leads</h2>
+                    <p class="text-muted mt-1">Review inquiries and activate clients to give them portal access.</p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button id="openAddLeadBtn" class="btn btn-primary" style="padding: 0.5rem 1rem;">+ Add Manual Lead</button>
+                    <button id="refreshBtn" class="btn btn-secondary" style="padding: 0.5rem 1rem;">↻ Refresh Data</button>
+                </div>
+            </div>
+
+            <div class="table-container" style="animation-delay: 0.1s;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Business</th>
+                            <th>Contact</th>
+                            <th>Status</th>
+                            <th style="text-align: right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leadsTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; color: var(--text-muted);">Loading leads...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- 3. ACTIVATION MODAL -->
+    <div id="activationModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem;">Activate Client</h3>
+            <p id="modalClientName" class="text-muted text-sm mt-1 mb-6">Provisioning portal access for: <strong>...</strong></p>
+            
+            <form id="activationForm">
+                <input type="hidden" id="modalLeadId">
+                <input type="hidden" id="modalEmail">
+                <input type="hidden" id="modalName">
+                <input type="hidden" id="modalBizName">
+
+                <div class="form-group">
+                    <label>MNTN API Key</label>
+                    <input type="text" id="modalMntnKey" required placeholder="Paste MNTN API Key here">
+                </div>
+                <div class="form-group">
+                    <label>MNTN Advertiser ID</label>
+                    <input type="text" id="modalMntnId" required placeholder="Paste MNTN Advertiser ID here">
+                </div>
+                <div class="form-group">
+                    <label>Temporary Password for Client</label>
+                    <input type="text" id="modalPass" required placeholder="Generate a distinct password">
+                    <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 0.4rem;">
+                        This password will be assigned to their email for login.html. Send this to them securely!
+                    </span>
+                </div>
+
+                <div id="modalErrorMsg" class="error-msg"></div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" id="cancelModalBtn" class="btn btn-secondary" style="flex:1;">Cancel</button>
+                    <button type="submit" id="confirmActivateBtn" class="btn btn-primary" style="flex:1;">Activate & Create User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 4. ADD MANUAL LEAD MODAL -->
+    <div id="addLeadModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <h3 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem;">Add Manual Lead</h3>
+            <p class="text-muted text-sm mt-1 mb-6">Enter the business details. You will activate their MNTN keys in the next step.</p>
+
+            <form id="addLeadForm">
+                <div class="form-group">
+                    <label>First & Last Name</label>
+                    <input type="text" id="newLeadName" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Business Name</label>
+                    <input type="text" id="newLeadBizName" required placeholder="Acme Corp">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="newLeadEmail" required placeholder="john@acme.com">
+                </div>
+
+                <div id="newLeadErrorMsg" class="error-msg"></div>
+
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="button" id="cancelAddLeadBtn" class="btn btn-secondary" style="flex: 1;">Cancel</button>
+                    <button type="submit" id="confirmAddLeadBtn" class="btn btn-primary" style="flex: 1;">Create Lead</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="admin.js?v=2"></script>
+</body>
+</html>

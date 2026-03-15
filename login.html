@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MNMV8TKX');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advertiser Login | CTV BOSS</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Base styles and common elements -->
+    <link rel="stylesheet" href="/styles.css?v=3">
+    <!-- Portal-specific overrides -->
+    <style>
+        .login-container {
+            max-width: 480px;
+            margin: 6rem auto;
+            text-align: center;
+        }
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+        input.form-control {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        input.form-control:focus {
+            outline: none;
+            border-color: var(--accent-red);
+        }
+        .error-message {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNMV8TKX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="glow-bg"></div>
+    
+    <header class="navbar" style="position: absolute; width: 100%;">
+        <div class="container container-nav" style="justify-content: center;">
+            <a href="index.html" class="brand"><span class="logo-ctv">CTV</span> <span class="text-accent">BOSS</span></a>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" style="min-height: 100vh; display: flex; align-items: center;">
+            <div class="container login-container">
+                <div class="login-card">
+                    <h2 style="font-size: 2rem; font-family: 'Outfit', sans-serif;">Advertiser Portal</h2>
+                    <p class="text-muted mt-2 mb-8">Sign in to view your campaign performance.</p>
+
+                    <div id="loginError" class="error-message hidden">
+                        <!-- Error messages from Supabase will go here -->
+                    </div>
+
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="email" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 500;">Email Address</label>
+                            <input type="email" id="email" class="form-control" placeholder="you@company.com" required>
+                        </div>
+                        <div class="form-group mb-8">
+                            <label for="password" style="display: block; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 500;">Password</label>
+                            <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" style="font-size: 1.125rem; padding: 1.25rem;">Log In</button>
+                    </form>
+
+                    <p class="text-xs text-muted mt-6" style="opacity: 0.7;">
+                        Forgot password? Contact your campaign manager.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Isolated Portal Logic -->
+    <script src="portal.js?v=2"></script>
+</body>
+</html>

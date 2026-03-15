@@ -1,0 +1,13 @@
+# Local files
+.netlify
+node_modules/
+.env
+.DS_Store
+server.log
+netlify/
+venv/
+*.mp4
+*.png
+*.jpg
+*.jpeg
+*.webp

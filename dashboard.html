@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MNMV8TKX');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campaign Dashboard | CTV BOSS</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Base styles and common elements -->
+    <link rel="stylesheet" href="/styles.css?v=3">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            background-color: var(--bg-main);
+        }
+        .dashboard-header {
+            background: rgba(25, 25, 30, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .dashboard-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .stat-card {
+            background: linear-gradient(145deg, rgba(25, 25, 30, 0.8) 0%, rgba(20, 20, 25, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .stat-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1;
+        }
+        .stat-delta {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .delta-positive { color: #4ade80; }
+        .delta-neutral { color: var(--text-muted); }
+        
+        .chart-card {
+            background: rgba(25, 25, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            height: 400px;
+        }
+        
+        /* Used to hide the dashboard while checking auth status */
+        .hidden { display: none !important; }
+        
+        #loadingOverlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-left-color: var(--accent-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNMV8TKX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    
+    <!-- Shown while Supabase verifies the session -->
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Main Dashboard Content (Hidden by default, un-hidden by portal.js) -->
+    <div id="dashboardContainer" class="hidden">
+        
+        <header class="dashboard-header">
+            <div class="container dashboard-nav">
+                <div style="display: flex; align-items: center; gap: 2rem;">
+                    <a href="/" class="brand" style="font-size: 1.25rem;"><span class="logo-ctv">CTV</span> <span class="text-accent">BOSS</span></a>
+                    <span style="color: rgba(255,255,255,0.2);">|</span>
+                    <span id="businessNameDisplay" style="font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--text-main);">Loading...</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <span id="welcomeMessage" class="text-sm text-muted">Loading...</span>
+                    <a href="ad-creator.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem; margin-right: 0.5rem;">Ad Creator</a>
+                    <a href="#" id="logoutBtn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Log Out</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="container py-8" style="padding-top: 3rem; padding-bottom: 4rem;">
+            
+        <!-- Filter Bar -->
+        <div class="filter-bar" style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between;">
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Overview of your connected streaming campaigns.</p>
+            <div style="display: flex; gap: 1rem;">
+                <select id="dateRangeSelect" class="btn btn-outline" style="background: rgba(0,0,0,0.4); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1rem; cursor: pointer;">
+                    <option value="last7days">Last 7 Days</option>
+                    <option value="last30days">Last 30 Days</option>
+                    <option value="monthtodate" selected>Month to Date</option>
+                </select>
+                <button class="btn btn-secondary">Download PDF</button>
+            </div>
+        </div>
+
+        <!-- MNTN Error State (Hidden by default) -->
+        <div id="mntnErrorState" class="hidden" style="background: rgba(255, 51, 102, 0.1); border: 1px solid var(--accent-red); padding: 1.5rem; border-radius: 8px; text-align: center; margin-bottom: 2rem;">
+            <p id="mntnErrorText" style="color: var(--accent-red); font-weight: 600; font-size: 1.1rem;">Your campaign data is loading — check back shortly</p>
+        </div>
+
+        <!-- Top Line Metrics -->
+        <div id="metricsCards" class="grid grid-4 gap-6">
+            <!-- Impressions -->
+            <div class="stat-card">
+                <span class="stat-label">Total Impressions</span>
+                <span id="valImpressions" class="stat-value">...</span>
+                <span class="stat-delta delta-neutral">Streaming robustly targeted screens</span>
+            </div>
+            <!-- Visits -->
+            <div class="stat-card">
+                <span class="stat-label">Verified Site Visits</span>
+                <span id="valVisits" class="stat-value" style="color: #4ade80;">...</span>
+                <span class="stat-delta delta-neutral">Driven directly from TV ads</span>
+            </div>
+            <!-- Conversions -->
+            <div class="stat-card">
+                <span class="stat-label">Total Conversions</span>
+                <span id="valConversions" class="stat-value">...</span>
+                <span class="stat-delta delta-neutral">Completed high-value actions</span>
+            </div>
+            <!-- CPV -->
+            <div class="stat-card">
+                <span class="stat-label">Cost per Visit</span>
+                <span id="valCPV" class="stat-value" style="color: var(--accent-red);">...</span>
+                <span class="stat-delta delta-neutral">Highly efficient ROI</span>
+            </div>
+        </div>
+
+        <!-- Chart Area -->
+        <div id="chartContainer" class="chart-card">
+            <canvas id="performanceChart"></canvas>
+        </div>
+            
+        </main>
+    </div>
+
+    <!-- Isolated Portal Logic -->
+    <script src="portal.js?v=2"></script>
+    
+    <!-- Render Placeholder Chart -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            
+            // Define a gradient for the primary line
+            let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(255, 51, 102, 0.5)'); // Accent red
+            gradient.addColorStop(1, 'rgba(255, 51, 102, 0.0)');
+            
+            const chartData = {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [
+                    {
+                        label: 'Impressions',
+                        data: [9500, 10200, 11000, 11800],
+                        borderColor: '#ff3366', // Accent red
+                        backgroundColor: gradient,
+                        tension: 0.4,
+                        fill: true,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Verified Contextual Visits',
+                        data: [180, 210, 215, 237],
+                        borderColor: '#4ade80', // Green
+                        backgroundColor: 'transparent',
+                        tension: 0.4,
+                        borderWidth: 2,
+                        yAxisID: 'y1'
+                    }
+                ]
+            };
+
+            const chartConfig = {
+                type: 'line',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            labels: { color: 'rgba(255,255,255,0.7)', font: { family: 'Inter', size: 13 } }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(25, 25, 30, 0.9)',
+                            titleFont: { family: 'Outfit', size: 14 },
+                            bodyFont: { family: 'Inter', size: 13 },
+                            padding: 12,
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: 'rgba(255,255,255,0.5)', font: { family: 'Inter' } }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: 'rgba(255,255,255,0.5)', font: { family: 'Inter' } },
+                            title: { display: true, text: 'Impressions', color: 'rgba(255,255,255,0.5)'}
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { drawOnChartArea: false }, // Only draw grid lines for one axis
+                            ticks: { color: 'rgba(255,255,255,0.5)', font: { family: 'Inter' } },
+                            title: { display: true, text: 'Visits', color: 'rgba(255,255,255,0.5)'}
+                        }
+                    }
+                }
+            };
+
+            new Chart(ctx, chartConfig);
+            
+            // Temporary logic to hide loading spinner immediately for non-authenticated testing
+            // When building the real app, this should be removed and handled purely by portal.js
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            }, 500);
+        });
+    </script>
+</body>
+</html>

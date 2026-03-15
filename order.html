@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MNMV8TKX');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Your Order | CTV BOSS</title>
+    <meta name="description"
+        content="Configure your CTV advertising campaign, calculate your reach, and place your order securely.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=8">
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1060925498511098');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1060925498511098&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <style>
+        .order-container {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (max-width: 968px) {
+            .order-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .builder-section {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .builder-title {
+            font-size: 1.25rem;
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+        }
+
+        /* Option Cards UI */
+        .option-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .option-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .option-label {
+            display: block;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .option-input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .option-card {
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .option-input:checked~.option-card {
+            border-color: var(--accent-red);
+            background: rgba(220, 20, 60, 0.05);
+        }
+
+        .check-circle {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .option-input:checked~.option-card .check-circle {
+            border-color: var(--accent-red);
+            background: var(--accent-red);
+        }
+
+        .check-circle::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: white;
+            transform: scale(0);
+            transition: transform 0.2s ease;
+        }
+
+        .option-input:checked~.option-card .check-circle::after {
+            transform: scale(1);
+        }
+
+        /* Slider Styles */
+        #sliderContainer {
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        #sliderContainer.active {
+            max-height: 300px;
+            opacity: 1;
+        }
+
+        .budget-control {
+            margin: 1.5rem 0;
+        }
+
+        .budget-amount-display {
+            font-size: 2.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: var(--accent-red);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: var(--accent-red);
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            margin-top: -8px;
+            box-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+            border: 2px solid white;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-red);
+            box-shadow: 0 0 0 2px rgba(220, 20, 60, 0.2);
+        }
+
+        .order-summary-panel {
+            background: linear-gradient(145deg, rgba(20, 20, 25, 0.95) 0%, rgba(30, 30, 35, 0.95) 100%);
+            border: 1px solid var(--accent-red);
+            border-radius: 12px;
+            padding: 2rem;
+            position: sticky;
+            top: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .summary-row.total {
+            border-bottom: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 1rem;
+            padding-top: 1rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNMV8TKX"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="glow-bg"></div>
+    <header class="navbar">
+        <div class="container container-nav">
+            <a href="index.html" class="brand"><span class="logo-ctv">CTV</span> <span class="text-accent">BOSS</span></a>
+            <nav class="nav-links">
+                <a href="index.html">Platform</a>
+                <a href="plans.html">Pricing</a>
+                <a href="blog.html">Resources</a>
+                <a href="landing.html" class="btn btn-outline"
+                    style="border-color: var(--accent-red); color: white;">Start Campaign</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="section" style="padding-top: 8rem; padding-bottom: 4rem;">
+            <div class="container text-center">
+                <span class="badge fade-in-up">Launch Campaign</span>
+                <h1 class="hero-title fade-in-up" style="margin-top: 1.5rem; animation-delay: 0.1s;">Configure Your CTV
+                    Order</h1>
+                <p class="hero-subtitle text-muted fade-in-up" style="animation-delay: 0.2s;">
+                    Select your package, establish your budget, and submit your campaign details securely down below.
+                </p>
+            </div>
+
+            <div class="container mt-12 order-container fade-in-up" style="animation-delay: 0.3s;">
+
+                <!-- Left Column: The Builder -->
+                <div>
+                    <!-- Section 1: Campaign Target Level -->
+                    <div class="builder-section">
+                        <h2 class="builder-title">1. Select Campaign Tier</h2>
+                        <div class="option-grid">
+
+                            <!-- Base Plan -->
+                            <label class="option-label">
+                                <input type="radio" name="planTier" value="base" class="option-input" checked>
+                                <div class="option-card">
+                                    <div class="check-circle"></div>
+                                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Local Saturation</h3>
+                                    <p class="text-muted text-sm">Target a specific zip code for maximum local
+                                        visibility.</p>
+                                    <div class="price" style="font-size: 2rem; margin-top: 1rem; font-weight: bold;">
+                                        $499<span
+                                            style="font-size: 1rem; color: var(--text-muted); font-weight: normal;">/mo</span>
+                                    </div>
+                                    <p class="text-accent text-sm" style="margin-top: 0.5rem;">10,000 Completed Views
+                                    </p>
+                                </div>
+                            </label>
+
+                            <!-- Custom Plan -->
+                            <label class="option-label">
+                                <input type="radio" name="planTier" value="custom" class="option-input">
+                                <div class="option-card">
+                                    <div class="check-circle"></div>
+                                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Geo & Demo Precision</h3>
+                                    <p class="text-muted text-sm">Target specific household demographics profiles.</p>
+                                    <div class="price" style="font-size: 2rem; margin-top: 1rem; font-weight: bold;">
+                                        Custom
+                                    </div>
+                                    <p class="text-accent text-sm" style="margin-top: 0.5rem;">Select budget below</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- Budget Slider (Only visible when Custom is checked) -->
+                        <div id="sliderContainer">
+                            <div
+                                style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; border: 1px dashed rgba(255,255,255,0.1);">
+                                <label class="form-label" style="text-align: center; display: block;">Select Your
+                                    Monthly Ad Spend Budget:</label>
+                                <div class="budget-amount-display" id="displayBudget">$1,500</div>
+
+                                <div class="budget-control">
+                                    <input type="range" id="budgetSlider" min="1000" max="10000" step="50" value="1500">
+                                    <div
+                                        style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                                        <span>$1,000</span>
+                                        <span>$10,000+</span>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-center text-muted" style="margin-top: 1rem;">
+                                    Calculated using a <strong class="text-accent">$60 CPM</strong> base rate.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Creative Add-on -->
+                    <div class="builder-section">
+                        <h2 class="builder-title">2. Video Commercial Details</h2>
+                        <label class="option-label">
+                            <input type="checkbox" id="creativeToggle" class="option-input">
+                            <div class="option-card" style="display: flex; align-items: flex-start; gap: 1rem;">
+                                <div class="check-circle" style="position: static; margin-top: 2px;"></div>
+                                <div>
+                                    <h3 style="font-size: 1.1rem;">Need a Custom Commercial?</h3>
+                                    <p class="text-muted text-sm mt-2">I do not have a 16:9 format video ad ready.
+                                        Please have the CTV BOSS production team build a custom engaging video ad for
+                                        me.</p>
+                                    <p class="text-accent font-semibold mt-2">+$495 (One-time setup fee)</p>
+                                </div>
+                            </div>
+                        </label>
+                        <div class="mt-4">
+                            <label class="form-label">If providing your own ad, host link (Google Drive, Dropbox,
+                                YouTube):</label>
+                            <input type="text" id="videoLinkInput" class="form-input" placeholder="https://...">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Netlify Form & Summary -->
+                <div>
+                    <div class="order-summary-panel">
+                        <h2 class="builder-title"
+                            style="margin-bottom: 1rem; border-bottom: none; border-bottom: none; font-size: 1.5rem;">
+                            Order Summary</h2>
+
+                        <div
+                            style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                            <div class="summary-row">
+                                <span class="text-muted">Targeting Tier</span>
+                                <span id="summaryTier" style="font-weight: 500;">Local Saturation</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="text-muted">Est. Views/Month</span>
+                                <span id="summaryImpressions"
+                                    style="font-weight: 500; color: var(--accent-red);">10,000</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="text-muted">Ad Creation</span>
+                                <span id="summaryCreative" style="font-weight: 500;">Provided by Client ($0)</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="text-muted" id="summaryAdminFeeLabel">Management Fee</span>
+                                <span id="summaryAdminFee" style="font-weight: 500; font-size: 0.9em;">$139</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total Initial Cost</span>
+                                <span id="summaryTotal" style="color: var(--accent-red);">$638</span>
+                            </div>
+                            <p class="text-xs text-muted text-center mt-2" id="recurringText">Recurring monthly cost:
+                                $638/mo thereafter.</p>
+                        </div>
+
+                        <!-- NETLIFY FORM -->
+                        <form name="CTV_BOSS_Order" method="POST" data-netlify="true" action="/success.html">
+                            <!-- Hidden inputs to capture the calculator logic data -->
+                            <input type="hidden" name="form-name" value="CTV_BOSS_Order">
+                            <input type="hidden" id="hiddenTier" name="Selected_Tier" value="Local Saturation">
+                            <input type="hidden" id="hiddenBudget" name="Monthly_Budget" value="499">
+                            <input type="hidden" id="hiddenImpressions" name="Estimated_Impressions" value="10000">
+                            <input type="hidden" id="hiddenCreativeFee" name="Creative_Setup_Fee" value="0">
+                            <input type="hidden" id="hiddenAdminFee" name="Monthly_Fee" value="139">
+                            <input type="hidden" id="hiddenTotal" name="Initial_Total_Charge" value="638">
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label class="form-label">First & Last Name *</label>
+                                    <input type="text" name="Name" class="form-input" required>
+                                </div>
+                                <div>
+                                    <label class="form-label">Business Name *</label>
+                                    <input type="text" name="Business" class="form-input" required>
+                                </div>
+                            </div>
+
+                            <label class="form-label">Email Address *</label>
+                            <input type="email" name="Email" class="form-input" required>
+
+                            <label class="form-label">Phone Number *</label>
+                            <input type="tel" name="Phone" class="form-input" required>
+
+                            <label class="form-label">Target Zip Code(s) *</label>
+                            <textarea name="Zip_Codes" class="form-textarea" rows="2"
+                                placeholder="e.g. 90210, 90211 or specify city/radius" required></textarea>
+
+                            <div id="customTargetingGroup" style="display: none;">
+                                <label class="form-label text-accent" style="font-weight: 500;">Describe your ideal
+                                    customer/client or prospect *</label>
+                                <textarea id="idealCustomerInput" name="Ideal_Customer_Profile" class="form-textarea"
+                                    rows="3" placeholder="e.g. Homeowners, $100k+ income, parents of teenagers..."
+                                    style="border-color: rgba(220, 20, 60, 0.3);"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary"
+                                style="width: 100%; font-size: 1.1rem; padding: 1rem; margin-top: 0.5rem;">Submit Order
+                                Inquiry</button>
+                            <p class="text-xs text-muted text-center mt-4">By submitting, you agree to our terms. A CTV
+                                BOSS representative will contact you to finalize billing and creatives.</p>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" style="margin-top: 4rem;">
+        <div class="container">
+            <div class="grid grid-4 text-left">
+                <div style="grid-column: span 2;">
+                    <a href="index.html" class="brand" style="margin-bottom: 1rem; display: inline-block;">CTV <span
+                            class="text-accent">BOSS</span></a>
+                    <p class="text-muted text-sm mt-2" style="max-width: 300px;">
+                        The ultimate connected TV advertising platform for local businesses. Own the biggest screen in
+                        the house.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Platform</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;"
+                        class="text-sm">
+                        <li><a href="index.html" style="color: var(--text-muted); text-decoration: none;">Features</a>
+                        </li>
+                        <li><a href="plans.html" style="color: var(--text-muted); text-decoration: none;">Pricing &
+                                Plans</a></li>
+                        <li><a href="landing.html" style="color: var(--text-muted); text-decoration: none;">Start
+                                Campaign</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="margin-bottom: 1rem;">Legal & Resources</h4>
+                    <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem;"
+                        class="text-sm">
+                        <li><a href="blog.html" style="color: var(--text-muted); text-decoration: none;">Performance TV
+                                Blog</a></li>
+                        <li><a href="privacy.html" style="color: var(--text-muted); text-decoration: none;">Privacy
+                                Policy</a></li>
+                        <li><a href="terms.html" style="color: var(--text-muted); text-decoration: none;">Terms &
+                                Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem; padding-top: 2rem; text-align: center;">
+                <p class="text-muted text-sm">&copy; 2026 CTV BOSS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js?v=12"></script>
+    <script src="order.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Creator | CTV BOSS</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- Base styles -->
+    <link rel="stylesheet" href="/styles.css?v=3">
+    
+    <style>
+        body {
+            background-color: var(--bg-main);
+        }
+        .dashboard-header {
+            background: rgba(25, 25, 30, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .dashboard-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        /* Wizard specific styles */
+        .wizard-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, rgba(25, 25, 30, 0.8) 0%, rgba(20, 20, 25, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 600px;
+        }
+        
+        .wizard-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+        
+        .steps-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .step-indicator.active {
+            color: var(--accent-red);
+        }
+        
+        .step-indicator.completed {
+            color: #4ade80;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        .step-indicator.active .step-number {
+            background: var(--accent-red);
+            color: white;
+            box-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+        }
+        
+        .step-indicator.completed .step-number {
+            background: #4ade80;
+            color: var(--bg-main);
+        }
+        
+        .wizard-body {
+            padding: 2rem;
+            flex-grow: 1;
+        }
+        
+        .wizard-step {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        
+        .wizard-step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .wizard-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Form elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-red);
+            box-shadow: 0 0 0 2px rgba(220, 20, 60, 0.2);
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .upload-area:hover {
+            border-color: var(--accent-red);
+            background: rgba(220, 20, 60, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .video-preview {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .video-preview iframe, .video-preview video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .generating-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-left-color: var(--accent-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .template-card {
+            background: rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .template-card.selected {
+            border-color: var(--accent-red);
+            box-shadow: 0 0 15px rgba(220, 20, 60, 0.3);
+        }
+        
+        .template-thumb {
+            width: 100%;
+            height: 120px;
+            background: #222;
+        }
+        
+        .template-name {
+            padding: 0.75rem;
+            text-align: center;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="container dashboard-nav">
+            <div style="display: flex; align-items: center; gap: 2rem;">
+                <a href="/" class="brand" style="font-size: 1.25rem;"><span class="logo-ctv">CTV</span> <span class="text-accent">BOSS</span></a>
+                <span style="color: rgba(255,255,255,0.2);">|</span>
+                <span style="font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--text-main);">Ad Creator</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <a href="dashboard.html" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; border-color: rgba(255,255,255,0.2);">Back to Dashboard</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-8" style="padding-top: 3rem; padding-bottom: 4rem;">
+        
+        <div class="wizard-container">
+            <div class="wizard-header">
+                <h1 style="font-family: 'Outfit', sans-serif; font-size: 2rem; margin-bottom: 0.5rem;">Create Your Commercial</h1>
+                <p class="text-muted">Let AI build a broadcast-ready 30-second spot from your brand assets.</p>
+                
+                <div class="steps-nav">
+                    <div class="step-indicator active" id="indicator-1">
+                        <div class="step-number">1</div>
+                        <span>Assets</span>
+                    </div>
+                    <div class="step-indicator" id="indicator-2">
+                        <div class="step-number">2</div>
+                        <span>Template & Copy</span>
+                    </div>
+                    <div class="step-indicator" id="indicator-3">
+                        <div class="step-number">3</div>
+                        <span>Review</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="wizard-body">
+                
+                <!-- STEP 1: Assets -->
+                <div class="wizard-step active" id="step-1">
+                    <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Step 1: Provide Your Brand Assets</h2>
+                    <p class="text-muted" style="margin-bottom: 2rem;">We can automatically pull assets from your website, or you can upload them manually.</p>
+                    
+                    <div class="form-group" style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                        <label class="form-label text-accent" style="font-weight: 600;">Website Auto-Extractor</label>
+                        <div style="display: flex; gap: 1rem;">
+                            <input type="url" id="websiteUrl" class="form-input" placeholder="https://www.yourdomain.com" style="flex-grow: 1;">
+                            <button id="extractBtn" class="btn btn-secondary">Extract Assets</button>
+                        </div>
+                        <p class="text-sm text-muted mt-2">Enter your URL to automatically pull your logo and brand images.</p>
+                        
+                        <!-- Extracted Assets Results Area -->
+                        <div id="extractedAssetsContainer" class="hidden mt-4 pt-4" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                            <div style="display: flex; align-items: center; gap: 2rem;">
+                                <div>
+                                    <label class="form-label text-sm text-center">Extracted Logo</label>
+                                    <div id="scrapedLogoWrapper" style="width: 100px; height: 100px; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 0.5rem;">
+                                        <img id="scrapedLogoRef" src="" alt="Brand Logo" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+                                    </div>
+                                </div>
+                                <div style="flex-grow: 1;">
+                                    <label class="form-label text-sm">Extracted Brand Images</label>
+                                    <div id="scrapedImagesGrid" style="display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem;">
+                                        <!-- Images injected via JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 1.5rem 0; color: rgba(255,255,255,0.3);">— OR —</div>
+                    
+                    <div class="form-group grid grid-2 gap-4">
+                        <div>
+                            <label class="form-label">Upload Logo (PNG/JPG)</label>
+                            <div class="upload-area" id="logoUploadArea" style="padding: 1.5rem;">
+                                <div class="upload-icon" style="font-size: 1.5rem;">⬆️</div>
+                                <span class="text-sm">Click to upload logo</span>
+                                <input type="file" id="logoFile" accept="image/*" hidden>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="form-label">Upload Lifestyle Images (Max 5)</label>
+                            <div class="upload-area" id="imagesUploadArea" style="padding: 1.5rem;">
+                                <div class="upload-icon" style="font-size: 1.5rem;">🖼️</div>
+                                <span class="text-sm">Click to upload images</span>
+                                <input type="file" id="imagesFile" accept="image/*" multiple hidden>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- STEP 2: Template & Copy -->
+                <div class="wizard-step" id="step-2">
+                    <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Step 2: Message & Style</h2>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Select Visual Template</label>
+                        <div class="template-grid" id="templateGrid">
+                            <div class="template-card selected" data-template="modern">
+                                <div class="template-thumb" style="background: linear-gradient(45deg, #1a1a1a, #333);"></div>
+                                <div class="template-name">Modern Minimal</div>
+                            </div>
+                            <div class="template-card" data-template="bold">
+                                <div class="template-thumb" style="background: linear-gradient(45deg, #FF3366, #ff8c42);"></div>
+                                <div class="template-name">Bold & Dynamic</div>
+                            </div>
+                            <div class="template-card" data-template="corporate">
+                                <div class="template-thumb" style="background: linear-gradient(45deg, #0a2540, #007bff);"></div>
+                                <div class="template-name">Clean Corporate</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-2 gap-6 mt-6">
+                        <!-- Configuration Fields as seen in video -->
+                        <div>
+                            <div class="form-group">
+                                <label class="form-label">Ad Topic / Theme</label>
+                                <select id="adTopic" class="form-input">
+                                    <option value="brand_awareness">Brand Awareness</option>
+                                    <option value="promotional">Current Promotion / Sale</option>
+                                    <option value="product_launch">New Product Launch</option>
+                                    <option value="testimonial">Customer Testimonial</option>
+                                </select>
+                            </div>
+                            <div class="form-group grid grid-2 gap-4">
+                                <div>
+                                    <label class="form-label">Language</label>
+                                    <select id="adLanguage" class="form-input">
+                                        <option value="en-US">English (US)</option>
+                                        <option value="es-US">Spanish (US)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="form-label">Ad Duration</label>
+                                    <select id="adDuration" class="form-input">
+                                        <option value="30">30 Seconds</option>
+                                        <option value="15">15 Seconds</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">AI Voice (Powered by ElevenLabs)</label>
+                                <select id="voiceDirection" class="form-input">
+                                    <option value="rachel">Rachel - Energetic Female</option>
+                                    <option value="drew">Drew - Deep Male (News)</option>
+                                    <option value="clyde">Clyde - Professional Male</option>
+                                    <option value="mimi">Mimi - Friendly Female</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Script generation -->
+                        <div>
+                            <div class="form-group">
+                                <label class="form-label">Voiceover Script</label>
+                                <textarea id="scriptText" class="form-textarea" rows="4" placeholder="Welcome to [Business Name]. We provide the best [Service] in [City]..."></textarea>
+                                <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
+                                    <button class="btn btn-outline text-sm" id="aiScriptBtn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">✨ Auto-Generate Script</button>
+                                    <span class="text-xs text-muted" id="wordCount">0 / 60 words</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Primary Call to Action</label>
+                                <input type="text" id="ctaText" class="form-input" placeholder="e.g., Visit our website today!">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- STEP 3: Review & Generate -->
+                <div class="wizard-step" id="step-3">
+                    <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Step 3: Preview Your Commercial</h2>
+                    <p class="text-muted" style="margin-bottom: 2rem;">Our engine will compile your assets, synthesize the voiceover, and render your 30-second ad.</p>
+                    
+                    <div class="video-preview" id="previewContainer">
+                        <div class="text-center" id="previewPlaceholder">
+                            <h3 style="margin-bottom: 1rem; color: rgba(255,255,255,0.5);">Ready to Render</h3>
+                            <button id="generateVideoBtn" class="btn btn-primary btn-lg">Generate Video Preview</button>
+                        </div>
+                        
+                        <!-- Overlay shown during generation -->
+                        <div class="generating-overlay hidden" id="generatingOverlay">
+                            <div class="spinner"></div>
+                            <h3 style="color: white; margin-bottom: 0.5rem;" id="generationStatus">Analyzing Assets...</h3>
+                            <p class="text-sm text-gray" id="generationProgress">Please do not close this window</p>
+                        </div>
+                        
+                        <!-- The actual player (hidden initially) -->
+                        <video id="finalVideoPlayer" controls hidden></video>
+                    </div>
+                    
+                    <div class="mt-6" id="postGenerationActions" style="display: none;">
+                        <div style="background: rgba(74, 222, 128, 0.1); border: 1px solid #4ade80; padding: 1.5rem; border-radius: 8px; text-align: center;">
+                            <h3 style="color: #4ade80; margin-bottom: 0.5rem;">Success! Final Ad Generated</h3>
+                            <p class="text-muted text-sm mb-4">You can download this MP4 or directly attach it to a new campaign order.</p>
+                            <div style="display: flex; gap: 1rem; justify-content: center;">
+                                <button class="btn btn-outline">Download MP4</button>
+                                <a href="order.html?creative=self_serve" class="btn btn-secondary">Launch Campaign with this Ad</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="wizard-footer">
+                <button class="btn btn-outline" id="prevBtn" style="display: none;">Back</button>
+                <div style="flex-grow: 1;"></div>
+                <button class="btn btn-primary" id="nextBtn">Continue to Template</button>
+            </div>
+        </div>
+        
+    </main>
+
+    <footer class="footer" style="margin-top: auto; padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+        <div class="container text-muted text-sm">
+            &copy; 2026 CTV BOSS. Ad Creator Beta.
+        </div>
+    </footer>
+
+    <script src="ad-creator.js"></script>
+</body>
+</html>
