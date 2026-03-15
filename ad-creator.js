@@ -329,27 +329,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(data.error);
             }
             
-            // In a full production app, Creatomate renders take 5-15 seconds. 
-            // We would need to poll the API with the render_id until "status" == "succeeded".
-            // For this MVP, if the URL is returned immediately (which happens if it's cached or fast), we show it.
-            // If it takes time, we will just use a 10 second timeout and check the URL.
-            
             status.textContent = "Finalizing Cloud Export (Creatomate)...";
             progress.textContent = "95%";
             
-            // Wait an arbitrary 8 seconds to let Creatomate finish rendering in the background
-            // since we don't have a websocket/polling system hooked up in this simple UI yet.
-            setTimeout(() => {
-                overlay.classList.add('hidden');
-                
-                // Show the returned video from the API (We assume the URL is valid by now)
-                player.src = data.url;
-                player.hidden = false;
-                postActions.style.display = 'block';
-                
-                // Auto play
-                player.play().catch(e => console.log("Auto-play prevented", e));
-            }, 8000);
+            // The backend handles the polling now, so `await fetch()` above doesn't resolve 
+            // until the video is physically ready (status: 'succeeded').
+            overlay.classList.add('hidden');
+            
+            // Show the returned video from the API
+            player.src = data.url;
+            player.hidden = false;
+            postActions.style.display = 'block';
+            
+            // Auto play
+            player.play().catch(e => console.log("Auto-play prevented", e));
             
         } catch (error) {
             console.error("Error generating video sync sequence:", error);
