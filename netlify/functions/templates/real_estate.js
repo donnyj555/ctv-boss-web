@@ -35,7 +35,7 @@ module.exports = {
             },
             {
               "name": "Kinetic-Sweep-1",
-              "type": "shape",
+              "type": "rectangle",
               "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
               "width": "50%",
               "blend_mode": "overlay",
@@ -76,7 +76,7 @@ module.exports = {
             },
             {
               "name": "Kinetic-Sweep-2",
-              "type": "shape",
+              "type": "rectangle",
               "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
               "width": "50%",
               "blend_mode": "overlay",
@@ -99,12 +99,12 @@ module.exports = {
               "duration": "100%",
               "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
               "animations": [
-                { "type": "scale-up", "start": "0%", "end": "100%", "scale": "115%" }
+                { "type": "pan", "start": "0%", "end": "100%", "scale": "115%" }
               ]
             },
             {
               "name": "Kinetic-Sweep-3",
-              "type": "shape",
+              "type": "rectangle",
               "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
               "width": "50%",
               "blend_mode": "overlay",
@@ -126,13 +126,13 @@ module.exports = {
               "type": "video",
               "duration": "100%",
               "animations": [
-                 { "type": "scale-up", "start": "0%", "end": "100%", "scale": "110%" }
+                 { "type": "pan", "start": "0%", "end": "100%", "scale": "110%" }
               ],
               "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4"
             },
             {
               "name": "Kinetic-Sweep-4",
-              "type": "shape",
+              "type": "rectangle",
               "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
               "width": "50%",
               "blend_mode": "overlay",
@@ -160,7 +160,7 @@ module.exports = {
             },
             {
               "name": "Kinetic-Sweep-5",
-              "type": "shape",
+              "type": "rectangle",
               "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
               "width": "50%",
               "blend_mode": "overlay",
@@ -182,13 +182,13 @@ module.exports = {
               "type": "video",
               "duration": "100%",
               "animations": [
-                 { "type": "scale-up", "start": "0%", "end": "100%", "scale": "115%" }
+                 { "type": "pan", "start": "0%", "end": "100%", "scale": "115%" }
               ],
               "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4"
             },
             {
               "name": "Kinetic-Sweep-6",
-              "type": "shape",
+              "type": "rectangle",
               "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
               "width": "50%",
               "blend_mode": "overlay",
