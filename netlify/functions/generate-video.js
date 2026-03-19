@@ -139,6 +139,8 @@ exports.handler = async (event, context) => {
 
     if (template === 'real_estate') {
         creatomatePayload.source = realEstateTemplate;
+        delete creatomatePayload.modifications["Picture"];
+        delete creatomatePayload.modifications["Name"];
     } else {
         creatomatePayload.template_id = templateId;
     }

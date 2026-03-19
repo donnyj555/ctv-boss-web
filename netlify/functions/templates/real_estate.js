@@ -11,7 +11,7 @@ module.exports = {
     },
     {
       "name": "Voiceover",
-      "type": "text-to-speech",
+      "type": "audio",
       "text": "Welcome to our beautiful new properties. We are here to help you find your dream home.",
       "voice": "en-US-JennyNeural"
     },
@@ -91,7 +91,7 @@ module.exports = {
           "type": "composition",
           "track": 1,
           "duration": 6,
-          "transition": { "type": "cross-zoom", "duration": 1.0 },
+          "transition": { "type": "fade", "duration": 1.0 },
           "elements": [
             {
               "name": "Video-3",
