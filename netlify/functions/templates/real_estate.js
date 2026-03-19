@@ -30,17 +30,12 @@ module.exports = {
               "duration": "100%",
               "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
               "animations": [
-                { "type": "pan", "start": "0%", "end": "100%", "scale": "110%" }
-              ]
-            },
-            {
-              "name": "Kinetic-Sweep-1",
-              "type": "rectangle",
-              "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
-              "width": "50%",
-              "blend_mode": "overlay",
-              "animations": [
-                { "type": "pan", "start": "-200%", "end": "200%", "duration": 5 }
+                {
+                  "type": "pan",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "110%"
+                }
               ]
             },
             {
@@ -53,8 +48,16 @@ module.exports = {
               "fill_color": "#ffffff",
               "shadow_color": "rgba(0,0,0,0.8)",
               "y": "80%",
-              "enter": [{ "type": "slide-up" }],
-              "exit": [{ "type": "fade-out" }]
+              "enter": [
+                {
+                  "type": "slide-up"
+                }
+              ],
+              "exit": [
+                {
+                  "type": "fade-out"
+                }
+              ]
             }
           ]
         },
@@ -63,7 +66,11 @@ module.exports = {
           "type": "composition",
           "track": 1,
           "duration": 6,
-          "transition": { "type": "wipe", "direction": "right", "duration": 1.0 },
+          "transition": {
+            "type": "wipe",
+            "direction": "right",
+            "duration": 1.0
+          },
           "elements": [
             {
               "name": "Video-2",
@@ -71,17 +78,12 @@ module.exports = {
               "duration": "100%",
               "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4",
               "animations": [
-                { "type": "pan", "start": "0%", "end": "100%", "scale": "115%" }
-              ]
-            },
-            {
-              "name": "Kinetic-Sweep-2",
-              "type": "rectangle",
-              "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
-              "width": "50%",
-              "blend_mode": "overlay",
-              "animations": [
-                { "type": "pan", "start": "200%", "end": "-200%", "duration": 5 }
+                {
+                  "type": "pan",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "115%"
+                }
               ]
             }
           ]
@@ -91,7 +93,10 @@ module.exports = {
           "type": "composition",
           "track": 1,
           "duration": 6,
-          "transition": { "type": "fade", "duration": 1.0 },
+          "transition": {
+            "type": "fade",
+            "duration": 1.0
+          },
           "elements": [
             {
               "name": "Video-3",
@@ -99,17 +104,12 @@ module.exports = {
               "duration": "100%",
               "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
               "animations": [
-                { "type": "pan", "start": "0%", "end": "100%", "scale": "115%" }
-              ]
-            },
-            {
-              "name": "Kinetic-Sweep-3",
-              "type": "rectangle",
-              "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
-              "width": "50%",
-              "blend_mode": "overlay",
-              "animations": [
-                { "type": "pan", "start": "-200%", "end": "200%", "duration": 5 }
+                {
+                  "type": "pan",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "115%"
+                }
               ]
             }
           ]
@@ -119,26 +119,24 @@ module.exports = {
           "type": "composition",
           "track": 1,
           "duration": 6,
-          "transition": { "type": "fade", "duration": 1.0 },
+          "transition": {
+            "type": "fade",
+            "duration": 1.0
+          },
           "elements": [
             {
               "name": "Video-4",
               "type": "video",
               "duration": "100%",
               "animations": [
-                 { "type": "pan", "start": "0%", "end": "100%", "scale": "110%" }
+                {
+                  "type": "pan",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "110%"
+                }
               ],
               "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4"
-            },
-            {
-              "name": "Kinetic-Sweep-4",
-              "type": "rectangle",
-              "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
-              "width": "50%",
-              "blend_mode": "overlay",
-              "animations": [
-                { "type": "pan", "start": "200%", "end": "-200%", "duration": 5 }
-              ]
             }
           ]
         },
@@ -147,26 +145,25 @@ module.exports = {
           "type": "composition",
           "track": 1,
           "duration": 6,
-          "transition": { "type": "wipe", "direction": "left", "duration": 1.0 },
+          "transition": {
+            "type": "wipe",
+            "direction": "left",
+            "duration": 1.0
+          },
           "elements": [
             {
               "name": "Video-5",
               "type": "video",
               "duration": "100%",
               "animations": [
-                 { "type": "pan", "start": "0%", "end": "100%", "scale": "110%" }
+                {
+                  "type": "pan",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "110%"
+                }
               ],
               "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4"
-            },
-            {
-              "name": "Kinetic-Sweep-5",
-              "type": "rectangle",
-              "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
-              "width": "50%",
-              "blend_mode": "overlay",
-              "animations": [
-                { "type": "pan", "start": "-200%", "end": "200%", "duration": 5 }
-              ]
             }
           ]
         },
@@ -175,26 +172,24 @@ module.exports = {
           "type": "composition",
           "track": 1,
           "duration": 5,
-          "transition": { "type": "fade", "duration": 1.0 },
+          "transition": {
+            "type": "fade",
+            "duration": 1.0
+          },
           "elements": [
             {
               "name": "Video-6",
               "type": "video",
               "duration": "100%",
               "animations": [
-                 { "type": "pan", "start": "0%", "end": "100%", "scale": "115%" }
+                {
+                  "type": "pan",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "115%"
+                }
               ],
               "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4"
-            },
-            {
-              "name": "Kinetic-Sweep-6",
-              "type": "rectangle",
-              "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%)",
-              "width": "50%",
-              "blend_mode": "overlay",
-              "animations": [
-                { "type": "pan", "start": "200%", "end": "-200%", "duration": 5 }
-              ]
             },
             {
               "name": "Subtext",
@@ -208,7 +203,11 @@ module.exports = {
               "background_x_padding": "5%",
               "background_y_padding": "3%",
               "y": "45%",
-              "enter": [{ "type": "scale-up" }]
+              "enter": [
+                {
+                  "type": "scale-up"
+                }
+              ]
             },
             {
               "name": "Phone-Number",
@@ -220,7 +219,11 @@ module.exports = {
               "fill_color": "#ffffff",
               "shadow_color": "rgba(0,0,0,0.8)",
               "y": "65%",
-              "enter": [{ "type": "slide-up" }]
+              "enter": [
+                {
+                  "type": "slide-up"
+                }
+              ]
             },
             {
               "name": "Email",
@@ -232,7 +235,11 @@ module.exports = {
               "fill_color": "#ffffff",
               "shadow_color": "rgba(0,0,0,0.8)",
               "y": "75%",
-              "enter": [{ "type": "slide-up" }]
+              "enter": [
+                {
+                  "type": "slide-up"
+                }
+              ]
             }
           ]
         }
