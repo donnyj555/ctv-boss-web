@@ -16,7 +16,7 @@ module.exports = {
       "voice": "en-US-JennyNeural"
     },
     {
-      "type": "track",
+      "type": "composition",
       "elements": [
         {
           "name": "Scene-1",
