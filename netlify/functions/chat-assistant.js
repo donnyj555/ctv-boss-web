@@ -1,14 +1,13 @@
 const { OpenAI } = require('openai');
 
 exports.handler = async (event, context) => {
-  // Only allow POST requests
   if (event.httpMethod !== 'POST') {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
   try {
     const data = JSON.parse(event.body);
-    const { businessName = '', topic = 'promotional', voiceDirection = 'Professional and trustworthy', cta = 'Visit us today!', industry = 'local business' } = data;
+    const { currentScript, userMessage } = data;
 
     if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "PASTE_YOUR_OPENAI_KEY_HERE") {
         return {
@@ -22,42 +21,48 @@ exports.handler = async (event, context) => {
     });
 
     const prompt = `
-    Write a 60-word video commercial script for a ${industry}.
-    ${businessName ? `Business Name: ${businessName}` : ''}
-    Topic/Theme: ${topic}
-    Voice Direction/Tone: ${voiceDirection}
-    Call to Action to include at the end: ${cta}
+    You are an AI Creative Director helping a user edit a 30-second TV commercial script.
     
-    Make it punchy, engaging, and suitable for a 30-second broadcast. Do not include stage directions, music notes, or formatting like [Music starts] - return ONLY the spoken words.
+    Current Script: "${currentScript}"
+    User's Request: "${userMessage}"
+    
+    Based on the user's request, update the script.
+    Output your response in valid JSON format ONLY, exactly like this:
+    {
+      "assistantReply": "A short, friendly message acknowledging the change.",
+      "newScript": "The updated full text of the script."
+    }
+    Make sure the new script remains around 60 words and has no stage directions.
     `;
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
-        { role: "system", "content": "You are an expert commercial scriptwriter." },
+        { role: "system", "content": "You are a helpful JSON-only API that assists in writing commercial scripts." },
         { role: "user", "content": prompt}
       ],
-      max_tokens: 150,
+      response_format: { type: "json_object" },
+      max_tokens: 300,
     });
 
-    const scriptText = response.choices[0].message.content.trim();
+    const resultText = response.choices[0].message.content.trim();
+    const resultObj = JSON.parse(resultText);
 
     return {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        // CORS headers for local testing if needed
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
       },
-      body: JSON.stringify({ script: scriptText }),
+      body: JSON.stringify(resultObj),
     };
 
   } catch (error) {
-    console.error("OpenAI Script Generation Error:", error);
+    console.error("OpenAI Chat Error:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Failed to generate script. " + error.message }),
+      body: JSON.stringify({ error: "Failed to process chat request. " + error.message }),
     };
   }
 };

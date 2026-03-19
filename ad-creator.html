@@ -32,38 +32,56 @@
         
         /* Wizard specific styles */
         .wizard-container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
             background: linear-gradient(145deg, rgba(25, 25, 30, 0.8) 0%, rgba(20, 20, 25, 0.9) 100%);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 1rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            min-height: 600px;
+            min-height: 700px;
         }
         
         .wizard-header {
-            padding: 2rem;
+            padding: 2.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             text-align: center;
+            background: rgba(0,0,0,0.2);
         }
         
         .steps-nav {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
+            gap: 1rem;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        /* Progress line behind indicators */
+        .steps-nav::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            z-index: 0;
         }
         
         .step-indicator {
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 0.5rem;
             color: var(--text-muted);
             font-weight: 500;
             position: relative;
+            z-index: 1;
+            width: 100px;
         }
         
         .step-indicator.active {
@@ -75,29 +93,35 @@
         }
         
         .step-number {
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: #1f1f26;
+            border: 2px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
         }
         
         .step-indicator.active .step-number {
             background: var(--accent-red);
+            border-color: var(--accent-red);
             color: white;
-            box-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+            box-shadow: 0 0 15px rgba(220, 20, 60, 0.6);
+            transform: scale(1.1);
         }
         
         .step-indicator.completed .step-number {
             background: #4ade80;
+            border-color: #4ade80;
             color: var(--bg-main);
         }
         
         .wizard-body {
-            padding: 2rem;
+            padding: 2.5rem;
             flex-grow: 1;
         }
         
@@ -116,12 +140,12 @@
         }
         
         .wizard-footer {
-            padding: 1.5rem 2rem;
+            padding: 1.5rem 2.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
         }
         
         /* Form elements */
@@ -134,6 +158,7 @@
             margin-bottom: 0.5rem;
             font-weight: 500;
             color: var(--text-muted);
+            font-size: 0.9rem;
         }
         
         .form-input, .form-textarea {
@@ -151,6 +176,7 @@
             outline: none;
             border-color: var(--accent-red);
             box-shadow: 0 0 0 2px rgba(220, 20, 60, 0.2);
+            background: rgba(0, 0, 0, 0.5);
         }
         
         .upload-area {
@@ -167,24 +193,79 @@
             border-color: var(--accent-red);
             background: rgba(220, 20, 60, 0.05);
         }
-        
-        .upload-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.5);
+
+        /* Split Pane for Step 2 */
+        .split-pane {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 2.5rem;
+            height: 100%;
+            min-height: 500px;
+        }
+
+        /* Chat Editor Styling */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .chat-bubble {
+            max-width: 85%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .chat-ai {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .chat-user {
+            background: var(--accent-red);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(0,0,0,0.3);
         }
         
         .video-preview {
             width: 100%;
             aspect-ratio: 16 / 9;
             background: #000;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         
         .video-preview iframe, .video-preview video {
@@ -192,11 +273,56 @@
             height: 100%;
             object-fit: cover;
         }
+
+        /* Storyboard */
+        .storyboard {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+
+        .scene-card {
+            min-width: 140px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .scene-card:hover {
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .scene-card.active {
+            border-color: var(--accent-red);
+            background: rgba(220, 20, 60, 0.05);
+        }
+
+        .scene-thumb {
+            width: 100%;
+            height: 70px;
+            background: #222;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            object-fit: cover;
+        }
+
+        .scene-title {
+            font-size: 0.75rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
         
         .generating-overlay {
             position: absolute;
             inset: 0;
             background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -219,37 +345,94 @@
         }
         
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        
-        .template-grid {
+
+        /* Goal Cards for Target step */
+        .goal-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
-        
-        .template-card {
-            background: rgba(0,0,0,0.3);
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            overflow: hidden;
+
+        .goal-card {
+            background: rgba(0,0,0,0.2);
+            border: 2px solid rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
             cursor: pointer;
             transition: all 0.3s;
         }
-        
-        .template-card.selected {
+
+        .goal-card:hover {
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.02);
+            transform: translateY(-2px);
+        }
+
+        .goal-card.selected {
             border-color: var(--accent-red);
-            box-shadow: 0 0 15px rgba(220, 20, 60, 0.3);
+            background: rgba(220, 20, 60, 0.05);
+            box-shadow: 0 10px 20px rgba(220, 20, 60, 0.1);
+        }
+
+        .goal-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Budget Tiers for Air step */
+        .budget-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .budget-tier {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
         }
         
-        .template-thumb {
-            width: 100%;
-            height: 120px;
-            background: #222;
+        .budget-tier:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255,255,255,0.3);
         }
         
-        .template-name {
-            padding: 0.75rem;
-            text-align: center;
-            font-weight: 500;
+        .budget-tier.selected {
+            border: 2px solid var(--accent-red);
+            background: linear-gradient(180deg, rgba(220, 20, 60, 0.1) 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .budget-tier.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--accent-red);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 4px 30px;
+            transform: rotate(45deg);
+        }
+
+        .price-display {
+            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            margin: 1rem 0;
+            color: white;
+        }
+        
+        .price-display span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
         }
     </style>
 </head>
@@ -259,10 +442,10 @@
             <div style="display: flex; align-items: center; gap: 2rem;">
                 <a href="/" class="brand" style="font-size: 1.25rem;"><span class="logo-ctv">CTV</span> <span class="text-accent">BOSS</span></a>
                 <span style="color: rgba(255,255,255,0.2);">|</span>
-                <span style="font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--text-main);">Ad Creator</span>
+                <span style="font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.1rem; color: var(--text-main);">Ad Creator Wizard</span>
             </div>
             <div style="display: flex; align-items: center; gap: 1.5rem;">
-                <a href="dashboard.html" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; border-color: rgba(255,255,255,0.2);">Back to Dashboard</a>
+                <a href="dashboard.html" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; border-color: rgba(255,255,255,0.2);">Exit Builder</a>
             </div>
         </div>
     </header>
@@ -271,52 +454,61 @@
         
         <div class="wizard-container">
             <div class="wizard-header">
-                <h1 style="font-family: 'Outfit', sans-serif; font-size: 2rem; margin-bottom: 0.5rem;">Create Your Commercial</h1>
-                <p class="text-muted">Let AI build a broadcast-ready 30-second spot from your brand assets.</p>
+                <h1 style="font-family: 'Outfit', sans-serif; font-size: 2.2rem; margin-bottom: 0.5rem; letter-spacing: -0.5px;">Create Your Campaign</h1>
+                <p class="text-muted text-sm">Design, target, and launch your TV commercial in minutes.</p>
                 
                 <div class="steps-nav">
                     <div class="step-indicator active" id="indicator-1">
                         <div class="step-number">1</div>
-                        <span>Assets</span>
+                        <span class="text-xs mt-1">Submit</span>
                     </div>
                     <div class="step-indicator" id="indicator-2">
                         <div class="step-number">2</div>
-                        <span>Template & Copy</span>
+                        <span class="text-xs mt-1">Create</span>
                     </div>
                     <div class="step-indicator" id="indicator-3">
                         <div class="step-number">3</div>
-                        <span>Review</span>
+                        <span class="text-xs mt-1">Target</span>
+                    </div>
+                    <div class="step-indicator" id="indicator-4">
+                        <div class="step-number">4</div>
+                        <span class="text-xs mt-1">Review</span>
+                    </div>
+                    <div class="step-indicator" id="indicator-5">
+                        <div class="step-number">5</div>
+                        <span class="text-xs mt-1">Air</span>
                     </div>
                 </div>
             </div>
             
             <div class="wizard-body">
                 
-                <!-- STEP 1: Assets -->
+                <!-- STEP 1: Submit (Assets) -->
                 <div class="wizard-step active" id="step-1">
-                    <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Step 1: Provide Your Brand Assets</h2>
-                    <p class="text-muted" style="margin-bottom: 2rem;">We can automatically pull assets from your website, or you can upload them manually.</p>
+                    <div style="max-width: 800px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
+                        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Let's gather your assets</h2>
+                        <p class="text-muted">Enter a website URL to let our AI instantly extract your logo, images, and brand colors. Alternately, upload files manually.</p>
+                    </div>
                     
-                    <div class="form-group" style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
-                        <label class="form-label text-accent" style="font-weight: 600;">Website Auto-Extractor</label>
-                        <div style="display: flex; gap: 1rem;">
+                    <div class="form-group" style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 800px; margin: 0 auto;">
+                        <label class="form-label text-accent" style="font-weight: 600; font-size: 1rem;">Auto-Extract from URL</label>
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
                             <input type="url" id="websiteUrl" class="form-input" placeholder="https://www.yourdomain.com" style="flex-grow: 1;">
-                            <button id="extractBtn" class="btn btn-secondary">Extract Assets</button>
+                            <button id="extractBtn" class="btn btn-secondary text-sm">Fetch Assets</button>
                         </div>
-                        <p class="text-sm text-muted mt-2">Enter your URL to automatically pull your logo and brand images.</p>
                         
                         <!-- Extracted Assets Results Area -->
-                        <div id="extractedAssetsContainer" class="hidden mt-4 pt-4" style="border-top: 1px solid rgba(255,255,255,0.1);">
-                            <div style="display: flex; align-items: center; gap: 2rem;">
+                        <div id="extractedAssetsContainer" class="hidden mt-6 pt-6" style="border-top: 1px solid rgba(255,255,255,0.1);">
+                            <div style="display: flex; gap: 2rem;">
                                 <div>
-                                    <label class="form-label text-sm text-center">Extracted Logo</label>
-                                    <div id="scrapedLogoWrapper" style="width: 100px; height: 100px; background: rgba(255,255,255,0.05); border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 0.5rem;">
+                                    <label class="form-label text-sm">Extracted Logo</label>
+                                    <div id="scrapedLogoWrapper" style="width: 100px; height: 100px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; padding: 0.5rem; margin-top: 0.5rem;">
                                         <img id="scrapedLogoRef" src="" alt="Brand Logo" style="max-width: 100%; max-height: 100%; object-fit: contain;">
                                     </div>
                                 </div>
-                                <div style="flex-grow: 1;">
-                                    <label class="form-label text-sm">Extracted Brand Images</label>
-                                    <div id="scrapedImagesGrid" style="display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem;">
+                                <div style="flex-grow: 1; overflow: hidden;">
+                                    <label class="form-label text-sm">Extracted Images</label>
+                                    <div id="scrapedImagesGrid" style="display: flex; gap: 0.75rem; overflow-x: auto; padding-bottom: 0.5rem; margin-top: 0.5rem;">
                                         <!-- Images injected via JS -->
                                     </div>
                                 </div>
@@ -324,181 +516,278 @@
                         </div>
                     </div>
                     
-                    <div style="text-align: center; margin: 1.5rem 0; color: rgba(255,255,255,0.3);">— OR —</div>
+                    <div style="text-align: center; margin: 2.5rem 0; color: rgba(255,255,255,0.2); font-size: 0.9rem; letter-spacing: 2px;">OR UPLOAD MANUALLY</div>
                     
-                    <div class="form-group grid grid-2 gap-4">
-                        <div>
-                            <label class="form-label">Upload Logo (PNG/JPG)</label>
-                            <div class="upload-area" id="logoUploadArea" style="padding: 1.5rem;">
-                                <div class="upload-icon" style="font-size: 1.5rem;">⬆️</div>
-                                <span class="text-sm">Click to upload logo</span>
-                                <input type="file" id="logoFile" accept="image/*" hidden>
-                            </div>
+                    <div class="grid grid-2 gap-6" style="max-width: 800px; margin: 0 auto;">
+                        <div class="upload-area" id="logoUploadArea" style="padding: 2rem;">
+                            <div class="upload-icon" style="font-size: 2rem;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg></div>
+                            <h4 style="margin-bottom: 0.5rem;">Upload Logo</h4>
+                            <span class="text-xs text-muted">PNG with transparent background</span>
+                            <input type="file" id="logoFile" accept="image/png" hidden>
                         </div>
-                        <div>
-                            <label class="form-label">Upload Lifestyle Images (Max 5)</label>
-                            <div class="upload-area" id="imagesUploadArea" style="padding: 1.5rem;">
-                                <div class="upload-icon" style="font-size: 1.5rem;">🖼️</div>
-                                <span class="text-sm">Click to upload images</span>
-                                <input type="file" id="imagesFile" accept="image/*" multiple hidden>
-                            </div>
+                        <div class="upload-area" id="mediaUploadArea" style="padding: 2rem;">
+                            <div class="upload-icon" style="font-size: 2rem;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+                            <h4 style="margin-bottom: 0.5rem;">Upload Video/Images</h4>
+                            <span class="text-xs text-muted">MP4 or JPG/PNG up to 500MB</span>
+                            <input type="file" id="mediaFile" accept="image/*,video/mp4" multiple hidden>
                         </div>
                     </div>
                 </div>
                 
-                <!-- STEP 2: Template & Copy -->
+                <!-- STEP 2: Create (Editor & AI) -->
                 <div class="wizard-step" id="step-2">
-                    <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Step 2: Message & Style</h2>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Select Industry Template</label>
-                        <div class="template-grid" id="templateGrid">
-                            <div class="template-card selected" data-template="real_estate">
-                                <div class="template-thumb" style="background: linear-gradient(135deg, #1f2937, #374151); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #4ade80;">🏠</div>
-                                <div class="template-name">Real Estate</div>
-                            </div>
-                            <div class="template-card" data-template="restaurant">
-                                <div class="template-thumb" style="background: linear-gradient(135deg, #7f1d1d, #b91c1c); display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">🍔</div>
-                                <div class="template-name">Restaurant</div>
-                            </div>
-                            <div class="template-card" data-template="home_services">
-                                <div class="template-thumb" style="background: linear-gradient(135deg, #0f172a, #1e293b); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #38bdf8;">🛠️</div>
-                                <div class="template-name">Home Services</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-2 gap-6 mt-6">
-                        <!-- Configuration Fields as seen in video -->
-                        <div>
-                            <div class="form-group">
-                                <label class="form-label">Business / Company Name</label>
-                                <input type="text" id="businessName" class="form-input" placeholder="e.g. Joe's Coffee Shop">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Ad Topic / Theme</label>
-                                <select id="adTopic" class="form-input">
-                                    <option value="brand_awareness">Brand Awareness</option>
-                                    <option value="promotional">Current Promotion / Sale</option>
-                                    <option value="product_launch">New Product Launch</option>
-                                    <option value="testimonial">Customer Testimonial</option>
-                                </select>
-                            </div>
-                            <div class="form-group grid grid-2 gap-4">
-                                <div>
-                                    <label class="form-label">Language</label>
-                                    <select id="adLanguage" class="form-input">
-                                        <option value="en-US">English (US)</option>
-                                        <option value="es-US">Spanish (US)</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="form-label">Ad Duration</label>
-                                    <select id="adDuration" class="form-input">
-                                        <option value="30">30 Seconds</option>
-                                        <option value="15">15 Seconds</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group grid grid-2 gap-4">
-                                <div>
-                                    <label class="form-label">Presenter Style</label>
-                                    <select id="presenterStyle" class="form-input">
-                                        <option value="voiceover">Voiceover Only</option>
-                                        <option value="avatar">AI Talking Avatar</option>
-                                    </select>
-                                </div>
-                                <div id="avatarModelContainer" style="display: none;">
-                                    <label class="form-label">Avatar Model</label>
-                                    <select id="avatarId" class="form-input">
-                                        <option value="default_male">Professional Male</option>
-                                        <option value="default_female">Professional Female</option>
-                                        <option value="casual_male">Casual Male</option>
-                                        <option value="casual_female">Casual Female</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">AI Voice (Powered by ElevenLabs)</label>
-                                <select id="voiceDirection" class="form-input">
-                                    <option value="rachel">Rachel - Energetic Female</option>
-                                    <option value="drew">Drew - Deep Male (News)</option>
-                                    <option value="clyde">Clyde - Professional Male</option>
-                                    <option value="mimi">Mimi - Friendly Female</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Script generation -->
-                        <div>
-                            <div class="form-group">
-                                <label class="form-label">Voiceover Script</label>
-                                <textarea id="scriptText" class="form-textarea" rows="4" placeholder="Welcome to [Business Name]. We provide the best [Service] in [City]..."></textarea>
-                                <div style="display: flex; justify-content: space-between; margin-top: 0.5rem;">
-                                    <button class="btn btn-outline text-sm" id="aiScriptBtn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">✨ Auto-Generate Script</button>
+                    <div class="split-pane">
+                        <!-- Left Pane: AI Editor -->
+                        <div class="editor-pane" style="display: flex; flex-direction: column;">
+                            <h3 style="font-size: 1.25rem; margin-bottom: 1rem;">Narration Overview</h3>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <textarea id="scriptText" class="form-textarea" rows="5" style="font-size: 0.95rem; line-height: 1.5; background: rgba(0,0,0,0.4);" placeholder="Based on your URL, the AI will generate a script here..."></textarea>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                                    <span class="text-xs text-muted">💡 Edit text directly for minor tweaks.</span>
                                     <span class="text-xs text-muted" id="wordCount">0 / 60 words</span>
                                 </div>
                             </div>
                             
-                            <div class="form-group">
-                                <label class="form-label">Primary Call to Action</label>
-                                <input type="text" id="ctaText" class="form-input" placeholder="e.g., Visit our website today!">
+                            <h3 style="font-size: 1.1rem; margin-top: 2rem;">AI Creative Director</h3>
+                            <div class="chat-container">
+                                <div class="chat-messages" id="chatMessages">
+                                    <div class="chat-bubble chat-ai">
+                                        Hi! I'm analyzing your brand. Tell me if you want to swap images, change the tone, or adjust the background music. Let's make this perfect.
+                                    </div>
+                                </div>
+                                <div class="chat-input-area">
+                                    <input type="text" id="chatInput" class="form-input" style="padding: 0.75rem; background: rgba(0,0,0,0.5); border-color: transparent;" placeholder="e.g. Make the script funnier...">
+                                    <button id="chatSendBtn" class="btn btn-secondary" style="padding: 0.75rem 1rem;">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Pane: Preview & Storyboard -->
+                        <div class="preview-pane">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="font-size: 1.25rem;">Live Preview</h3>
+                                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                                    <label class="text-xs text-muted">Industry Template:</label>
+                                    <select id="industryTemplate" class="form-input" style="padding: 0.25rem 0.5rem; width: auto; font-size: 0.8rem; background: rgba(0,0,0,0.5);">
+                                        <option value="real_estate">Real Estate</option>
+                                        <option value="retail">Retail & E-Commerce</option>
+                                        <option value="restaurant">Food & Beverage</option>
+                                        <option value="home_services">Home Services</option>
+                                        <option value="fitness">Fitness & Sports</option>
+                                        <option value="corporate">B2B / Corporate</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="video-preview" id="previewContainer">
+                                <div class="text-center" id="previewPlaceholder">
+                                    <div class="spinner" style="margin: 0 auto 1rem;"></div>
+                                    <span style="color: rgba(255,255,255,0.7); font-size: 0.9rem;">AI is assembling your draft...</span>
+                                </div>
+                                
+                                <!-- The actual player (hidden initially) -->
+                                <video id="finalVideoPlayer" controls hidden></video>
+                            </div>
+                            
+                            <h4 style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">Scenes</h4>
+                            <div class="storyboard">
+                                <div class="scene-card active" data-scene="1">
+                                    <img src="" class="scene-thumb" id="sceneThumb1" alt="Scene 1" style="background: linear-gradient(45deg, #1f2937, #374151);">
+                                    <div class="scene-title">Scene #1 (Hook)</div>
+                                </div>
+                                <div class="scene-card" data-scene="2">
+                                    <img src="" class="scene-thumb" id="sceneThumb2" alt="Scene 2" style="background: linear-gradient(45deg, #4b5563, #6b7280);">
+                                    <div class="scene-title">Scene #2 (Problem)</div>
+                                </div>
+                                <div class="scene-card" data-scene="3">
+                                    <img src="" class="scene-thumb" id="sceneThumb3" alt="Scene 3" style="background: linear-gradient(45deg, #374151, #4b5563);">
+                                    <div class="scene-title">Scene #3 (Solution)</div>
+                                </div>
+                                <div class="scene-card" data-scene="4">
+                                    <img src="" class="scene-thumb" id="sceneThumb4" alt="Scene 4" style="background: linear-gradient(45deg, #1f2937, #111827);">
+                                    <div class="scene-title">Scene #4 (Solution II)</div>
+                                </div>
+                                <div class="scene-card" data-scene="5">
+                                    <img src="" class="scene-thumb" id="sceneThumb5" alt="Scene 5" style="background: linear-gradient(45deg, #4b5563, #6b7280);">
+                                    <div class="scene-title">Scene #5 (Trust)</div>
+                                </div>
+                                <div class="scene-card" data-scene="6">
+                                    <img src="" class="scene-thumb" id="sceneThumb6" alt="Scene 6" style="background: linear-gradient(45deg, #1f2937, #111827);">
+                                    <div class="scene-title">Scene #6 (CTA)</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- STEP 3: Review & Generate -->
+                <!-- STEP 3: Target -->
                 <div class="wizard-step" id="step-3">
-                    <h2 style="margin-bottom: 1.5rem; font-size: 1.5rem;">Step 3: Preview Your Commercial</h2>
-                    <p class="text-muted" style="margin-bottom: 2rem;">Our engine will compile your assets, synthesize the voiceover, and render your 30-second ad.</p>
-                    
-                    <div class="video-preview" id="previewContainer">
-                        <div class="text-center" id="previewPlaceholder">
-                            <h3 style="margin-bottom: 1rem; color: rgba(255,255,255,0.5);">Ready to Render</h3>
-                            <button id="generateVideoBtn" class="btn btn-primary btn-lg">Generate Video Preview</button>
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem; text-align: center;">Who should see this ad?</h2>
+                        <p class="text-muted text-center" style="margin-bottom: 3rem;">Define your target audience to ensure zero wasted ad spend.</p>
+
+                        <div class="form-group mb-4">
+                            <label class="form-label" style="font-size: 1rem;">Primary Campaign Goal</label>
+                            <div class="goal-grid">
+                                <div class="goal-card selected" data-goal="awareness">
+                                    <div class="goal-icon">📣</div>
+                                    <h4 style="margin-bottom: 0.5rem;">Brand Awareness</h4>
+                                    <p class="text-xs text-muted">Maximize reach and frequency in your local market.</p>
+                                </div>
+                                <div class="goal-card" data-goal="sales">
+                                    <div class="goal-icon">💰</div>
+                                    <h4 style="margin-bottom: 0.5rem;">Direct Sales</h4>
+                                    <p class="text-xs text-muted">Drive traffic to a specific landing page or offer.</p>
+                                </div>
+                                <div class="goal-card" data-goal="foot_traffic">
+                                    <div class="goal-icon">🚶</div>
+                                    <h4 style="margin-bottom: 0.5rem;">Local Foot Traffic</h4>
+                                    <p class="text-xs text-muted">Target users physically near your store location.</p>
+                                </div>
+                            </div>
                         </div>
-                        
-                        <!-- Overlay shown during generation -->
-                        <div class="generating-overlay hidden" id="generatingOverlay">
-                            <div class="spinner"></div>
-                            <h3 style="color: white; margin-bottom: 0.5rem;" id="generationStatus">Analyzing Assets...</h3>
-                            <p class="text-sm text-gray" id="generationProgress">Please do not close this window</p>
-                        </div>
-                        
-                        <!-- The actual player (hidden initially) -->
-                        <video id="finalVideoPlayer" controls hidden></video>
-                    </div>
-                    
-                    <div class="mt-6" id="postGenerationActions" style="display: none;">
-                        <div style="background: rgba(74, 222, 128, 0.1); border: 1px solid #4ade80; padding: 1.5rem; border-radius: 8px; text-align: center;">
-                            <h3 style="color: #4ade80; margin-bottom: 0.5rem;">Success! Final Ad Generated</h3>
-                            <p class="text-muted text-sm mb-4">You can download this MP4 or directly attach it to a new campaign order.</p>
-                            <div style="display: flex; gap: 1rem; justify-content: center;">
-                                <button class="btn btn-outline">Download MP4</button>
-                                <a href="order.html?creative=self_serve" class="btn btn-secondary">Launch Campaign with this Ad</a>
+
+                        <div class="form-group mt-6" style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05);">
+                            <label class="form-label" style="font-size: 1.1rem; color: white;">Location Targeting</label>
+                            <p class="text-sm text-muted mb-4">Enter cities, zip codes, or designated market areas (DMAs).</p>
+                            
+                            <input type="text" id="targetLocation" class="form-input" placeholder="e.g. 90210, Los Angeles, CA" style="margin-bottom: 1.5rem; padding: 1.25rem;">
+                            
+                            <label class="form-label">Reach Radius</label>
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <span class="text-sm text-muted">5 mi</span>
+                                <input type="range" id="radiusSlider" min="5" max="50" value="15" class="custom-slider" style="flex-grow: 1;">
+                                <span class="text-sm text-muted">50 mi</span>
+                            </div>
+                            <div class="text-center mt-2">
+                                <span id="radiusValueDisplay" style="font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--accent-red);">15</span> <span class="text-muted">miles</span>
                             </div>
                         </div>
                     </div>
-                    
                 </div>
+                
+                <!-- STEP 4: Review -->
+                <div class="wizard-step" id="step-4">
+                    <div style="max-width: 800px; margin: 0 auto;">
+                        <h2 style="font-size: 1.8rem; margin-bottom: 2rem; text-align: center;">Review & Confirm</h2>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                            <div style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1.5rem;">
+                                <h4 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Creative Summary</h4>
+                                <div style="display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1rem;">
+                                    <div style="width: 80px; height: 45px; background: #222; border-radius: 4px;"></div>
+                                    <div>
+                                        <div style="font-weight: 600;">30-Second CTV Spot</div>
+                                        <div class="text-xs text-muted">Template: <span id="reviewTemplate">Modern Clean</span></div>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                                    <div class="text-xs text-muted mb-1">Final Script Snapshot:</div>
+                                    <p class="text-xs" id="reviewScript" style="color: #ddd; font-style: italic; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">Generating...</p>
+                                </div>
+                            </div>
+                            
+                            <div style="background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 1.5rem;">
+                                <h4 style="color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Audience Tuning</h4>
+                                
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                    <span class="text-sm text-muted">Goal</span>
+                                    <span class="text-sm font-semibold" id="reviewGoal">Brand Awareness</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                    <span class="text-sm text-muted">Location</span>
+                                    <span class="text-sm font-semibold" id="reviewLocation">Not set</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span class="text-sm text-muted">Radius</span>
+                                    <span class="text-sm font-semibold" id="reviewRadius">15 miles</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(220, 20, 60, 0.05); border: 1px solid rgba(220, 20, 60, 0.2); border-radius: 8px; padding: 1.5rem;">
+                            <label style="display: flex; gap: 1rem; align-items: flex-start; cursor: pointer;">
+                                <input type="checkbox" id="termsCheck" style="margin-top: 5px; width: 18px; height: 18px; accent-color: var(--accent-red);">
+                                <span class="text-sm text-muted" style="line-height: 1.5;">I acknowledge that this creative is final. By proceeding to Air, I understand that the television networks require 24 hours to approve this spot for broadcast.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 5: Air (Launch) -->
+                <div class="wizard-step" id="step-5">
+                    <div style="max-width: 900px; margin: 0 auto;">
+                        <h2 style="font-size: 2rem; margin-bottom: 0.5rem; text-align: center;">Ready to Air</h2>
+                        <p class="text-muted text-center" style="margin-bottom: 3rem;">Choose a daily budget. You can pause or adjust this at any time through the dashboard.</p>
+
+                        <div class="budget-grid">
+                            <div class="budget-tier" data-budget="15">
+                                <h3>Starter</h3>
+                                <p class="text-xs text-muted mt-1">Perfect for a single neighborhood.</p>
+                                <div class="price-display">$15 <span>/ day</span></div>
+                                <ul style="list-style: none; padding: 0; margin-top: 1.5rem;" class="text-sm text-muted">
+                                    <li style="margin-bottom: 0.5rem;">✓ ~450 daily views</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ Standard Targeting</li>
+                                    <li>✓ Standard Networks</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="budget-tier popular selected" data-budget="30">
+                                <h3>Pro</h3>
+                                <p class="text-xs text-muted mt-1">Best value for most local businesses.</p>
+                                <div class="price-display">$30 <span>/ day</span></div>
+                                <ul style="list-style: none; padding: 0; margin-top: 1.5rem;" class="text-sm text-muted">
+                                    <li style="margin-bottom: 0.5rem; color: white;">✓ ~1,000 daily views</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ Advanced Retargeting</li>
+                                    <li>✓ Premium Networks (ESPN, Hulu)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="budget-tier" data-budget="100">
+                                <h3>Dominator</h3>
+                                <p class="text-xs text-muted mt-1">Dominate the entire city/DMA.</p>
+                                <div class="price-display">$100 <span>/ day</span></div>
+                                <ul style="list-style: none; padding: 0; margin-top: 1.5rem;" class="text-sm text-muted">
+                                    <li style="margin-bottom: 0.5rem;">✓ ~4,000+ daily views</li>
+                                    <li style="margin-bottom: 0.5rem;">✓ Maximum Priority Bidding</li>
+                                    <li>✓ Cross-device tracking</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 3rem;">
+                            <!-- Progress overlay for generation -->
+                            <div id="launchOverlay" class="hidden" style="margin-bottom: 2rem;">
+                                <div class="spinner" style="margin: 0 auto 1rem;"></div>
+                                <h3 id="launchStatus">Deploying to Ad Network...</h3>
+                            </div>
+                            
+                            <button id="finalLaunchBtn" class="btn btn-primary" style="font-size: 1.25rem; padding: 1.25rem 3rem; border-radius: 50px; box-shadow: 0 10px 30px rgba(220, 20, 60, 0.4);">
+                                🚀 Launch Campaign
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
             
             <div class="wizard-footer">
-                <button class="btn btn-outline" id="prevBtn" style="display: none;">Back</button>
+                <button class="btn btn-outline" id="prevBtn" style="display: none; padding: 0.75rem 2rem;">Previous</button>
                 <div style="flex-grow: 1;"></div>
-                <button class="btn btn-primary" id="nextBtn">Continue to Template</button>
+                <button class="btn btn-secondary" id="nextBtn" style="padding: 0.75rem 2rem; background: white; color: black; font-weight: 700;">Continue to Create</button>
             </div>
         </div>
         
     </main>
 
-    <footer class="footer" style="margin-top: auto; padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+    <footer class="footer" style="padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
         <div class="container text-muted text-sm">
-            &copy; 2026 CTV BOSS. Ad Creator Beta.
+            &copy; 2026 CTV BOSS. All rights reserved.
         </div>
     </footer>
 
-    <script src="ad-creator.js"></script>
+    <script src="ad-creator.js?v=2"></script>
 </body>
 </html>

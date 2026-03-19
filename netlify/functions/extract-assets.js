@@ -118,10 +118,26 @@ exports.handler = async (event, context) => {
       if (isLikelyLogo && !assets.logo) {
         assets.logo = absUrl;
       } else if (!assets.images.includes(absUrl) && assets.images.length < 5) {
-          // Avoid grabbing 1x1 tracking pixels
-          const width = $(el).attr('width');
-          const height = $(el).attr('height');
-          if ((!width || parseInt(width) > 50) && (!height || parseInt(height) > 50)) {
+          // Avoid grabbing 1x1 tracking pixels, UI icons, or social logos.
+          // Only grab images explicitly defined as large, or without dimensions (gamble, but usually hero images lack inline w/h)
+          const widthStr = $(el).attr('width');
+          const heightStr = $(el).attr('height');
+          
+          let isValid = false;
+          if (widthStr && heightStr) {
+              const w = parseInt(widthStr.replace(/[^0-9]/g, ''));
+              const h = parseInt(heightStr.replace(/[^0-9]/g, ''));
+              if (w >= 300 && h >= 200) {
+                  isValid = true;
+              }
+          } else {
+              // If no width/height attributes are provided, it might be a responsive hero image.
+              // We'll allow it, but we skip common icon keywords in the URL or class
+              const isIcon = src.includes('icon') || className.includes('icon') || src.includes('avatar');
+              if (!isIcon) isValid = true;
+          }
+          
+          if (isValid) {
             assets.images.push(absUrl);
           }
       }

@@ -12,6 +12,8 @@ app.use(express.json());
 const extractAssetsFunction = require('./netlify/functions/extract-assets');
 const generateScriptFunction = require('./netlify/functions/generate-script');
 const generateVideoFunction = require('./netlify/functions/generate-video');
+const launchCampaignFunction = require('./netlify/functions/launch-campaign');
+const chatAssistantFunction = require('./netlify/functions/chat-assistant');
 
 // Create Express wrappers for the Netlify handler format
 const runNetlifyFunction = (handler) => async (req, res) => {
@@ -32,6 +34,8 @@ const runNetlifyFunction = (handler) => async (req, res) => {
 app.post('/api/extract-assets', runNetlifyFunction(extractAssetsFunction.handler));
 app.post('/api/generate-script', runNetlifyFunction(generateScriptFunction.handler));
 app.post('/api/generate-video', runNetlifyFunction(generateVideoFunction.handler));
+app.post('/api/launch-campaign', runNetlifyFunction(launchCampaignFunction.handler));
+app.post('/api/chat-assistant', runNetlifyFunction(chatAssistantFunction.handler));
 
 app.listen(port, '0.0.0.0', () => {
   console.log(`CTV Boss Backend API is running on port ${port}`);

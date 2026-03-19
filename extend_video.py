@@ -33,6 +33,9 @@ def extend_video(input_path, target_duration=30.0):
         
         # Handle the audio (by setting the start audio, the rest will be silent)
         final_video = final_video.with_audio(video.audio)
+        
+        # Enforce exactly 30.0 seconds to prevent frame rounding overage
+        final_video = final_video.subclipped(0, 30.0)
 
         # Create output path
         output_filename = "extended_30s_" + os.path.basename(input_path)
