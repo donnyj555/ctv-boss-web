@@ -42,17 +42,7 @@ module.exports = {
               "font_size": "6vmax",
               "fill_color": "#ffffff",
               "shadow_color": "rgba(0,0,0,0.8)",
-              "y": "80%",
-              "enter": [
-                {
-                  "type": "slide-up"
-                }
-              ],
-              "exit": [
-                {
-                  "type": "fade-out"
-                }
-              ]
+              "y": "80%"
             }
           ]
         },
@@ -197,12 +187,7 @@ module.exports = {
               "background_color": "#dc143c",
               "background_x_padding": "5%",
               "background_y_padding": "3%",
-              "y": "45%",
-              "enter": [
-                {
-                  "type": "scale-up"
-                }
-              ]
+              "y": "45%"
             },
             {
               "name": "Phone-Number",
@@ -213,12 +198,7 @@ module.exports = {
               "font_size": "4vmax",
               "fill_color": "#ffffff",
               "shadow_color": "rgba(0,0,0,0.8)",
-              "y": "65%",
-              "enter": [
-                {
-                  "type": "slide-up"
-                }
-              ]
+              "y": "65%"
             },
             {
               "name": "Email",
@@ -229,12 +209,7 @@ module.exports = {
               "font_size": "3vmax",
               "fill_color": "#ffffff",
               "shadow_color": "rgba(0,0,0,0.8)",
-              "y": "75%",
-              "enter": [
-                {
-                  "type": "slide-up"
-                }
-              ]
+              "y": "75%"
             }
           ]
         }

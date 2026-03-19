@@ -117,11 +117,40 @@ exports.handler = async (event, context) => {
     finalMedia[4] = defaultImages[2] || defaultImages[1] || finalMedia[0]; // Stock Video
     finalMedia[5] = images[2] || images[0] || defaultImages[3] || finalMedia[0]; // User's Logo/CTA image
 
+    // Generate Native OpenAI Voiceover
+    let voiceoverBase64 = null;
+    if (process.env.OPENAI_API_KEY && script) {
+        try {
+            console.log("Generating Voiceover via OpenAI TTS...");
+            const ttsRes = await fetch('https://api.openai.com/v1/audio/speech', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'tts-1',
+                    input: script,
+                    voice: 'alloy' // You can map voices if needed, alloy is generic
+                })
+            });
+            if (ttsRes.ok) {
+                const arrayBuffer = await ttsRes.arrayBuffer();
+                const buffer = Buffer.from(arrayBuffer);
+                voiceoverBase64 = "data:audio/mp3;base64," + buffer.toString('base64');
+            } else {
+                console.error("OpenAI TTS Failed:", await ttsRes.text());
+            }
+        } catch(e) {
+            console.error("OpenAI TTS Exception:", e);
+        }
+    }
+
     // Build the payload by matching the template's required modification keys
     const creatomatePayload = {
       output_format: "mp4",
       modifications: {
-        "Voiceover": { "text": script },
+        "Voiceover": voiceoverBase64 ? { "source": voiceoverBase64 } : { "text": script },
         "Subtext": cta || "Contact Us Today!",
         "Video-1": finalMedia[0],
         "Video-2": finalMedia[1],

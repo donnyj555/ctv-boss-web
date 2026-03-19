@@ -194,13 +194,18 @@
             background: rgba(220, 20, 60, 0.05);
         }
 
-        /* Split Pane for Step 2 */
         .split-pane {
             display: grid;
             grid-template-columns: 350px 1fr;
             gap: 2.5rem;
             height: 100%;
             min-height: 500px;
+        }
+
+        @media (max-width: 992px) {
+            .split-pane {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Chat Editor Styling */
@@ -487,7 +492,19 @@
                 <div class="wizard-step active" id="step-1">
                     <div style="max-width: 800px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
                         <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Let's gather your assets</h2>
-                        <p class="text-muted">Enter a website URL to let our AI instantly extract your logo, images, and brand colors. Alternately, upload files manually.</p>
+                        <p class="text-muted">Select your industry and enter a website URL to let our AI instantly extract your logo, images, and brand colors.</p>
+                    </div>
+
+                    <div class="form-group" style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 800px; margin: 0 auto; margin-bottom: 2rem;">
+                        <label class="form-label text-accent" style="font-weight: 600; font-size: 1rem;">Select Your Industry Template</label>
+                        <select id="industryTemplate" class="form-input" style="padding: 1rem; width: 100%; font-size: 1rem; background: rgba(0,0,0,0.5); margin-top: 1rem;">
+                            <option value="real_estate">Real Estate</option>
+                            <option value="retail">Retail & E-Commerce</option>
+                            <option value="restaurant">Food & Beverage</option>
+                            <option value="home_services">Home Services</option>
+                            <option value="fitness">Fitness & Sports</option>
+                            <option value="corporate">B2B / Corporate</option>
+                        </select>
                     </div>
                     
                     <div class="form-group" style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 800px; margin: 0 auto;">
@@ -568,17 +585,6 @@
                         <div class="preview-pane">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                                 <h3 style="font-size: 1.25rem;">Live Preview</h3>
-                                <div style="display: flex; gap: 0.5rem; align-items: center;">
-                                    <label class="text-xs text-muted">Industry Template:</label>
-                                    <select id="industryTemplate" class="form-input" style="padding: 0.25rem 0.5rem; width: auto; font-size: 0.8rem; background: rgba(0,0,0,0.5);">
-                                        <option value="real_estate">Real Estate</option>
-                                        <option value="retail">Retail & E-Commerce</option>
-                                        <option value="restaurant">Food & Beverage</option>
-                                        <option value="home_services">Home Services</option>
-                                        <option value="fitness">Fitness & Sports</option>
-                                        <option value="corporate">B2B / Corporate</option>
-                                    </select>
-                                </div>
                             </div>
                             
                             <div class="video-preview" id="previewContainer">
