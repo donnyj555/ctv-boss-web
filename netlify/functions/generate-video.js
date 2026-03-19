@@ -99,10 +99,10 @@ exports.handler = async (event, context) => {
             ];
         } else {
             defaultImages = [
-                "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
-                "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4",
-                "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
-                "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4"
+                "https://loremflickr.com/1920/1080/office,business?random=1",
+                "https://loremflickr.com/1920/1080/meeting,team?random=2",
+                "https://loremflickr.com/1920/1080/office,business?random=3",
+                "https://loremflickr.com/1920/1080/meeting,team?random=4"
             ];
         }
     }
@@ -110,7 +110,7 @@ exports.handler = async (event, context) => {
     // Elegant Intermixing Strategy: 
     // Alternate between Pexels HD Stock Videos and the User's scraped images from their website
     const finalMedia = [];
-    finalMedia[0] = defaultImages[0] || "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4"; // Stock Video
+    finalMedia[0] = defaultImages[0] || "https://loremflickr.com/1920/1080/office,business?random=1"; // Stock Video
     finalMedia[1] = images[0] || defaultImages[1] || finalMedia[0]; // User's 1st image
     finalMedia[2] = defaultImages[1] || defaultImages[0] || finalMedia[0]; // Stock Video
     finalMedia[3] = images[1] || defaultImages[2] || finalMedia[0]; // User's 2nd image 
@@ -121,7 +121,7 @@ exports.handler = async (event, context) => {
     const creatomatePayload = {
       output_format: "mp4",
       modifications: {
-        "Voiceover": script,
+        "Voiceover": { "text": script },
         "Subtext": cta || "Contact Us Today!",
         "Video-1": finalMedia[0],
         "Video-2": finalMedia[1],

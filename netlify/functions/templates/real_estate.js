@@ -5,11 +5,6 @@ module.exports = {
   "duration": 30,
   "elements": [
     {
-      "type": "audio",
-      "source": "https://creatomate-static.s3.amazonaws.com/demo/music1.wav",
-      "audio_fade_out": 2
-    },
-    {
       "name": "Voiceover",
       "type": "audio",
       "text": "Welcome to our beautiful new properties. We are here to help you find your dream home.",
@@ -28,7 +23,7 @@ module.exports = {
               "name": "Video-1",
               "type": "video",
               "duration": "100%",
-              "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
+              "source": "https://loremflickr.com/1920/1080/office,business?random=1",
               "animations": [
                 {
                   "type": "pan",
@@ -76,7 +71,7 @@ module.exports = {
               "name": "Video-2",
               "type": "video",
               "duration": "100%",
-              "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4",
+              "source": "https://loremflickr.com/1920/1080/office,business?random=1",
               "animations": [
                 {
                   "type": "pan",
@@ -102,7 +97,7 @@ module.exports = {
               "name": "Video-3",
               "type": "video",
               "duration": "100%",
-              "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
+              "source": "https://loremflickr.com/1920/1080/office,business?random=1",
               "animations": [
                 {
                   "type": "pan",
@@ -136,7 +131,7 @@ module.exports = {
                   "scale": "110%"
                 }
               ],
-              "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4"
+              "source": "https://loremflickr.com/1920/1080/office,business?random=1"
             }
           ]
         },
@@ -163,7 +158,7 @@ module.exports = {
                   "scale": "110%"
                 }
               ],
-              "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4"
+              "source": "https://loremflickr.com/1920/1080/office,business?random=1"
             }
           ]
         },
@@ -189,7 +184,7 @@ module.exports = {
                   "scale": "115%"
                 }
               ],
-              "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4"
+              "source": "https://loremflickr.com/1920/1080/office,business?random=1"
             },
             {
               "name": "Subtext",
