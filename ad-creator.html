@@ -491,27 +491,22 @@
                 <!-- STEP 1: Submit (Assets) -->
                 <div class="wizard-step active" id="step-1">
                     <div style="max-width: 800px; margin: 0 auto; text-align: center; margin-bottom: 3rem;">
-                        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Let's gather your assets</h2>
-                        <p class="text-muted">Select your industry and enter a website URL to let our AI instantly extract your logo, images, and brand colors.</p>
+                        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Let's fetch your property photos</h2>
+                        <p class="text-muted">Enter a property listing URL or website to let our CTV HOMES AI instantly extract photos, property details, and branding.</p>
                     </div>
 
-                    <div class="form-group" style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 800px; margin: 0 auto; margin-bottom: 2rem;">
+                    <div class="form-group" style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 800px; margin: 0 auto; margin-bottom: 2rem; display: none;">
                         <label class="form-label text-accent" style="font-weight: 600; font-size: 1rem;">Select Your Industry Template</label>
                         <select id="industryTemplate" class="form-input" style="padding: 1rem; width: 100%; font-size: 1rem; background: rgba(0,0,0,0.5); margin-top: 1rem;">
-                            <option value="real_estate">Real Estate</option>
-                            <option value="retail">Retail & E-Commerce</option>
-                            <option value="restaurant">Food & Beverage</option>
-                            <option value="home_services">Home Services</option>
-                            <option value="fitness">Fitness & Sports</option>
-                            <option value="corporate">B2B / Corporate</option>
+                            <option value="real_estate" selected>Real Estate</option>
                         </select>
                     </div>
                     
                     <div class="form-group" style="background: rgba(0,0,0,0.2); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); max-width: 800px; margin: 0 auto;">
-                        <label class="form-label text-accent" style="font-weight: 600; font-size: 1rem;">Auto-Extract from URL</label>
+                        <label class="form-label text-accent" style="font-weight: 600; font-size: 1rem;">Auto-Extract from Listing Link</label>
                         <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                            <input type="url" id="websiteUrl" class="form-input" placeholder="https://www.yourdomain.com" style="flex-grow: 1;">
-                            <button id="extractBtn" class="btn btn-secondary text-sm">Fetch Assets</button>
+                            <input type="url" id="websiteUrl" class="form-input" placeholder="https://www.yourlisting.com/..." style="flex-grow: 1;">
+                            <button id="extractBtn" class="btn btn-secondary text-sm">Fetch Property</button>
                         </div>
                         
                         <!-- Extracted Assets Results Area -->
@@ -741,8 +736,8 @@
                             </div>
                             
                             <div class="budget-tier popular selected" data-budget="30">
-                                <h3>Pro</h3>
-                                <p class="text-xs text-muted mt-1">Best value for most local businesses.</p>
+                                <h3>Agent Pro</h3>
+                                <p class="text-xs text-muted mt-1">Best value for farming neighborhoods.</p>
                                 <div class="price-display">$30 <span>/ day</span></div>
                                 <ul style="list-style: none; padding: 0; margin-top: 1.5rem;" class="text-sm text-muted">
                                     <li style="margin-bottom: 0.5rem; color: white;">✓ ~1,000 daily views</li>

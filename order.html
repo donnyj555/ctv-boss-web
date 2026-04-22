@@ -272,7 +272,7 @@
                 <a href="index.html">Platform</a>
                 <a href="plans.html">Pricing</a>
                 <a href="blog.html">Resources</a>
-                <a href="landing.html" class="btn btn-outline"
+                <a href="https://realestate.ctvboss.com/signup" class="btn btn-outline"
                     style="border-color: var(--accent-red); color: white;">Start Campaign</a>
             </nav>
         </div>
@@ -303,8 +303,8 @@
                                 <input type="radio" name="planTier" value="base" class="option-input" checked>
                                 <div class="option-card">
                                     <div class="check-circle"></div>
-                                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Local Saturation</h3>
-                                    <p class="text-muted text-sm">Target a specific zip code for maximum local
+                                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Neighborhood Farming</h3>
+                                    <p class="text-muted text-sm">Dominate a specific zip code for maximum brand
                                         visibility.</p>
                                     <div class="price" style="font-size: 2rem; margin-top: 1rem; font-weight: bold;">
                                         $499<span
@@ -321,7 +321,7 @@
                                 <div class="option-card">
                                     <div class="check-circle"></div>
                                     <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Geo & Demo Precision</h3>
-                                    <p class="text-muted text-sm">Target specific household demographics profiles.</p>
+                                    <p class="text-muted text-sm">Target specific real estate demographic profiles.</p>
                                     <div class="price" style="font-size: 2rem; margin-top: 1rem; font-weight: bold;">
                                         Custom
                                     </div>
@@ -357,23 +357,17 @@
                     <div class="builder-section">
                         <h2 class="builder-title">2. Video Commercial Details</h2>
                         <label class="option-label">
-                            <input type="checkbox" id="creativeToggle" class="option-input">
+                            <input type="checkbox" id="creativeToggle" class="option-input" checked>
                             <div class="option-card" style="display: flex; align-items: flex-start; gap: 1rem;">
                                 <div class="check-circle" style="position: static; margin-top: 2px;"></div>
                                 <div>
-                                    <h3 style="font-size: 1.1rem;">Need a Custom Commercial?</h3>
+                                    <h3 style="font-size: 1.1rem;">Use CTV HOMES AI Creator</h3>
                                     <p class="text-muted text-sm mt-2">I do not have a 16:9 format video ad ready.
-                                        Please have the CTV BOSS production team build a custom engaging video ad for
-                                        me.</p>
-                                    <p class="text-accent font-semibold mt-2">+$495 (One-time setup fee)</p>
+                                        Please use the CTV HOMES platform to automatically generate my 30s commercial from my property listings.</p>
+                                    <p class="text-accent font-semibold mt-2">Included ($0)</p>
                                 </div>
                             </div>
                         </label>
-                        <div class="mt-4">
-                            <label class="form-label">If providing your own ad, host link (Google Drive, Dropbox,
-                                YouTube):</label>
-                            <input type="text" id="videoLinkInput" class="form-input" placeholder="https://...">
-                        </div>
                     </div>
                 </div>
 
@@ -388,7 +382,7 @@
                             style="background: rgba(0,0,0,0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
                             <div class="summary-row">
                                 <span class="text-muted">Targeting Tier</span>
-                                <span id="summaryTier" style="font-weight: 500;">Local Saturation</span>
+                                <span id="summaryTier" style="font-weight: 500;">Neighborhood Farming</span>
                             </div>
                             <div class="summary-row">
                                 <span class="text-muted">Est. Views/Month</span>
@@ -397,11 +391,11 @@
                             </div>
                             <div class="summary-row">
                                 <span class="text-muted">Ad Creation</span>
-                                <span id="summaryCreative" style="font-weight: 500;">Provided by Client ($0)</span>
+                                <span id="summaryCreative" style="font-weight: 500;">CTV HOMES ($0)</span>
                             </div>
-                            <div class="summary-row">
-                                <span class="text-muted" id="summaryAdminFeeLabel">Management Fee</span>
-                                <span id="summaryAdminFee" style="font-weight: 500; font-size: 0.9em;">$139</span>
+                            <div class="summary-row" id="summaryAdminFeeRow" style="display: none;">
+                                <span class="text-muted" id="summaryAdminFeeLabel">Agency Fee</span>
+                                <span id="summaryAdminFee" style="font-weight: 500; font-size: 0.9em;">$0</span>
                             </div>
                             <div class="summary-row total">
                                 <span>Total Initial Cost</span>
@@ -415,20 +409,20 @@
                         <form name="CTV_BOSS_Order" method="POST" data-netlify="true" action="/success.html">
                             <!-- Hidden inputs to capture the calculator logic data -->
                             <input type="hidden" name="form-name" value="CTV_BOSS_Order">
-                            <input type="hidden" id="hiddenTier" name="Selected_Tier" value="Local Saturation">
+                            <input type="hidden" id="hiddenTier" name="Selected_Tier" value="Neighborhood Farming">
                             <input type="hidden" id="hiddenBudget" name="Monthly_Budget" value="499">
                             <input type="hidden" id="hiddenImpressions" name="Estimated_Impressions" value="10000">
                             <input type="hidden" id="hiddenCreativeFee" name="Creative_Setup_Fee" value="0">
-                            <input type="hidden" id="hiddenAdminFee" name="Monthly_Fee" value="139">
+                            <input type="hidden" id="hiddenAdminFee" name="Monthly_Fee" value="0">
                             <input type="hidden" id="hiddenTotal" name="Initial_Total_Charge" value="638">
 
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                                 <div>
-                                    <label class="form-label">First & Last Name *</label>
+                                    <label class="form-label">Agent/Broker Name *</label>
                                     <input type="text" name="Name" class="form-input" required>
                                 </div>
                                 <div>
-                                    <label class="form-label">Business Name *</label>
+                                    <label class="form-label">Brokerage Name *</label>
                                     <input type="text" name="Business" class="form-input" required>
                                 </div>
                             </div>
@@ -485,7 +479,7 @@
                         </li>
                         <li><a href="plans.html" style="color: var(--text-muted); text-decoration: none;">Pricing &
                                 Plans</a></li>
-                        <li><a href="landing.html" style="color: var(--text-muted); text-decoration: none;">Start
+                        <li><a href="https://realestate.ctvboss.com/signup" style="color: var(--text-muted); text-decoration: none;">Start
                                 Campaign</a></li>
                     </ul>
                 </div>

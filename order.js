@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const BASE_PRICE = 499;
     const BASE_IMPRESSIONS = 10000;
     const CUSTOM_CPM = 60; // $60 per 1,000 views
-    const ADMIN_FEE = 139;
+    const ADMIN_FEE = 0; // Management fee removed
     const AGENCY_FEE_PERCENTAGE = 0.15;
-    const CREATIVE_FEE = 495;
+    const CREATIVE_FEE = 0; // CTV HOMES automated creation is free
 
     // --- State Variables ---
     let currentTier = 'base'; // 'base' or 'custom'
@@ -78,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
             finalMonthlyBudget = BASE_PRICE;
             finalImpressions = BASE_IMPRESSIONS;
             actualFee = ADMIN_FEE;
-            feeLabel = "Management Fee ($139)";
-            tierName = "Local Saturation";
-            recurringText.textContent = `Recurring monthly cost: ${formatCurrency(BASE_PRICE + actualFee)}/mo thereafter.`;
+            feeLabel = "Management Fee ($0)";
+            tierName = "Neighborhood Farming";
+            recurringText.textContent = `Recurring monthly cost: ${formatCurrency(BASE_PRICE)}/mo thereafter.`;
         } else {
             sliderContainer.classList.add('active');
             customTargetingGroup.style.display = 'block';
@@ -98,15 +98,12 @@ document.addEventListener('DOMContentLoaded', () => {
         hasCreativeFee = creativeToggle.checked;
         const creativeCost = hasCreativeFee ? CREATIVE_FEE : 0;
 
-        // Disable video upload link if they are paying us to make it
+        // Provide custom logic depending on whether they use Zillow link or provide their own ad
         if (hasCreativeFee) {
-            videoLinkInput.value = "";
-            videoLinkInput.disabled = true;
-            videoLinkInput.style.opacity = '0.5';
-            summaryCreative.textContent = `Custom Commercial ($${CREATIVE_FEE})`;
+            videoLinkInput.placeholder = "https://www.zillow.com/homedetails/...";
+            summaryCreative.textContent = `CTV HOMES ($0)`;
         } else {
-            videoLinkInput.disabled = false;
-            videoLinkInput.style.opacity = '1';
+            videoLinkInput.placeholder = "Link to Google Drive / YouTube...";
             summaryCreative.innerHTML = `Provided by Client ($0)`;
         }
 
@@ -116,9 +113,17 @@ document.addEventListener('DOMContentLoaded', () => {
         summaryTier.textContent = tierName;
         summaryImpressions.textContent = formatNumber(finalImpressions);
         
-        // Find the summary element for admin fee if it exists to update the text
+        // Map Admin fee row visibility
         const summaryAdminFeeDisplay = document.getElementById('summaryAdminFee');
         const summaryAdminFeeLabel = document.getElementById('summaryAdminFeeLabel');
+        const summaryAdminFeeRow = document.getElementById('summaryAdminFeeRow');
+        
+        if (currentTier === 'base' && summaryAdminFeeRow) {
+            summaryAdminFeeRow.style.display = 'none';
+        } else if (summaryAdminFeeRow) {
+            summaryAdminFeeRow.style.display = 'flex';
+        }
+
         if (summaryAdminFeeDisplay) {
             summaryAdminFeeDisplay.textContent = formatCurrency(actualFee);
         }
