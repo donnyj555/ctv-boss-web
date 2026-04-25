@@ -354,6 +354,9 @@
                     <span class="badge" style="background: rgba(40,40,45,0.8); color: var(--text-muted); border: 1px solid rgba(255,255,255,0.1);">Connected TV placement — for subscribers when you're ready</span>
                     <h2 class="section-title mt-4" style="font-size: 2.75rem;">Be the only agent in your farm area on TV.</h2>
                     <p class="section-subtitle mt-4 text-muted">Postcards reach mailboxes. Facebook reaches feeds. CTV reaches the family room — and you can target it more precisely than either.</p>
+                    <button class="btn mt-6" onclick="openMapModal()" style="background: rgba(220, 20, 60, 0.1); border: 1px solid var(--accent-red); color: white; padding: 0.75rem 1.5rem; font-size: 1.1rem; border-radius: 8px; cursor: pointer; transition: all 0.3s ease;">
+                        <span style="color: var(--accent-red); margin-right: 0.5rem; font-size: 1.2rem; vertical-align: middle;">▶</span> <span style="vertical-align: middle;">Watch: How Real Estate Farming is done in 2026</span>
+                    </button>
                 </div>
 
                 <!-- 2x2 Targeting Grid -->
@@ -507,6 +510,41 @@
             </div>
         </div>
     </footer>
+
+    <!-- Map Animation Modal -->
+    <div id="mapModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 9999; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.4s ease;">
+        <button onclick="closeMapModal()" style="position: absolute; top: 2rem; right: 2rem; background: transparent; border: none; color: white; font-size: 2.5rem; cursor: pointer; opacity: 0.7; transition: opacity 0.2s;">&times;</button>
+        <div style="width: 90%; max-width: 1000px; height: 75vh; border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 0 50px rgba(220, 20, 60, 0.2); border: 1px solid rgba(255,255,255,0.1); background: #000;">
+            <img id="mapAnimationImg" src="targeting-map.png" style="width: 100%; height: 100%; object-fit: cover; transition: transform 12s ease-out; transform: scale(1);" alt="Targeting Map Visualization">
+            
+            <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 3rem 2rem 2rem; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%); text-align: center;">
+                <h3 style="color: white; font-size: 2rem; text-shadow: 0 4px 10px rgba(0,0,0,0.8); margin-bottom: 0.5rem; letter-spacing: -0.5px;">Address-Level Targeting</h3>
+                <p style="color: rgba(255,255,255,0.85); font-size: 1.125rem;">Reaching 75% of your chosen neighborhood simultaneously with unskippable TV ads.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function openMapModal() {
+            const modal = document.getElementById('mapModal');
+            const img = document.getElementById('mapAnimationImg');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+                // Trigger the fake "drone zoom" movement over 12 seconds
+                img.style.transform = 'scale(1.15)';
+            }, 10);
+        }
+        function closeMapModal() {
+            const modal = document.getElementById('mapModal');
+            const img = document.getElementById('mapAnimationImg');
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                img.style.transform = 'scale(1)'; // reset position instantly while hidden
+            }, 400);
+        }
+    </script>
 
     <script src="app.js?v=12"></script>
 </body>
