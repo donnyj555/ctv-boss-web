@@ -41,6 +41,36 @@
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=1060925498511098&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
+    <style>
+        .realtor-stamp {
+            position: absolute; 
+            top: -20px; 
+            left: -20px; 
+            transform: rotate(-25deg); 
+            color: var(--accent-red); 
+            font-size: 2.5rem; 
+            font-weight: 900; 
+            letter-spacing: 4px; 
+            text-shadow: 0 4px 10px rgba(0,0,0,0.5); 
+            z-index: 10; 
+            padding: 1rem; 
+            border: 3px solid var(--accent-red); 
+            background: rgba(20,20,25,0.9); 
+            border-radius: 8px;
+        }
+        @media (max-width: 768px) {
+            .realtor-stamp {
+                position: relative;
+                top: 0;
+                left: 0;
+                transform: rotate(-5deg);
+                display: inline-block;
+                margin-bottom: 2rem;
+                font-size: 1.8rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -67,7 +97,7 @@
             <div class="container text-center">
                 <div class="card fade-in-up" style="padding: 3rem; background: linear-gradient(180deg, rgba(20,20,25,0.9) 0%, rgba(10,10,15,1) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: hidden; position: relative;">
                     <!-- Angled REALTORS Stamp -->
-                    <div style="position: absolute; top: 10px; left: -30px; transform: rotate(-25deg); color: var(--accent-red); font-size: 2.5rem; font-weight: 900; letter-spacing: 4px; text-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 10; padding: 1rem; border: 3px solid var(--accent-red); background: rgba(20,20,25,0.9); border-radius: 8px;">
+                    <div class="realtor-stamp">
                         REALTORS
                     </div>
                     <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 2;">
