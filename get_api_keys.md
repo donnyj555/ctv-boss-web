@@ -7,7 +7,7 @@
 3.  On the left sidebar, click **API keys**.
 4.  Click the green button that says **+ Create new secret key**.
 5.  In the popup:
-    *   **Name:** Type something like "CTV Boss Ad Creator" so you remember what it's for.
+    *   **Name:** Type something like "CTV Homes Ad Creator" so you remember what it's for.
     *   **Project:** Leave as default.
     *   **Permissions:** Leave as "All".
 6.  Click **Create secret key**.

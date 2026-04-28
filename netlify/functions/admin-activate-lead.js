@@ -107,7 +107,7 @@ exports.handler = async (event, context) => {
                 const emailHtml = `
                 <div style="background-color: #0a0a0f; color: #fcfcfd; font-family: 'Helvetica Neue', Arial, sans-serif; padding: 40px 20px; text-align: center;">
                     <div style="max-width: 600px; margin: 0 auto; background-color: #13131c; border: 1px solid rgba(255, 51, 102, 0.3); border-radius: 12px; padding: 40px; text-align: left;">
-                        <h1 style="color: #ff3366; font-size: 28px; margin-top: 0;">CTV BOSS</h1>
+                        <h1 style="color: #ff3366; font-size: 28px; margin-top: 0;">CTV HOMES</h1>
                         <h2 style="font-size: 22px; margin-bottom: 20px;">Welcome, ${firstName}!</h2>
                         
                         <p style="font-size: 16px; line-height: 1.6; color: #a0a0ab;">
@@ -116,7 +116,7 @@ exports.handler = async (event, context) => {
                         </p>
                         
                         <div style="text-align: center; margin: 35px 0;">
-                            <a href="https://ctvboss.com/login" style="background-color: #ff3366; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px; display: inline-block;">Access Your Dashboard</a>
+                            <a href="https://ctvhomes.com/login" style="background-color: #ff3366; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px; display: inline-block;">Access Your Dashboard</a>
                         </div>
                         
                         <p style="font-size: 15px; line-height: 1.6; color: #a0a0ab; background-color: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px;">
@@ -134,7 +134,7 @@ exports.handler = async (event, context) => {
                         
                         <p style="font-size: 14px; margin-top: 40px; color: #666; text-align: center;">
                             Questions? Reply to this email and our team will be happy to help.<br>
-                            &copy; ${new Date().getFullYear()} CTV BOSS
+                            &copy; ${new Date().getFullYear()} CTV HOMES
                         </p>
                     </div>
                 </div>
@@ -147,9 +147,9 @@ exports.handler = async (event, context) => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        from: 'CTV BOSS <hello@ctvboss.com>',
+                        from: 'CTV HOMES <hello@ctvhomes.com>',
                         to: email,
-                        subject: 'Your CTV Boss Campaign Is Live 🎉',
+                        subject: 'Your CTV Homes Campaign Is Live 🎉',
                         html: emailHtml
                     })
                 });

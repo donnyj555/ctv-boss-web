@@ -11,8 +11,8 @@ Here are the two best ways to fully automate this without you lifting a finger:
 Instead of waiting to email them, we ask them the questions *immediately* while they are still excited on your website.
 
 **How it works:**
-1. A user clicks "Get My Free Strategy Focus" on your current `ctvboss.com` form.
-2. I add one invisible line of code to the form that tells Formspree to **instantly redirect them** to a hidden page on your site: `ctvboss.com/step-2`
+1. A user clicks "Get My Free Strategy Focus" on your current `ctvhomes.com` form.
+2. I add one invisible line of code to the form that tells Formspree to **instantly redirect them** to a hidden page on your site: `ctvhomes.com/step-2`
 3. The `step-2.html` page says: *"Success! We're analyzing your market. Before we finalize your custom CTV strategy, tell us a bit more about your business location so we can pull the right TV network data..."*
 4. Below that is a second, longer Formspree form asking for Location, Phone Number, and Business Type.
 
@@ -22,7 +22,7 @@ Instead of waiting to email them, we ask them the questions *immediately* while 
 If you'd rather they leave the website and get an email later.
 
 **How it works:**
-1. They fill out the short form on `ctvboss.com`.
+1. They fill out the short form on `ctvhomes.com`.
 2. Formspree sends the email to your Mailchimp audience (like we set up earlier).
 3. Inside Mailchimp, you create an "Automated Customer Journey / Welcome Email." 
 4. The email automatically triggers 5 minutes later, saying: *"Hey, thanks for requesting a CTV strategy! Please fill out this quick questionnaire so I can start pulling your local data."* 

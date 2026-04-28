@@ -38,5 +38,5 @@ app.post('/api/launch-campaign', runNetlifyFunction(launchCampaignFunction.handl
 app.post('/api/chat-assistant', runNetlifyFunction(chatAssistantFunction.handler));
 
 app.listen(port, '0.0.0.0', () => {
-  console.log(`CTV Boss Backend API is running on port ${port}`);
+  console.log(`CTV Homes Backend API is running on port ${port}`);
 });

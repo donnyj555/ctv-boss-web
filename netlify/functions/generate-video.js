@@ -110,12 +110,13 @@ exports.handler = async (event, context) => {
     // Elegant Intermixing Strategy: 
     // Alternate between Pexels HD Stock Videos and the User's scraped images from their website
     const finalMedia = [];
-    finalMedia[0] = defaultImages[0] || "https://loremflickr.com/1920/1080/office,business?random=1"; // Stock Video
-    finalMedia[1] = images[0] || defaultImages[1] || finalMedia[0]; // User's 1st image
-    finalMedia[2] = defaultImages[1] || defaultImages[0] || finalMedia[0]; // Stock Video
-    finalMedia[3] = images[1] || defaultImages[2] || finalMedia[0]; // User's 2nd image 
-    finalMedia[4] = defaultImages[2] || defaultImages[1] || finalMedia[0]; // Stock Video
-    finalMedia[5] = images[2] || images[0] || defaultImages[3] || finalMedia[0]; // User's Logo/CTA image
+    finalMedia[0] = defaultImages[0] || "https://loremflickr.com/1920/1080/office,business?random=1";
+    finalMedia[1] = images[0] || defaultImages[1] || finalMedia[0];
+    finalMedia[2] = defaultImages[1] || defaultImages[0] || finalMedia[0];
+    finalMedia[3] = images[1] || defaultImages[2] || finalMedia[0];
+    finalMedia[4] = defaultImages[2] || defaultImages[1] || finalMedia[0];
+    finalMedia[5] = images[2] || defaultImages[3] || finalMedia[0];
+    finalMedia[6] = images[3] || images[0] || defaultImages[3] || finalMedia[0];
 
     // Generate Native OpenAI Voiceover
     let voiceoverBase64 = null;
@@ -158,11 +159,10 @@ exports.handler = async (event, context) => {
         "Video-4": finalMedia[3],
         "Video-5": finalMedia[4],
         "Video-6": finalMedia[5],
-        "Picture": images[0] || finalMedia[1],
-        "Brand-Name": businessName || "CTV Boss Client",
+        "Video-7": finalMedia[6],
+        "Brand-Name": businessName || "CTV Homes Client",
         "Phone-Number": "555-123-4567",
-        "Email": "info@ctvbossclient.com",
-        "Name": "" // Clear placeholder
+        "Email": "info@ctvbossclient.com"
       }
     };
 

@@ -1,7 +1,7 @@
 {
   "name": "ctv-boss-backend",
   "version": "1.0.0",
-  "description": "Backend API for CTV Boss Ad Creator",
+  "description": "Backend API for CTV Homes Ad Creator",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",

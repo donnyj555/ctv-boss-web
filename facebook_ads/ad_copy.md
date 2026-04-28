@@ -1,6 +1,6 @@
-# CTV BOSS - Facebook Ad Copy Options
+# CTV HOMES - Facebook Ad Copy Options
 
-These ads are designed to pair perfectly with the Facebook Ad images we generated. Be sure to replace `[Link to Promo Site]` with your actual lead funnel link (e.g., `promo.ctvboss.com`).
+These ads are designed to pair perfectly with the Facebook Ad images we generated. Be sure to replace `[Link to Promo Site]` with your actual lead funnel link (e.g., `promo.ctvhomes.com`).
 
 ---
 
@@ -11,7 +11,7 @@ These ads are designed to pair perfectly with the Facebook Ad images we generate
 **Primary Text:**
 Thought your business couldn’t afford to advertise on TV alongside the major networks? Think again. 👇
 
-With CTV BOSS, we put your local business directly into the living rooms of your ideal customers—on screens where they're already streaming their favorite shows and live sports. 
+With CTV HOMES, we put your local business directly into the living rooms of your ideal customers—on screens where they're already streaming their favorite shows and live sports. 
 
 No massive agency retainers. No wasted ad spend. 
 
@@ -37,7 +37,7 @@ Stop competing in a crowded social media feed. Be the business they watch on the
 **Primary Text:**
 Ever wonder how the top [Real Estate Agents / Home Remodeling Contractors] in your area seem to be everywhere? They aren’t just running Facebook ads—they dominate the Big Screen. 🛋️🎬
 
-With CTV BOSS, we stream your commercial directly to homeowners in your exact target Zip Codes while they sit on the couch watching premium networks. 
+With CTV HOMES, we stream your commercial directly to homeowners in your exact target Zip Codes while they sit on the couch watching premium networks. 
 
 It’s the trust and authority of traditional television, combined with the precision targeting of digital marketing. 
 
@@ -60,7 +60,7 @@ Click below to use our free Zip Code Reach Estimator and see exactly how many ho
 **Primary Text:**
 The era of "guessing" if your TV commercial worked is completely over. 📉➡️📈
 
-Welcome to Performance TV with CTV BOSS. We take your commercial, place it on the biggest screen in the house during premium streaming content, and then *track exactly what happens next.*
+Welcome to Performance TV with CTV HOMES. We take your commercial, place it on the biggest screen in the house during premium streaming content, and then *track exactly what happens next.*
 
 Did they watch your ad and then visit your website? Did they search for your brand? Did they call your store? We track it all. 
 

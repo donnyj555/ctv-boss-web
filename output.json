@@ -1,0 +1,444 @@
+{
+  "name": "Ad Creator - Built-in Real Estate Dynamic 7-Scene",
+  "format": "16:9",
+  "frame_rate": 30,
+  "duration": 30,
+  "elements": [
+    {
+      "type": "audio",
+      "source": "https://creatomate-static.s3.amazonaws.com/demo/music1.wav",
+      "audio_fade_out": 2
+    },
+    {
+      "name": "Voiceover",
+      "type": "text-to-speech",
+      "text": "Welcome to our beautiful new properties. We are here to help you find your dream home.",
+      "voice": "en-US-JennyNeural"
+    },
+    {
+      "type": "track",
+      "elements": [
+        {
+          "name": "Scene-1",
+          "type": "composition",
+          "track": 1,
+          "duration": 5.5,
+          "elements": [
+            {
+              "name": "Video-1",
+              "type": "video",
+              "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
+              "animations": [
+                {
+                  "type": "pan",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "115%"
+                }
+              ]
+            },
+            {
+              "name": "Kinetic-Sweep-1",
+              "type": "shape",
+              "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%)",
+              "width": "50%",
+              "blend_mode": "overlay",
+              "animations": [
+                {
+                  "type": "pan",
+                  "start": "-200%",
+                  "end": "200%",
+                  "duration": 5
+                }
+              ]
+            },
+            {
+              "name": "Brand-Name",
+              "type": "text",
+              "text": "CTV Homes Real Estate",
+              "font_family": "Montserrat",
+              "font_weight": "800",
+              "font_size": "5.5vmax",
+              "fill_color": "#ffffff",
+              "background_color": "rgba(40,40,40,0.8)",
+              "background_border_radius": "5vmax",
+              "background_x_padding": "5%",
+              "background_y_padding": "2%",
+              "y": "80%",
+              "enter": [
+                {
+                  "type": "slide-up"
+                }
+              ],
+              "exit": [
+                {
+                  "type": "fade-out"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Scene-2",
+          "type": "composition",
+          "track": 1,
+          "duration": 5,
+          "transition": {
+            "type": "wipe",
+            "direction": "right",
+            "duration": 1
+          },
+          "elements": [
+            {
+              "name": "Video-2",
+              "type": "video",
+              "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4",
+              "animations": [
+                {
+                  "type": "pan",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "110%"
+                }
+              ]
+            },
+            {
+              "name": "Kinetic-Sweep-2",
+              "type": "shape",
+              "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%)",
+              "width": "50%",
+              "blend_mode": "overlay",
+              "animations": [
+                {
+                  "type": "pan",
+                  "start": "200%",
+                  "end": "-200%",
+                  "duration": 5
+                }
+              ]
+            },
+            {
+              "name": "Feature-1",
+              "type": "text",
+              "text": "Discover Your Dream Property",
+              "font_family": "Montserrat",
+              "font_weight": "700",
+              "font_size": "4vmax",
+              "fill_color": "#ffffff",
+              "background_color": "rgba(40,40,40,0.8)",
+              "background_border_radius": "5vmax",
+              "background_x_padding": "6%",
+              "background_y_padding": "2%",
+              "y": "85%",
+              "enter": [
+                {
+                  "type": "fade-in"
+                }
+              ],
+              "exit": [
+                {
+                  "type": "fade-out"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Scene-3",
+          "type": "composition",
+          "track": 1,
+          "duration": 5,
+          "transition": {
+            "type": "cross-zoom",
+            "duration": 1
+          },
+          "elements": [
+            {
+              "name": "Video-3",
+              "type": "video",
+              "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
+              "animations": [
+                {
+                  "type": "scale-up",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "115%"
+                }
+              ]
+            },
+            {
+              "name": "Feature-2",
+              "type": "text",
+              "text": "Luxury Appointments",
+              "font_family": "Montserrat",
+              "font_weight": "800",
+              "font_size": "4.5vmax",
+              "fill_color": "#ffffff",
+              "background_color": "rgba(40,40,40,0.8)",
+              "background_border_radius": "5vmax",
+              "background_x_padding": "6%",
+              "background_y_padding": "2%",
+              "y": "50%",
+              "enter": [
+                {
+                  "type": "scale-up"
+                }
+              ],
+              "exit": [
+                {
+                  "type": "fade-out"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Scene-4",
+          "type": "composition",
+          "track": 1,
+          "duration": 5,
+          "transition": {
+            "type": "wipe",
+            "direction": "left",
+            "duration": 1
+          },
+          "elements": [
+            {
+              "name": "Video-4",
+              "type": "video",
+              "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4",
+              "animations": [
+                {
+                  "type": "scale-up",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "110%"
+                }
+              ]
+            },
+            {
+              "name": "Kinetic-Sweep-4",
+              "type": "shape",
+              "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%)",
+              "width": "50%",
+              "blend_mode": "overlay",
+              "animations": [
+                {
+                  "type": "pan",
+                  "start": "200%",
+                  "end": "-200%",
+                  "duration": 5
+                }
+              ]
+            },
+            {
+              "name": "Feature-3",
+              "type": "text",
+              "text": "Unmatched Local Expertise",
+              "font_family": "Montserrat",
+              "font_weight": "700",
+              "font_size": "4vmax",
+              "fill_color": "#ffffff",
+              "background_color": "rgba(40,40,40,0.8)",
+              "background_border_radius": "5vmax",
+              "background_x_padding": "6%",
+              "background_y_padding": "2%",
+              "y": "80%",
+              "enter": [
+                {
+                  "type": "slide-up"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Scene-5",
+          "type": "composition",
+          "track": 1,
+          "duration": 5,
+          "transition": {
+            "type": "fade",
+            "duration": 1
+          },
+          "elements": [
+            {
+              "name": "Video-5",
+              "type": "video",
+              "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
+              "animations": [
+                {
+                  "type": "pan",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "115%"
+                }
+              ]
+            },
+            {
+              "name": "Feature-4",
+              "type": "text",
+              "text": "Spacious Floor Plans",
+              "font_family": "Montserrat",
+              "font_weight": "700",
+              "font_size": "4.5vmax",
+              "fill_color": "#ffffff",
+              "background_color": "rgba(40,40,40,0.8)",
+              "background_border_radius": "5vmax",
+              "background_x_padding": "6%",
+              "background_y_padding": "2%",
+              "y": "20%",
+              "enter": [
+                {
+                  "type": "scale-up"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Scene-6",
+          "type": "composition",
+          "track": 1,
+          "duration": 5,
+          "transition": {
+            "type": "wipe",
+            "direction": "right",
+            "duration": 1
+          },
+          "elements": [
+            {
+              "name": "Video-6",
+              "type": "video",
+              "source": "https://creatomate-static.s3.amazonaws.com/demo/video2.mp4",
+              "animations": [
+                {
+                  "type": "pan",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "110%"
+                }
+              ]
+            },
+            {
+              "name": "Kinetic-Sweep-6",
+              "type": "shape",
+              "fill_color": "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%)",
+              "width": "50%",
+              "blend_mode": "overlay",
+              "animations": [
+                {
+                  "type": "pan",
+                  "start": "200%",
+                  "end": "-200%",
+                  "duration": 5
+                }
+              ]
+            },
+            {
+              "name": "Feature-5",
+              "type": "text",
+              "text": "Your Family Deserves It",
+              "font_family": "Montserrat",
+              "font_weight": "700",
+              "font_size": "4.2vmax",
+              "fill_color": "#ffffff",
+              "background_color": "rgba(40,40,40,0.8)",
+              "background_border_radius": "5vmax",
+              "background_x_padding": "6%",
+              "background_y_padding": "2%",
+              "y": "85%",
+              "enter": [
+                {
+                  "type": "slide-up"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Scene-7",
+          "type": "composition",
+          "track": 1,
+          "duration": 5.5,
+          "transition": {
+            "type": "fade",
+            "duration": 1
+          },
+          "elements": [
+            {
+              "name": "Video-7",
+              "type": "video",
+              "source": "https://creatomate-static.s3.amazonaws.com/demo/video1.mp4",
+              "animations": [
+                {
+                  "type": "scale-up",
+                  "start": "0%",
+                  "end": "100%",
+                  "scale": "115%"
+                }
+              ]
+            },
+            {
+              "name": "Subtext",
+              "type": "text",
+              "text": "Call us today to schedule a viewing!",
+              "font_family": "Montserrat",
+              "font_weight": "900",
+              "font_size": "4vmax",
+              "fill_color": "#ffffff",
+              "background_color": "#dc143c",
+              "background_border_radius": "5vmax",
+              "background_x_padding": "5%",
+              "background_y_padding": "2%",
+              "y": "40%",
+              "enter": [
+                {
+                  "type": "scale-up"
+                }
+              ]
+            },
+            {
+              "name": "Phone-Number",
+              "type": "text",
+              "text": "555-123-4567",
+              "font_family": "Montserrat",
+              "font_weight": "700",
+              "font_size": "3.5vmax",
+              "fill_color": "#ffffff",
+              "background_color": "rgba(40,40,40,0.8)",
+              "background_border_radius": "5vmax",
+              "background_x_padding": "4%",
+              "background_y_padding": "1%",
+              "y": "60%",
+              "enter": [
+                {
+                  "type": "slide-up"
+                }
+              ]
+            },
+            {
+              "name": "Email",
+              "type": "text",
+              "text": "info@ctvhomes.com",
+              "font_family": "Montserrat",
+              "font_weight": "600",
+              "font_size": "3vmax",
+              "fill_color": "#ffffff",
+              "background_color": "rgba(40,40,40,0.8)",
+              "background_border_radius": "5vmax",
+              "background_x_padding": "4%",
+              "background_y_padding": "1%",
+              "y": "72%",
+              "enter": [
+                {
+                  "type": "slide-up"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

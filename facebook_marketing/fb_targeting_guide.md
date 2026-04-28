@@ -1,4 +1,4 @@
-# Facebook Ads Targeting Guide for CTV BOSS
+# Facebook Ads Targeting Guide for CTV HOMES
 
 To get the best return on your Facebook Ads, you need to reach the decision-makers (owners, founders, marketing directors). Below is the recommended targeting setup specifically designed for local B2B lead generation.
 
