@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
     // Scroll handling for Navigation
     const navbar = document.querySelector('.navbar');
 
@@ -149,6 +159,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Interactive ROI Tools Logic
 document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+
     // 1. Budget Slider Logic
     const budgetSlider = document.getElementById('budgetSlider');
     const budgetValueDisplay = document.getElementById('budgetValue');
