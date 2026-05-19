@@ -10,4 +10,4 @@
 # So the homepage, marketing pages, and assets are unaffected; only unknown
 # paths fall through to this proxy.
 
-/*  https://realestate.ctvhomes.com/l/:splat  200
+/*  https://realestate.ctvhomes.com/l/:splat  200!

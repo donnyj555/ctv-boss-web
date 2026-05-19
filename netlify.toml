@@ -14,4 +14,10 @@
   from = "/*"
   to = "https://realestate.ctvhomes.com/l/:splat"
   status = 200
-  force = false
+  # force=true makes this rule apply even when Netlify's file-matching
+  # would otherwise serve a static file at the same path. We're using
+  # this to debug a case where the rule wasn't firing at all — once
+  # confirmed working, this can stay (no marketing page lives at a
+  # digit-prefixed path, and the rule only matches non-file paths
+  # anyway, so the "force" is belt-and-suspenders).
+  force = true
