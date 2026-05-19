@@ -25,10 +25,11 @@
   status = 200
   force = true
 
-# Catch-all for everything else: /{slug} on the marketing domain maps to
-# /l/{slug} on the Railway app.
+# Catch-all for unknown paths only. force MUST stay false here so the
+# marketing site's static files (homepage, /pricing, /plans, /blog, etc.)
+# take precedence; only unmatched paths fall through to the proxy.
 [[redirects]]
   from = "/*"
   to = "https://realestate.ctvhomes.com/l/:splat"
   status = 200
-  force = true
+  force = false
