@@ -1,0 +1,13 @@
+# Per-listing landing pages live on the ctvreel-agent app at
+# realestate.ctvhomes.com/l/{slug}. Burning that long subdomain into a CTV ad
+# would be a mouthful — agents say "ctvhomes.com slash 419 Quaker" much more
+# naturally. This catch-all rewrites any path that doesn't match a static
+# file in the marketing site (pricing, plans, blog, terms, privacy, order,
+# success, etc.) to the Railway app's /l/{slug} route. Browser URL stays as
+# ctvhomes.com/* because the rule uses status 200 (rewrite, not redirect).
+#
+# Netlify serves static files first — files always win over redirect rules.
+# So the homepage, marketing pages, and assets are unaffected; only unknown
+# paths fall through to this proxy.
+
+/*  https://realestate.ctvhomes.com/l/:splat  200
