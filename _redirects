@@ -1,13 +1,26 @@
 # Per-listing landing pages live on the ctvreel-agent app at
 # realestate.ctvhomes.com/l/{slug}. Burning that long subdomain into a CTV ad
 # would be a mouthful — agents say "ctvhomes.com slash 419 Quaker" much more
-# naturally. This catch-all rewrites any path that doesn't match a static
-# file in the marketing site (pricing, plans, blog, terms, privacy, order,
-# success, etc.) to the Railway app's /l/{slug} route. Browser URL stays as
-# ctvhomes.com/* because the rule uses status 200 (rewrite, not redirect).
+# naturally.
 #
-# Netlify serves static files first — files always win over redirect rules.
-# So the homepage, marketing pages, and assets are unaffected; only unknown
-# paths fall through to this proxy.
+# IMPORTANT: the order of these rules matters. Netlify processes them top to
+# bottom, first match wins. Static-asset paths (_next, api) need to proxy
+# straight through WITHOUT the /l/ prefix — otherwise the browser's request
+# for /_next/static/chunks/foo.css gets rewritten to /l/_next/static/chunks/foo.css
+# on Railway, which 404s, and the landing page renders unstyled.
 
-/*  https://realestate.ctvhomes.com/l/:splat  200!
+# Next.js bundles (CSS, JS, fonts, image optimizer). Pass through unchanged.
+/_next/*    https://realestate.ctvhomes.com/_next/:splat    200!
+
+# API routes (lead submit, etc). Same — pass through unchanged.
+/api/*      https://realestate.ctvhomes.com/api/:splat      200!
+
+# Static assets the Next.js app might reference directly.
+/favicon.ico   https://realestate.ctvhomes.com/favicon.ico  200
+
+# Catch-all for everything else: /{slug} on the marketing domain maps to
+# /l/{slug} on the Railway app, which renders the per-listing landing page.
+# Netlify serves static files first, so marketing pages (pricing, plans,
+# blog, etc.) keep getting served from here unchanged — only unknown paths
+# fall through to this proxy.
+/*          https://realestate.ctvhomes.com/l/:splat        200!

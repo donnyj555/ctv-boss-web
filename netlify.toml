@@ -5,19 +5,30 @@
 [dev]
   port = 8899
 
-# Catch-all proxy for per-listing landing pages on the Railway app.
-# Duplicated from _redirects on purpose — both formats are supported and we
-# hit a case where the _redirects file alone didn't seem to take effect.
-# The toml form is processed identically by Netlify; having both is harmless
-# and gives belt-and-suspenders coverage.
+# Proxy rules for the per-listing landing page on Railway. Order matters —
+# Netlify processes top to bottom. Static-asset prefixes need to pass through
+# unchanged BEFORE the catch-all rewrites /{slug} → /l/{slug}; otherwise CSS
+# and JS bundles get the /l/ prefix appended and the landing page renders
+# unstyled.
+
+# Next.js bundle assets — CSS, JS chunks, fonts, image optimizer.
+[[redirects]]
+  from = "/_next/*"
+  to = "https://realestate.ctvhomes.com/_next/:splat"
+  status = 200
+  force = true
+
+# API routes (lead form submit lives here).
+[[redirects]]
+  from = "/api/*"
+  to = "https://realestate.ctvhomes.com/api/:splat"
+  status = 200
+  force = true
+
+# Catch-all for everything else: /{slug} on the marketing domain maps to
+# /l/{slug} on the Railway app.
 [[redirects]]
   from = "/*"
   to = "https://realestate.ctvhomes.com/l/:splat"
   status = 200
-  # force=true makes this rule apply even when Netlify's file-matching
-  # would otherwise serve a static file at the same path. We're using
-  # this to debug a case where the rule wasn't firing at all — once
-  # confirmed working, this can stay (no marketing page lives at a
-  # digit-prefixed path, and the rule only matches non-file paths
-  # anyway, so the "force" is belt-and-suspenders).
   force = true
