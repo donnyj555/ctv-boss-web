@@ -14,6 +14,12 @@
 # /plans, /blog, etc.) and only paths that don't match a marketing-site
 # file fall through to the proxy.
 
+# Defensive: bare /l (no slug after) shouldn't proxy to Railway with an
+# empty splat. Redirect to the homepage so the bad URL doesn't dead-end on
+# a 404 page. Specific rule matched before the catch-all.
+/l          /                                               301
+/l/         /                                               301
+
 # Next.js bundles (CSS, JS, fonts, image optimizer). Pass through unchanged.
 /_next/*    https://realestate.ctvhomes.com/_next/:splat    200!
 

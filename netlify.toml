@@ -11,6 +11,19 @@
 # and JS bundles get the /l/ prefix appended and the landing page renders
 # unstyled.
 
+# Defensive: a bare /l URL (no slug after) shouldn't proxy to Railway
+# with an empty splat. Browser autocomplete sometimes lands here when an
+# agent tabs through previously-visited URLs. 301 redirect to the
+# homepage so the bad URL doesn't dead-end.
+[[redirects]]
+  from = "/l"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/l/"
+  to = "/"
+  status = 301
+
 # Next.js bundle assets — CSS, JS chunks, fonts, image optimizer.
 [[redirects]]
   from = "/_next/*"
