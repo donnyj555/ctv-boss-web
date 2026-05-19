@@ -1,6 +1,17 @@
 [build]
   publish = "."
   functions = "netlify/functions"
-  
+
 [dev]
   port = 8899
+
+# Catch-all proxy for per-listing landing pages on the Railway app.
+# Duplicated from _redirects on purpose — both formats are supported and we
+# hit a case where the _redirects file alone didn't seem to take effect.
+# The toml form is processed identically by Netlify; having both is harmless
+# and gives belt-and-suspenders coverage.
+[[redirects]]
+  from = "/*"
+  to = "https://realestate.ctvhomes.com/l/:splat"
+  status = 200
+  force = false
