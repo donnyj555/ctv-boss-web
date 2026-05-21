@@ -29,5 +29,12 @@
 # Static assets the Next.js app might reference directly.
 /favicon.ico   https://realestate.ctvhomes.com/favicon.ico  200
 
+# Short share URLs for rendered MP4s. ctvhomes.com/v/{adId}?r=v&c=fb resolves
+# on the Railway app, which 302s to the actual Supabase render URL. Lets
+# agents share a ~38-char link instead of the 140-char Supabase one in
+# texts/emails. Force (`!`) so we never try to match these against a
+# marketing-page file.
+/v/*        https://realestate.ctvhomes.com/v/:splat        200!
+
 # Catch-all for unknown paths only. No `!` so marketing pages keep serving.
 /*          https://realestate.ctvhomes.com/l/:splat        200
