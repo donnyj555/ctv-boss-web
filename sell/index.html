@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    /sell — Homeowner-facing landing page for the magazine-ad QR code.
+
+    Audience: Poconos homeowners who scanned a magazine ad asking
+    "want your home on the biggest screen in the home?". They're sellers
+    (or curious about selling), NOT agents — so the brand here is Smart
+    Way America Realty (the brokerage), not CTV Homes (the agent tooling).
+
+    Built mobile-first because the entry vector is a QR code → phone.
+    Desktop styles cascade as a max-width container; the layout stays
+    readable on a 320px screen.
+
+    Form posts to the existing Formspree endpoint (same one landing.html
+    and step-2.html use). Redirects to /sell/thanks.html on success.
+    Skybeam + Meta Pixel fire pageview on load; the thanks page fires
+    the lead conversion event.
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell your Pocono home with Smart Way America Realty</title>
+  <meta name="description" content="Get a free home valuation and see your Pocono home advertised on Hulu, ESPN, FOX, CNN, HGTV, and more — only with Smart Way America Realty, the #1 independent brokerage in the Poconos.">
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MNMV8TKX');</script>
+
+  <!-- Skybeam Analytics — pageview on every landing -->
+  <script>
+  (function(e,n,t){e["$$sbFn"]=t;e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)};var c=n.getElementsByTagName("script")[0],o=n.createElement("script");o.async=true;o.src="https://www.skybeam-analytics.com/js/v1/beacon.js";c.parentNode.insertBefore(o,c)})(window,document,"sb_beacon");
+  sb_beacon('setup','beacon','9465b87b-bdf7-443e-a5f1-85e29dabd72d');
+  sb_beacon('setup','user_tracking',true);
+  sb_beacon('send','pageview');
+  </script>
+
+  <!-- Meta Pixel — CTV HOMES (775904325592773) for cross-channel attribution -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','775904325592773');
+  fbq('track','PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=775904325592773&ev=PageView&noscript=1" /></noscript>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─────────────────────────────────────────────────────────────────
+       Reset + base — keep this page self-contained (no styles.css
+       coupling to the agent-facing CTV HOMES brand). Mobile-first.
+       ───────────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #0c1424;
+      line-height: 1.55;
+      background: #fdfdfb;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, video { max-width: 100%; height: auto; display: block; }
+    a { color: inherit; }
+    button { font: inherit; cursor: pointer; }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Layout primitives
+       ───────────────────────────────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Hero — mirrors the magazine ad's hook so the scan-to-page
+       transition feels seamless.
+       ───────────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      padding: 28px 0 32px;
+      background:
+        linear-gradient(180deg, rgba(12,20,36,0.78) 0%, rgba(12,20,36,0.92) 100%),
+        url('/unskippable_tv.png') center top / cover no-repeat,
+        #0c1424;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+    .brand-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 18px;
+    }
+    .brand-row::before, .brand-row::after {
+      content: '';
+      width: 22px; height: 2px;
+      background: #d62828;
+    }
+    h1.hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 7vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 auto 14px;
+      max-width: 18ch;
+    }
+    h1.hero-title .accent {
+      color: #ffb800;
+      display: block;
+    }
+    .hero-sub {
+      font-size: clamp(15px, 3.5vw, 18px);
+      color: rgba(255,255,255,0.85);
+      max-width: 32ch;
+      margin: 0 auto 22px;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: #d62828;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 16px 28px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 12px 28px -10px rgba(214, 40, 40, 0.55);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .hero-cta:hover, .hero-cta:focus { transform: translateY(-1px); box-shadow: 0 16px 32px -10px rgba(214, 40, 40, 0.65); }
+    .hero-cta-note {
+      display: block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Streaming partner strip — proof points right after the hero.
+       Logo files are SVG inline so we don't have a dozen image
+       round-trips on a low-bandwidth phone connection at a magazine
+       reader's house.
+       ───────────────────────────────────────────────────────────────── */
+    .streams {
+      background: #0c1424;
+      color: rgba(255,255,255,0.9);
+      padding: 18px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .streams-label {
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 12px;
+    }
+    .streams-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 18px 28px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+    .streams-row span {
+      opacity: 0.85;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Value beats — three short benefit points
+       ───────────────────────────────────────────────────────────────── */
+    .beats {
+      padding: 40px 0;
+    }
+    .beats-grid {
+      display: grid;
+      gap: 16px;
+    }
+    .beat {
+      background: #fff;
+      border: 1px solid #eceef3;
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 4px 14px -8px rgba(12,20,36,0.08);
+    }
+    .beat-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      background: #fff1f1;
+      margin-bottom: 10px;
+    }
+    .beat h3 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+    .beat p {
+      font-size: 14.5px;
+      color: #4b5566;
+      line-height: 1.5;
+    }
+    @media (min-width: 560px) {
+      .beats-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Sample-ad video — proof this is real, not a pitch-deck promise.
+       Uses an existing rendered Smart Way America Realty ad served from
+       the marketing-site root.
+       ───────────────────────────────────────────────────────────────── */
+    .sample {
+      padding: 0 0 40px;
+    }
+    .sample-card {
+      background: #0c1424;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 14px 40px -16px rgba(12,20,36,0.32);
+    }
+    .sample-card video { display: block; width: 100%; }
+    .sample-label {
+      padding: 14px 18px;
+      color: rgba(255,255,255,0.88);
+      font-size: 14px;
+      text-align: center;
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Form — the conversion event. Big tap targets for mobile.
+       ───────────────────────────────────────────────────────────────── */
+    .form-section {
+      background: #f7f6f1;
+      padding: 44px 0 50px;
+      border-top: 1px solid #eceef3;
+    }
+    .form-heading {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+    .form-heading h2 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: clamp(24px, 6vw, 34px);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .form-heading p {
+      font-size: 15px;
+      color: #4b5566;
+      max-width: 36ch;
+      margin: 0 auto;
+    }
+    form.lead-form {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 24px 22px 26px;
+      border-radius: 18px;
+      box-shadow: 0 12px 36px -14px rgba(12,20,36,0.18);
+      border: 1px solid #eceef3;
+    }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #2a3344;
+      margin-bottom: 6px;
+    }
+    .field input, .field select {
+      width: 100%;
+      font: inherit;
+      font-size: 16px;     /* 16px so iOS doesn't zoom on focus */
+      padding: 12px 14px;
+      border: 1.5px solid #d6d9e0;
+      border-radius: 10px;
+      background: #fdfdfd;
+      transition: border-color .12s ease, box-shadow .12s ease;
+    }
+    .field input:focus, .field select:focus {
+      outline: none;
+      border-color: #d62828;
+      box-shadow: 0 0 0 4px rgba(214, 40, 40, 0.12);
+    }
+    .field-note {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+    /* Honeypot — bots fill every input they see; we hide this one and
+       reject any submission where it's non-empty (Formspree honors the
+       _gotcha field convention). */
+    .gotcha { position: absolute; left: -9999px; opacity: 0; }
+    button.submit {
+      width: 100%;
+      background: #d62828;
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      border: none;
+      padding: 15px 18px;
+      border-radius: 12px;
+      margin-top: 6px;
+      box-shadow: 0 8px 20px -8px rgba(214, 40, 40, 0.45);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    button.submit:hover, button.submit:focus { transform: translateY(-1px); }
+    .privacy {
+      text-align: center;
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 12px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       Footer — real-brokerage trust signals. Address + phone make this
+       feel like an actual local business, not a lead-flipping site.
+       ───────────────────────────────────────────────────────────────── */
+    footer {
+      background: #0c1424;
+      color: rgba(255,255,255,0.88);
+      padding: 36px 0 28px;
+      text-align: center;
+    }
+    .foot-brand {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
+    .foot-brand .red { color: #ff4040; }
+    footer .tagline {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+    }
+    .foot-contact {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 14.5px;
+      margin-bottom: 18px;
+    }
+    .foot-contact a {
+      color: #ffb800;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .foot-meta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      max-width: 40ch;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNMV8TKX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <!-- ───── Hero ───── -->
+  <section class="hero">
+    <div class="container">
+      <div class="brand-row">Smart Way America Realty</div>
+      <h1 class="hero-title">
+        We put your home on the
+        <span class="accent">biggest screen in the home.</span>
+      </h1>
+      <p class="hero-sub">
+        Smart Way America Realty puts Poconos listings on Hulu, ESPN, FOX, CNN, HGTV, and the streaming networks where real buyers spend hours every night.
+      </p>
+      <a href="#lead-form" class="hero-cta">Get my free home valuation →</a>
+      <span class="hero-cta-note">Free. No obligation. Takes 30 seconds.</span>
+    </div>
+  </section>
+
+  <!-- ───── Streaming partners ───── -->
+  <section class="streams">
+    <div class="container">
+      <div class="streams-label">Your home reaches buyers on</div>
+      <div class="streams-row">
+        <span>Hulu</span>
+        <span>ESPN</span>
+        <span>FOX</span>
+        <span>CNN</span>
+        <span>HGTV</span>
+        <span>Disney+</span>
+        <span>HBO Max</span>
+        <span>Paramount+</span>
+        <span>Peacock</span>
+        <span>16 WNEP</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Value beats ───── -->
+  <section class="beats">
+    <div class="container">
+      <div class="beats-grid">
+        <div class="beat">
+          <div class="beat-icon">📺</div>
+          <h3>On their TV</h3>
+          <p>Your home shows up alongside their favorite shows — not buried in a feed they scroll past.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-icon">🚫</div>
+          <h3>Unskippable</h3>
+          <p>Connected TV ads can't be skipped. Viewers have to watch your home, in full, every time.</p>
+        </div>
+        <div class="beat">
+          <div class="beat-icon">🏆</div>
+          <h3>#1 in the Poconos</h3>
+          <p>Smart Way America Realty is the #1 independent brokerage in the area. Local team, modern marketing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Sample ad ─────
+       The mp4 here is one of your existing rendered Smart Way America
+       Realty 30-second ads, served from the marketing site root. Plays
+       inline on mobile, muted by default (Safari requires muted to
+       autoplay; we don't autoplay anyway since the agent can read the
+       page first). -->
+  <section class="sample">
+    <div class="container">
+      <div class="sample-card">
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster="/unskippable_tv.png"
+          src="/smart-way-america-realty-30s.mp4"
+        ></video>
+        <div class="sample-label">A real Smart Way America Realty CTV ad — this is what your home would look like on TV.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Lead form ───── -->
+  <section class="form-section" id="lead-form">
+    <div class="container">
+      <div class="form-heading">
+        <h2>Get your free home valuation</h2>
+        <p>Tell us about your home and we'll send a no-obligation valuation, plus show you exactly how your listing would look on TV.</p>
+      </div>
+
+      <!--
+        Same Formspree endpoint as landing.html (mojkvjdk) for now.
+        _next sends the visitor to /sell/thanks.html where Skybeam fires
+        the lead conversion event. _subject overrides Formspree's
+        default email subject so Don can sort seller leads from buyer
+        leads in his inbox without setting up a second Formspree form.
+      -->
+      <form class="lead-form" action="https://formspree.io/f/mojkvjdk" method="POST">
+        <input type="hidden" name="_subject" value="🏡 NEW SELLER LEAD — Smart Way America Realty (/sell)">
+        <input type="hidden" name="_next" value="https://ctvhomes.com/sell/thanks.html">
+        <input type="hidden" name="source" value="magazine-ad-/sell">
+
+        <div class="field">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" required autocomplete="name" placeholder="First and last name">
+        </div>
+
+        <div class="field">
+          <label for="phone">Cell phone</label>
+          <input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="(570) 555-0123">
+          <div class="field-note">We'll text or call within one business day.</div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+        </div>
+
+        <div class="field">
+          <label for="address">Property address</label>
+          <input id="address" name="address" type="text" required autocomplete="street-address" placeholder="123 Main St, Stroudsburg, PA">
+          <div class="field-note">Street address of the home you're thinking of selling.</div>
+        </div>
+
+        <div class="field">
+          <label for="timeframe">When are you thinking of selling?</label>
+          <select id="timeframe" name="timeframe" required>
+            <option value="">Choose one…</option>
+            <option value="now">Right now — I'm ready to list</option>
+            <option value="1-3 months">Within 1–3 months</option>
+            <option value="3-6 months">Within 3–6 months</option>
+            <option value="6-12 months">6–12 months out</option>
+            <option value="just curious">Just curious about my home's value</option>
+          </select>
+        </div>
+
+        <!-- Honeypot field — hidden from real users; bots fill it. -->
+        <div class="gotcha" aria-hidden="true">
+          <label>Don't fill this in: <input name="_gotcha" tabindex="-1" autocomplete="off"></label>
+        </div>
+
+        <button class="submit" type="submit">Get my free home valuation →</button>
+        <div class="privacy">We never sell your info. You'll only hear from Smart Way America Realty.</div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ───── Footer ───── -->
+  <footer>
+    <div class="container">
+      <div class="foot-brand">Smart Way <span class="red">America</span> Realty</div>
+      <div class="tagline">Innovation. Experience. Results.</div>
+      <div class="foot-contact">
+        <div><a href="tel:5703711613">📞 570-371-5163</a></div>
+        <div>528 Seven Bridges Rd, Suite 107<br>East Stroudsburg, PA 18301</div>
+      </div>
+      <div class="foot-meta">
+        #1 Independent Brokerage in the Poconos. Locally owned. Modern marketing.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

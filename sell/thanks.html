@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    /sell/thanks — Confirmation page reached via Formspree's _next
+    redirect after the seller lead form on /sell submits successfully.
+    Fires the Skybeam + Meta Pixel "lead" conversion events so the
+    magazine-driven traffic is attributable in both dashboards.
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thanks — Smart Way America Realty</title>
+  <meta name="description" content="Thanks for reaching out to Smart Way America Realty. We'll be in touch shortly with your free home valuation.">
+
+  <!-- Skybeam Analytics — pageview + LEAD conversion event -->
+  <script>
+  (function(e,n,t){e["$$sbFn"]=t;e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)};var c=n.getElementsByTagName("script")[0],o=n.createElement("script");o.async=true;o.src="https://www.skybeam-analytics.com/js/v1/beacon.js";c.parentNode.insertBefore(o,c)})(window,document,"sb_beacon");
+  sb_beacon('setup','beacon','9465b87b-bdf7-443e-a5f1-85e29dabd72d');
+  sb_beacon('setup','user_tracking',true);
+  sb_beacon('send','pageview');
+  sb_beacon('send','event','lead',{lead_category:'ctvhomes_sell'});
+  </script>
+
+  <!-- Meta Pixel — Lead event so Meta ads can optimize for this conversion -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','775904325592773');
+  fbq('track','PageView');
+  fbq('track','Lead');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=775904325592773&ev=PageView&noscript=1" /></noscript>
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-MNMV8TKX');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #0c1424;
+      background: #0c1424;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      color: #fff;
+      text-align: center;
+    }
+    .card {
+      max-width: 520px;
+    }
+    .checkmark {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: #d62828;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 24px -8px rgba(214,40,40,0.55);
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: clamp(28px, 6vw, 38px);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 14px;
+    }
+    p {
+      font-size: clamp(15px, 3.5vw, 17px);
+      color: rgba(255,255,255,0.82);
+      max-width: 36ch;
+      margin: 0 auto 22px;
+      line-height: 1.55;
+    }
+    .what-next {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 18px 20px;
+      border-radius: 14px;
+      margin-bottom: 24px;
+      text-align: left;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .what-next h2 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 10px;
+    }
+    .what-next ol {
+      padding-left: 18px;
+      color: rgba(255,255,255,0.85);
+      font-size: 14.5px;
+      line-height: 1.6;
+    }
+    .what-next li { margin-bottom: 4px; }
+    .contact a {
+      color: #ffb800;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    footer {
+      padding: 22px 20px 28px;
+      text-align: center;
+      color: rgba(255,255,255,0.4);
+      font-size: 12.5px;
+    }
+    footer .brand {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.02em;
+      margin-bottom: 4px;
+    }
+    footer .brand .red { color: #ff4040; }
+  </style>
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MNMV8TKX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <main>
+    <div class="card">
+      <div class="checkmark">✓</div>
+      <h1>Got it — thanks for reaching out!</h1>
+      <p>We've received your info. A Smart Way America Realty agent will be in touch within one business day with your free home valuation.</p>
+
+      <div class="what-next">
+        <h2>What happens next</h2>
+        <ol>
+          <li>An agent reviews your address and comparable homes nearby.</li>
+          <li>We text or call you (whichever you prefer) with your valuation.</li>
+          <li>If you'd like to see how your home would look on TV, we'll show you a sample ad we'd run on Hulu, ESPN, and the other major networks.</li>
+        </ol>
+      </div>
+
+      <p class="contact">
+        Need to reach us sooner? Call <a href="tel:5703711613">570-371-5163</a>.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="brand">Smart Way <span class="red">America</span> Realty</div>
+    <div>528 Seven Bridges Rd, Suite 107 · East Stroudsburg, PA 18301</div>
+  </footer>
+</body>
+</html>
