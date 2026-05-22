@@ -448,11 +448,12 @@
   </section>
 
   <!-- ───── Sample ad ─────
-       The mp4 here is one of your existing rendered Smart Way America
-       Realty 30-second ads, served from the marketing site root. Plays
-       inline on mobile, muted by default (Safari requires muted to
-       autoplay; we don't autoplay anyway since the agent can read the
-       page first). -->
+       Real recently-rendered listing: 419 Quaker (Pocono area, agent
+       Shorena Yorealtor). Served via the /v/{adId} short-URL system —
+       302s to the Supabase MP4. Using the short URL means if the ad
+       gets re-rendered (new Cinemotion variant, aerial scene, etc.) the
+       embed picks it up automatically. Controls visible, no autoplay
+       so a magazine reader can scan-the-page first then choose to play. -->
   <section class="sample">
     <div class="container">
       <div class="sample-card">
@@ -460,8 +461,7 @@
           controls
           playsinline
           preload="metadata"
-          poster="/unskippable_tv.png"
-          src="/smart-way-america-realty-30s.mp4"
+          src="https://ctvhomes.com/v/cmpcr88h90003pi0ejtrrq5qo"
         ></video>
         <div class="sample-label">A real Smart Way America Realty CTV ad — this is what your home would look like on TV.</div>
       </div>
