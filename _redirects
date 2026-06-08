@@ -20,6 +20,13 @@
 /l          /                                               301
 /l/         /                                               301
 
+# Paths the app itself emits under /l/ (listing pages, /l/{slug}/thanks, agent
+# hub thanks) when viewed on this marketing host. Proxy straight through
+# WITHOUT re-adding the /l/ prefix — otherwise the catch-all below rewrites
+# /l/{x} → /l/l/{x} on Railway → 404. Force (`!`) so it always wins over the
+# catch-all. Matched after the bare /l rules above.
+/l/*        https://realestate.ctvhomes.com/l/:splat        200!
+
 # Next.js bundles (CSS, JS, fonts, image optimizer). Pass through unchanged.
 /_next/*    https://realestate.ctvhomes.com/_next/:splat    200!
 
