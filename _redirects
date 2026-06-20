@@ -27,6 +27,10 @@
 # catch-all. Matched after the bare /l rules above.
 /l/*        https://realestate.ctvhomes.com/l/:splat        200!
 
+# VSL landing page — clean URL for the Facebook ad ("ctvhomes.com/watch")
+# serves the static watch.html file. Must come before the catch-all proxy.
+/watch      /watch.html                                     200
+
 # Next.js bundles (CSS, JS, fonts, image optimizer). Pass through unchanged.
 /_next/*    https://realestate.ctvhomes.com/_next/:splat    200!
 
