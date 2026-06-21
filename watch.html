@@ -149,6 +149,14 @@
                     </video>
                 </div>
 
+                <div style="max-width: 900px; margin: -1rem auto 2rem; display: flex; justify-content: flex-end;">
+                    <button id="ccToggle" type="button" aria-pressed="true" title="Show or hide captions"
+                        style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.02em; padding: 7px 14px; border-radius: 999px; cursor: pointer; border: 1px solid rgba(255,51,102,0.5); background: rgba(255,51,102,0.18); color: #fff; transition: all 0.2s ease;">
+                        <span aria-hidden="true" style="font-weight: 800; border: 1.5px solid currentColor; border-radius: 4px; padding: 0 4px; font-size: 0.7rem; line-height: 1.4;">CC</span>
+                        <span id="ccLabel">Captions: On</span>
+                    </button>
+                </div>
+
                 <div class="hero-actions" style="justify-content: center;">
                     <a href="https://realestate.ctvhomes.com/agents" class="btn btn-primary btn-lg">Make my first ad &mdash; free</a>
                 </div>
@@ -221,6 +229,31 @@
     </footer>
 
     <script src="app.js?v=14"></script>
+    <!-- VSL caption toggle: one pill that reflects state; starts On -->
+    <script>
+    (function () {
+        var v = document.querySelector('video');
+        var btn = document.getElementById('ccToggle');
+        var label = document.getElementById('ccLabel');
+        if (!v || !btn || !label) return;
+        function track() { return (v.textTracks && v.textTracks[0]) ? v.textTracks[0] : null; }
+        function isOn() { var t = track(); return t ? t.mode === 'showing' : false; }
+        function render() {
+            var on = isOn();
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            label.textContent = on ? 'Captions: On' : 'Captions: Off';
+            btn.style.background = on ? 'rgba(255,51,102,0.18)' : 'rgba(255,255,255,0.05)';
+            btn.style.color = on ? '#fff' : 'var(--text-muted)';
+            btn.style.borderColor = on ? 'rgba(255,51,102,0.5)' : 'rgba(255,255,255,0.15)';
+        }
+        function setOn(on) { var t = track(); if (t) t.mode = on ? 'showing' : 'hidden'; render(); }
+        function init() { setOn(true); }                       // default: captions On
+        if (track()) init(); else v.addEventListener('loadedmetadata', init, { once: true });
+        btn.addEventListener('click', function () { setOn(!isOn()); });
+        // keep the pill in sync if the viewer uses the player's native CC menu
+        if (v.textTracks) v.textTracks.addEventListener('change', render);
+    })();
+    </script>
 </body>
 
 </html>
