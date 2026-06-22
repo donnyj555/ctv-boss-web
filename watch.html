@@ -257,6 +257,35 @@
         if (v.textTracks) v.textTracks.addEventListener('change', render);
     })();
     </script>
+    <!-- VSL engagement tracking: fires Start + 25/50/75/100% milestones to Meta Pixel & GTM dataLayer -->
+    <script>
+    (function () {
+        var v = document.querySelector('video');
+        if (!v) return;
+        var VIDEO = 'ctv-homes-vsl';
+        var fired = {};                                  // each milestone fires once per page view
+        function emit(name, pct) {
+            if (fired[name]) return;
+            fired[name] = true;
+            var data = { video_title: VIDEO, percent: pct };
+            // Meta Pixel — trackCustom hits all initialized pixels
+            if (window.fbq) { try { fbq('trackCustom', name, data); } catch (e) {} }
+            // GTM / GA4 dataLayer
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: name, video_title: VIDEO, video_percent: pct });
+        }
+        v.addEventListener('play', function () { emit('VSL_Start', 0); }, { once: true });
+        v.addEventListener('timeupdate', function () {
+            if (!v.duration || isNaN(v.duration)) return;
+            var p = (v.currentTime / v.duration) * 100;
+            if (p >= 25) emit('VSL_25', 25);
+            if (p >= 50) emit('VSL_50', 50);
+            if (p >= 75) emit('VSL_75', 75);
+            if (p >= 95) emit('VSL_100', 100);          // 95% counts as "completed" (people stop before the very last frame)
+        });
+        v.addEventListener('ended', function () { emit('VSL_100', 100); });
+    })();
+    </script>
 </body>
 
 </html>
