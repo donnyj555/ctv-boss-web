@@ -457,20 +457,22 @@
   </section>
 
   <!-- ───── Sample ad ─────
-       Real recently-rendered listing: 419 Quaker (Pocono area, agent
-       Shorena Yorealtor). Served via the /v/{adId} short-URL system —
-       302s to the Supabase MP4. Using the short URL means if the ad
-       gets re-rendered (new Cinemotion variant, aerial scene, etc.) the
-       embed picks it up automatically. Controls visible, no autoplay
-       so a magazine reader can scan-the-page first then choose to play. -->
+       Don's flagship example listing — 2144 Onondaga Way — the same ad
+       featured on the ctvhomes.com homepage. Served from the marketing-
+       site root (/2144-Onondaga-Way-tv-16x9-2.mp4). Autoplay muted + loop
+       to mirror the homepage; controls stay visible so a viewer can
+       unmute / replay. -->
   <section class="sample">
     <div class="container">
       <div class="sample-card">
         <video
-          controls
+          autoplay
+          loop
+          muted
           playsinline
+          controls
           preload="metadata"
-          src="https://ctvhomes.com/v/cmpcr88h90003pi0ejtrrq5qo"
+          src="/2144-Onondaga-Way-tv-16x9-2.mp4"
         ></video>
         <div class="sample-label">A real Smart Way America Realty CTV ad — this is what your home would look like on TV.</div>
       </div>
