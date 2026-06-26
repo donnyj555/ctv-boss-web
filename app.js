@@ -228,11 +228,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 } catch (e) { console.warn("City lookup failed", e); }
 
-                // Fetch Housing Units via US Census API (2022 ACS 5-Year Data)
+                // Fetch Housing Units via US Census API (2022 ACS 5-Year Data).
+                // The Census API now REQUIRES a free key — without it the request
+                // 302-redirects to a "Missing Key" page and the lookup fails.
+                // Get one (free, ~2 min): https://api.census.gov/data/key_signup.html
+                const CENSUS_API_KEY = "fd6d546670b9677251c4fcd0c21549f9eee1c33a";
                 let totalUnits = 0;
 
                 try {
-                    const censusUrl = `https://api.census.gov/data/2022/acs/acs5/profile?get=DP04_0001E&for=zip%20code%20tabulation%20area:${zip}`;
+                    const keyParam = CENSUS_API_KEY ? `&key=${CENSUS_API_KEY}` : "";
+                    const censusUrl = `https://api.census.gov/data/2022/acs/acs5/profile?get=DP04_0001E&for=zip%20code%20tabulation%20area:${zip}${keyParam}`;
                     const res = await fetch(censusUrl);
                     if (res.ok) {
                         const data = await res.json();
@@ -242,15 +247,20 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 } catch (e) {
-                    console.warn("Census fetch failed, using fallback", e);
+                    console.warn("Census fetch failed", e);
                 }
 
-                // Fallback deterministic logic if API failed or returned 0
+                // Honest failure — NEVER invent a number. If the Census lookup
+                // didn't return real data, tell the user instead of showing a
+                // fabricated household count.
                 if (!totalUnits || isNaN(totalUnits) || totalUnits < 1) {
-                    let seed = parseInt(zip, 10);
-                    let randomFactor = (Math.sin(seed++) * 10000);
-                    randomFactor = randomFactor - Math.floor(randomFactor);
-                    totalUnits = Math.floor(randomFactor * (18000 - 3000) + 3000);
+                    zipResult.classList.add('hidden');
+                    zipLoading.classList.remove('hidden');
+                    zipLoading.textContent =
+                        "Couldn't load live data for this ZIP right now — please try again in a moment.";
+                    zipLookupBtn.disabled = false;
+                    zipLookupBtn.textContent = "Search";
+                    return;
                 }
 
                 // 90% of Total Housing Units
