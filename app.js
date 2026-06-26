@@ -234,16 +234,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Get one (free, ~2 min): https://api.census.gov/data/key_signup.html
                 const CENSUS_API_KEY = "fd6d546670b9677251c4fcd0c21549f9eee1c33a";
                 let totalUnits = 0;
+                let medianValue = 0; // DP04_0089E — median home value, for the farming calc
 
                 try {
                     const keyParam = CENSUS_API_KEY ? `&key=${CENSUS_API_KEY}` : "";
-                    const censusUrl = `https://api.census.gov/data/2022/acs/acs5/profile?get=DP04_0001E&for=zip%20code%20tabulation%20area:${zip}${keyParam}`;
+                    // DP04_0001E = total housing units, DP04_0089E = median home value.
+                    const censusUrl = `https://api.census.gov/data/2022/acs/acs5/profile?get=DP04_0001E,DP04_0089E&for=zip%20code%20tabulation%20area:${zip}${keyParam}`;
                     const res = await fetch(censusUrl);
                     if (res.ok) {
                         const data = await res.json();
-                        // Expected Data format: [["DP04_0001E","zip code tabulation area"], ["12440","18360"]]
+                        // Expected: [["DP04_0001E","DP04_0089E","zip..."], ["12440","264000","18360"]]
                         if (data && data.length > 1 && data[1] && data[1][0]) {
                             totalUnits = parseInt(data[1][0], 10);
+                            const mv = parseInt(data[1][1], 10);
+                            if (!isNaN(mv) && mv > 0) medianValue = mv;
                         }
                     }
                 } catch (e) {
@@ -282,6 +286,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     zipSourceLink.href = `https://www.unitedstateszipcodes.org/${zip}/`;
                 }
 
+                // Feed the farming / listing-opportunity calculator with the
+                // real Census numbers for this ZIP, then render it.
+                farmState.units = totalUnits;
+                farmState.value = medianValue;
+                farmState.zip = zip;
+                // Refresh the editable median-value field with this ZIP's real
+                // Census figure (the agent can still override it).
+                const farmValueEl = document.getElementById('farmValue');
+                if (farmValueEl) farmValueEl.value = medianValue || '';
+                renderFarming();
+
                 const timer = setInterval(() => {
                     currentCount += increment;
                     if (currentCount >= ctvHouseholds) {
@@ -307,4 +322,56 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // 3. Farming / listing-opportunity calculator. Driven by the same ZIP
+    //    lookup: real Census housing units + median home value → estimated
+    //    annual listings, commission dollars available, and the agent's slice
+    //    at a chosen market share. All assumptions are editable.
+    const farmState = { units: 0, value: 0, zip: '', share: 2 };
+    const fmtNum = (n) => new Intl.NumberFormat('en-US').format(Math.round(n));
+    const fmtUsd = (n) =>
+        n >= 1000000
+            ? '$' + (n / 1000000).toFixed(2) + 'M'
+            : '$' + new Intl.NumberFormat('en-US').format(Math.round(n));
+
+    function renderFarming() {
+        const box = document.getElementById('farmingResult');
+        if (!box || !farmState.units) return;
+        const turnover = (parseFloat((document.getElementById('farmTurnover') || {}).value) || 3.6) / 100;
+        const commission = (parseFloat((document.getElementById('farmCommission') || {}).value) || 2.5) / 100;
+        const valEl = document.getElementById('farmValue');
+        const medianValue = parseFloat(valEl && valEl.value) || farmState.value || 0;
+
+        const annual = farmState.units * turnover;
+        const commPerListing = medianValue * commission;
+        const myListings = annual * (farmState.share / 100);
+
+        const set = (id, txt) => { const e = document.getElementById(id); if (e) e.textContent = txt; };
+        set('farmZip', farmState.zip);
+        set('farmAnnual', fmtNum(annual));
+        set('farmMonthly', fmtNum(annual / 12));
+        set('farmWeekly', fmtNum(annual / 52));
+        set('farmCommissionTotal', fmtUsd(annual * commPerListing));
+        set('farmShareListings', fmtNum(myListings));
+        set('farmShareGCI', fmtUsd(myListings * commPerListing));
+        box.classList.remove('hidden');
+    }
+    // recompute live as the agent tweaks the assumptions
+    ['farmTurnover', 'farmCommission', 'farmValue'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', renderFarming);
+    });
+    // market-share selector
+    document.querySelectorAll('[data-share]').forEach((b) => {
+        b.addEventListener('click', () => {
+            farmState.share = parseFloat(b.getAttribute('data-share'));
+            document.querySelectorAll('[data-share]').forEach((x) => {
+                x.style.background = 'transparent';
+                x.style.color = 'var(--text-muted)';
+            });
+            b.style.background = 'var(--accent-red)';
+            b.style.color = '#fff';
+            renderFarming();
+        });
+    });
 });
