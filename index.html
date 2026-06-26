@@ -247,14 +247,14 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                 <div class="section-header text-center fade-in-up">
                     <span class="badge badge-accent">Interactive Tools</span>
                     <h2 class="section-title mt-4">See Your Potential Reach</h2>
-                    <p class="section-subtitle mt-4 text-muted">Use the tools below to estimate the number of streaming
-                        households in your area and calculate your potential return on ad spend.</p>
+                    <p class="section-subtitle mt-4 text-muted">Enter your ZIP to see the streaming households in your area
+                        — and how many listing opportunities are up for grabs in your farm.</p>
                 </div>
 
-                <div class="grid grid-2 mt-10 gap-8">
+                <div class="mt-10" style="max-width: 600px; margin-left: auto; margin-right: auto;">
                     <!-- Tool 1: Zip Code Lookup -->
-                    <div class="card fade-in-left" style="padding: 2.5rem; border-color: rgba(220, 20, 60, 0.2);">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">1. Check Your Market Size</h3>
+                    <div class="card fade-in-up" style="padding: 2.5rem; border-color: rgba(220, 20, 60, 0.2);">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Check Your Market Size</h3>
                         <p class="text-muted mb-6" id="zipCodeDesc">Enter your primary zip code to lookup the total
                             available Connected TV households (~90% of total housing units) in your area.</p>
 
@@ -344,42 +344,6 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
                         </div>
                     </div>
 
-                    <!-- Tool 2: Budget Calculator -->
-                    <div class="card fade-in-right"
-                        style="padding: 2.5rem; background: linear-gradient(145deg, rgba(220, 20, 60, 0.05) 0%, var(--bg-card) 100%);">
-                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">2. Estimate Your ROI</h3>
-                        <p class="text-muted mb-6">Based on our $39.90 Cost Per Thousand Completed Views rate, see how
-                            far your monthly ad budget can
-                            go on premium streaming networks.</p>
-
-                        <div style="margin-bottom: 2rem;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-                                <label style="font-weight: 600;">Monthly Ad Spend</label>
-                                <span id="budgetValue"
-                                    style="font-weight: 700; color: var(--accent-red); font-size: 1.25rem;">$300</span>
-                            </div>
-                            <input type="range" id="budgetSlider" class="custom-slider" min="150" max="5000" step="50"
-                                value="300" style="width: 100%;">
-                        </div>
-
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div
-                                style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
-                                <span class="text-sm text-muted">Est. Completed Views</span>
-                                <div id="calcImpressions"
-                                    style="font-size: 1.75rem; font-weight: 700; margin-top: 0.5rem; color: white;">
-                                    10,000</div>
-                            </div>
-                            <div
-                                style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
-                                <span class="text-sm text-muted">Est. Site Visits <span style="font-size: 0.75rem;">(~2%
-                                        yield)</span></span>
-                                <div id="calcVisits"
-                                    style="font-size: 1.75rem; font-weight: 700; margin-top: 0.5rem; color: #4ade80;">
-                                    400</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
