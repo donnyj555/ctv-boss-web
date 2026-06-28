@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderFarming() {
         const box = document.getElementById('farmingResult');
         if (!box || !farmState.units) return;
-        const turnover = (parseFloat((document.getElementById('farmTurnover') || {}).value) || 3.6) / 100;
+        const turnover = (parseFloat((document.getElementById('farmTurnover') || {}).value) || 3) / 100;
         const commission = (parseFloat((document.getElementById('farmCommission') || {}).value) || 2.5) / 100;
         const valEl = document.getElementById('farmValue');
         const medianValue = parseFloat(valEl && valEl.value) || farmState.value || 0;
