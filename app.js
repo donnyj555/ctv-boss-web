@@ -228,7 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 } catch (e) { console.warn("City lookup failed", e); }
 
-                // Fetch Housing Units via US Census API (2022 ACS 5-Year Data).
+                // Fetch Housing Units via US Census API (2024 ACS 5-Year Data —
+                // the latest release; bump the year below as new vintages ship).
                 // The Census API now REQUIRES a free key — without it the request
                 // 302-redirects to a "Missing Key" page and the lookup fails.
                 // Get one (free, ~2 min): https://api.census.gov/data/key_signup.html
@@ -239,11 +240,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     const keyParam = CENSUS_API_KEY ? `&key=${CENSUS_API_KEY}` : "";
                     // DP04_0001E = total housing units, DP04_0089E = median home value.
-                    const censusUrl = `https://api.census.gov/data/2022/acs/acs5/profile?get=DP04_0001E,DP04_0089E&for=zip%20code%20tabulation%20area:${zip}${keyParam}`;
+                    const censusUrl = `https://api.census.gov/data/2024/acs/acs5/profile?get=DP04_0001E,DP04_0089E&for=zip%20code%20tabulation%20area:${zip}${keyParam}`;
                     const res = await fetch(censusUrl);
                     if (res.ok) {
                         const data = await res.json();
-                        // Expected: [["DP04_0001E","DP04_0089E","zip..."], ["12440","264000","18360"]]
+                        // Expected: [["DP04_0001E","DP04_0089E","zip..."], ["12539","312900","18360"]]
                         if (data && data.length > 1 && data[1] && data[1][0]) {
                             totalUnits = parseInt(data[1][0], 10);
                             const mv = parseInt(data[1][1], 10);
