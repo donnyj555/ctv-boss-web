@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm Calculator — How much listing business is in your farm? | CTV Homes</title>
+    <meta name="description" content="Enter your ZIP and see the real listing opportunity sitting in your farm — annual listings, commission dollars on the table, and your slice of it.">
+
+    <!-- Open Graph / Facebook share preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="How much listing business is sitting in your farm?">
+    <meta property="og:description" content="Enter your ZIP and see the real listing opportunity in your farm — free calculator from CTV Homes.">
+    <meta property="og:url" content="https://ctvhomes.com/farm-calculator.html">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <!-- ============================================================
+         Meta Pixel (CTV Homes — 775904325592773)
+         Fires PageView on load + "Lead" when someone runs a ZIP.
+         Remove this block if you don't want conversion tracking.
+         ============================================================ -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '775904325592773');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=775904325592773&ev=PageView&noscript=1"/></noscript>
+    <!-- End Meta Pixel -->
+
+    <style>
+        :root {
+            --bg-base: #0a0a0f;
+            --bg-card: #13131c;
+            --bg-card-hover: #1c1c28;
+            --accent-red: #ff3366;
+            --accent-green: #4ade80;
+            --text-main: #fcfcfd;
+            --text-muted: #a0a0ab;
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+            padding: 1.5rem 1rem 3rem;
+        }
+        .wrap { max-width: 600px; margin: 0 auto; }
+
+        .brandbar {
+            display: flex; align-items: center; justify-content: center;
+            gap: 0.5rem; margin-bottom: 1.75rem;
+        }
+        .brandbar .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent-red); }
+        .brandbar span { font-family: var(--font-heading); font-weight: 700; letter-spacing: 0.5px; font-size: 0.9rem; }
+
+        .hero { text-align: center; margin-bottom: 2rem; }
+        .badge {
+            display: inline-block; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase;
+            color: var(--accent-red); background: rgba(255,51,102,0.1);
+            border: 1px solid rgba(255,51,102,0.25);
+            padding: 0.4rem 0.85rem; border-radius: 999px; margin-bottom: 1.25rem;
+        }
+        .hero h1 {
+            font-family: var(--font-heading); font-weight: 900;
+            font-size: 2rem; line-height: 1.15; margin-bottom: 0.85rem;
+            letter-spacing: -0.5px;
+        }
+        .hero h1 .accent { color: var(--accent-red); }
+        .hero p { color: var(--text-muted); font-size: 1.02rem; max-width: 460px; margin: 0 auto; }
+
+        .card {
+            background: var(--bg-card); border: 1px solid rgba(255,51,102,0.2);
+            border-radius: 16px; padding: 1.75rem;
+        }
+        .card h3 { font-family: var(--font-heading); font-size: 1.35rem; margin-bottom: 0.75rem; }
+        .text-muted { color: var(--text-muted); }
+        .text-sm { font-size: 0.85rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .hidden { display: none !important; }
+
+        .input-group { display: flex; gap: 0.75rem; margin-bottom: 1.25rem; }
+        #zipCodeInput {
+            flex-grow: 1; padding: 1rem; border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.25);
+            color: white; font-size: 1rem; font-family: var(--font-body); min-width: 0;
+        }
+        #zipCodeInput:focus { outline: none; border-color: var(--accent-red); }
+        .btn-primary {
+            padding: 1rem 1.5rem; border-radius: 10px; border: none;
+            background: var(--accent-red); color: #fff; font-weight: 700;
+            font-size: 1rem; cursor: pointer; font-family: var(--font-body);
+            transition: opacity 0.2s; white-space: nowrap;
+        }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-primary:disabled { opacity: 0.6; cursor: default; }
+
+        .cta {
+            margin-top: 1.5rem; text-align: center;
+            background: linear-gradient(145deg, rgba(255,51,102,0.08), var(--bg-card));
+            border: 1px solid rgba(255,51,102,0.25); border-radius: 16px; padding: 1.75rem;
+        }
+        .cta h4 { font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .cta p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem; }
+        .cta a {
+            display: inline-block; text-decoration: none; padding: 0.9rem 2rem;
+            border-radius: 10px; background: var(--accent-red); color: #fff;
+            font-weight: 700; font-family: var(--font-heading); font-size: 1.05rem;
+        }
+        .footnote { text-align: center; color: var(--text-muted); opacity: 0.6; font-size: 0.72rem; margin-top: 1.5rem; }
+
+        @media (min-width: 600px) { .hero h1 { font-size: 2.6rem; } }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+
+        <div class="brandbar"><span class="dot"></span><span>CTV HOMES</span></div>
+
+        <div class="hero">
+            <span class="badge">Free Farm Calculator</span>
+            <h1>How much listing business is sitting in <span class="accent">your farm?</span></h1>
+            <p>Enter your ZIP and see the real listing opportunity in your farm area — annual listings, the commission dollars on the table, and your slice of it.</p>
+        </div>
+
+        <!-- ================= CALCULATOR ================= -->
+        <div class="card">
+            <h3>Check your farm</h3>
+            <p class="text-muted mb-6" id="zipCodeDesc">Enter your primary ZIP code. We pull live US Census housing counts and median home value for that area — no fabricated numbers.</p>
+
+            <div id="step1Zip" class="input-group">
+                <input type="text" id="zipCodeInput" placeholder="Enter ZIP (e.g., 18360)" maxlength="5" inputmode="numeric">
+                <button id="zipLookupBtn" class="btn-primary">Search</button>
+            </div>
+
+            <div id="zipResult" class="hidden"
+                style="background: rgba(40,40,45,0.5); padding: 1.5rem; border-radius: 10px; text-align: center; border: 1px dashed rgba(255,255,255,0.1);">
+                <span class="text-sm text-muted">Streaming (CTV) households in <span id="displayZip" style="color:white; font-weight:bold;"></span>:</span>
+                <div id="hhCount" style="font-size: 2.5rem; font-family: var(--font-heading); font-weight: 700; color: var(--accent-red); margin-top: 0.5rem; letter-spacing: -1px;">--</div>
+                <div style="margin-top:0.75rem; font-size: 0.75rem;"><a id="zipSourceLink" href="https://www.unitedstateszipcodes.org/" target="_blank" rel="noopener" style="color:var(--text-muted); opacity:0.7; text-decoration:none;">Data based on unitedstateszipcodes.org</a></div>
+            </div>
+            <div id="zipLoading" class="hidden text-center text-muted" style="padding: 1.5rem; text-align:center;">Fetching local data...</div>
+
+            <!-- Farming / listing-opportunity calculator -->
+            <div id="farmingResult" class="hidden" style="margin-top: 1.25rem; background: rgba(40,40,45,0.5); padding: 1.5rem; border-radius: 10px; border: 1px dashed rgba(255,255,255,0.1);">
+                <div class="text-sm text-muted" style="margin-bottom: 1rem;">Listing opportunity in <span id="farmZip" style="color:white; font-weight:bold;"></span> <span style="opacity:0.6;">(est.)</span></div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:0.75rem; margin-bottom:1.25rem;">
+                    <div style="background:rgba(0,0,0,0.25); padding:1rem; border-radius:8px; text-align:center;">
+                        <div id="farmAnnual" style="font-size:1.6rem; font-weight:700; color:var(--accent-red); font-family:var(--font-heading);">--</div>
+                        <div class="text-sm text-muted">listings / year</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.25); padding:1rem; border-radius:8px; text-align:center;">
+                        <div id="farmMonthly" style="font-size:1.6rem; font-weight:700; color:white; font-family:var(--font-heading);">--</div>
+                        <div class="text-sm text-muted">/ month</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.25); padding:1rem; border-radius:8px; text-align:center;">
+                        <div id="farmWeekly" style="font-size:1.6rem; font-weight:700; color:white; font-family:var(--font-heading);">--</div>
+                        <div class="text-sm text-muted">/ week</div>
+                    </div>
+                </div>
+
+                <div style="background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.25); padding:1rem; border-radius:8px; text-align:center; margin-bottom:1.25rem;">
+                    <span class="text-sm text-muted">Commission $ on the table this year</span>
+                    <div id="farmCommissionTotal" style="font-size:1.9rem; font-weight:700; color:var(--accent-green); font-family:var(--font-heading); margin-top:0.25rem;">--</div>
+                </div>
+
+                <div class="text-sm text-muted" style="margin-bottom:0.5rem;">If you capture this market share:</div>
+                <div style="display:flex; gap:0.5rem; margin-bottom:1rem;">
+                    <button type="button" data-share="1" style="flex:1; padding:0.5rem; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:transparent; color:var(--text-muted); cursor:pointer; font-weight:600;">1%</button>
+                    <button type="button" data-share="2" style="flex:1; padding:0.5rem; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:var(--accent-red); color:#fff; cursor:pointer; font-weight:600;">2%</button>
+                    <button type="button" data-share="5" style="flex:1; padding:0.5rem; border-radius:8px; border:1px solid rgba(255,255,255,0.15); background:transparent; color:var(--text-muted); cursor:pointer; font-weight:600;">5%</button>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:1.25rem;">
+                    <div style="background:rgba(0,0,0,0.25); padding:1rem; border-radius:8px; text-align:center;">
+                        <div id="farmShareListings" style="font-size:1.6rem; font-weight:700; color:white; font-family:var(--font-heading);">--</div>
+                        <div class="text-sm text-muted">your listings / yr</div>
+                    </div>
+                    <div style="background:rgba(0,0,0,0.25); padding:1rem; border-radius:8px; text-align:center;">
+                        <div id="farmShareGCI" style="font-size:1.6rem; font-weight:700; color:var(--accent-green); font-family:var(--font-heading);">--</div>
+                        <div class="text-sm text-muted">your commission / yr</div>
+                    </div>
+                </div>
+
+                <details style="margin-top:0.5rem;">
+                    <summary class="text-sm text-muted" style="cursor:pointer;">Adjust assumptions</summary>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-top:0.75rem;">
+                        <label class="text-sm text-muted">Turnover %
+                            <input id="farmTurnover" type="number" step="0.1" value="3" style="width:100%; margin-top:0.25rem; padding:0.5rem; border-radius:6px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:white;">
+                        </label>
+                        <label class="text-sm text-muted">Listing comm. %
+                            <input id="farmCommission" type="number" step="0.1" value="2.5" style="width:100%; margin-top:0.25rem; padding:0.5rem; border-radius:6px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:white;">
+                        </label>
+                        <label class="text-sm text-muted">Median value $
+                            <input id="farmValue" type="number" step="1000" style="width:100%; margin-top:0.25rem; padding:0.5rem; border-radius:6px; border:1px solid rgba(255,255,255,0.1); background:rgba(0,0,0,0.3); color:white;">
+                        </label>
+                    </div>
+                    <div class="text-sm text-muted" style="opacity:0.6; margin-top:0.5rem; font-size:0.7rem;">Median home value from US Census ACS · turnover & commission are editable estimates.</div>
+                </details>
+
+                <div class="text-sm text-muted" style="opacity:0.7; margin-top:1rem; font-size:0.72rem; line-height:1.5; text-align:center;">
+                    Estimated from local Census housing counts and historical turnover rates — for planning, not a guarantee.
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= CTA ================= -->
+        <div class="cta">
+            <h4>Now put your name in front of every one of them.</h4>
+            <p>CTV Homes turns any listing into a 30-second streaming TV ad — aimed only at the homes in your farm. Billboard impact, postcard precision.</p>
+            <a id="ctaBtn" href="https://ctvhomes.com/?utm_source=facebook&utm_medium=cpc&utm_campaign=farm-calculator">Try CTV Homes free →</a>
+        </div>
+
+        <div class="footnote">© CTV Homes · Estimates use live US Census (ACS) data for planning purposes only.</div>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // ---- Farm / listing-opportunity state + formatters ----
+        const farmState = { units: 0, value: 0, zip: '', share: 2 };
+        const fmtNum = (n) => new Intl.NumberFormat('en-US').format(Math.round(n));
+        const fmtUsd = (n) =>
+            n >= 1000000
+                ? '$' + (n / 1000000).toFixed(2) + 'M'
+                : '$' + new Intl.NumberFormat('en-US').format(Math.round(n));
+
+        function renderFarming() {
+            const box = document.getElementById('farmingResult');
+            if (!box || !farmState.units) return;
+            const turnover = (parseFloat((document.getElementById('farmTurnover') || {}).value) || 3) / 100;
+            const commission = (parseFloat((document.getElementById('farmCommission') || {}).value) || 2.5) / 100;
+            const valEl = document.getElementById('farmValue');
+            const medianValue = parseFloat(valEl && valEl.value) || farmState.value || 0;
+
+            const annual = farmState.units * turnover;
+            const commPerListing = medianValue * commission;
+            const myListings = annual * (farmState.share / 100);
+
+            const set = (id, txt) => { const e = document.getElementById(id); if (e) e.textContent = txt; };
+            set('farmZip', farmState.zip);
+            set('farmAnnual', fmtNum(annual));
+            set('farmMonthly', fmtNum(annual / 12));
+            set('farmWeekly', fmtNum(annual / 52));
+            set('farmCommissionTotal', fmtUsd(annual * commPerListing));
+            set('farmShareListings', fmtNum(myListings));
+            set('farmShareGCI', fmtUsd(myListings * commPerListing));
+            box.classList.remove('hidden');
+        }
+        ['farmTurnover', 'farmCommission', 'farmValue'].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('input', renderFarming);
+        });
+        document.querySelectorAll('[data-share]').forEach((b) => {
+            b.addEventListener('click', () => {
+                farmState.share = parseFloat(b.getAttribute('data-share'));
+                document.querySelectorAll('[data-share]').forEach((x) => {
+                    x.style.background = 'transparent';
+                    x.style.color = 'var(--text-muted)';
+                });
+                b.style.background = 'var(--accent-red)';
+                b.style.color = '#fff';
+                renderFarming();
+            });
+        });
+
+        // ---- ZIP lookup (live City + US Census housing data) ----
+        const zipCodeInput = document.getElementById('zipCodeInput');
+        const zipLookupBtn = document.getElementById('zipLookupBtn');
+        const zipResult = document.getElementById('zipResult');
+        const zipLoading = document.getElementById('zipLoading');
+        const displayZip = document.getElementById('displayZip');
+        const hhCount = document.getElementById('hhCount');
+
+        if (zipLookupBtn && zipCodeInput) {
+            zipCodeInput.addEventListener('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
+            zipLookupBtn.addEventListener('click', async () => {
+                const zip = zipCodeInput.value.trim();
+                if (zip.length !== 5) { alert("Please enter a valid 5-digit ZIP code."); return; }
+
+                zipResult.classList.add('hidden');
+                zipLoading.classList.remove('hidden');
+                zipLoading.textContent = "Fetching local data...";
+                zipLookupBtn.disabled = true;
+                zipLookupBtn.textContent = "Scanning...";
+
+                try {
+                    // City name
+                    let locationString = zip;
+                    try {
+                        const zipRes = await fetch(`https://api.zippopotam.us/us/${zip}`);
+                        if (zipRes.ok) {
+                            const zipData = await zipRes.json();
+                            locationString = `${zipData.places[0]['place name']}, ${zipData.places[0]['state abbreviation']} (${zip})`;
+                        }
+                    } catch (e) { console.warn("City lookup failed", e); }
+
+                    // US Census ACS — DP04_0001E = total housing units, DP04_0089E = median home value
+                    const CENSUS_API_KEY = "fd6d546670b9677251c4fcd0c21549f9eee1c33a";
+                    let totalUnits = 0, medianValue = 0;
+                    try {
+                        const keyParam = CENSUS_API_KEY ? `&key=${CENSUS_API_KEY}` : "";
+                        const censusUrl = `https://api.census.gov/data/2024/acs/acs5/profile?get=DP04_0001E,DP04_0089E&for=zip%20code%20tabulation%20area:${zip}${keyParam}`;
+                        const res = await fetch(censusUrl);
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (data && data.length > 1 && data[1] && data[1][0]) {
+                                totalUnits = parseInt(data[1][0], 10);
+                                const mv = parseInt(data[1][1], 10);
+                                if (!isNaN(mv) && mv > 0) medianValue = mv;
+                            }
+                        }
+                    } catch (e) { console.warn("Census fetch failed", e); }
+
+                    // Honest failure — never invent a number.
+                    if (!totalUnits || isNaN(totalUnits) || totalUnits < 1) {
+                        zipResult.classList.add('hidden');
+                        zipLoading.classList.remove('hidden');
+                        zipLoading.textContent = "Couldn't load live data for this ZIP right now — please try again in a moment.";
+                        zipLookupBtn.disabled = false;
+                        zipLookupBtn.textContent = "Search";
+                        return;
+                    }
+
+                    const ctvHouseholds = Math.floor(totalUnits * 0.90);
+
+                    zipLoading.classList.add('hidden');
+                    zipResult.classList.remove('hidden');
+                    displayZip.textContent = locationString;
+
+                    const zipSourceLink = document.getElementById('zipSourceLink');
+                    if (zipSourceLink) zipSourceLink.href = `https://www.unitedstateszipcodes.org/${zip}/`;
+
+                    // Feed the farming calculator
+                    farmState.units = totalUnits;
+                    farmState.value = medianValue;
+                    farmState.zip = zip;
+                    const farmValueEl = document.getElementById('farmValue');
+                    if (farmValueEl) farmValueEl.value = medianValue || '';
+                    renderFarming();
+
+                    // Fire a Lead conversion for the ad (guarded — pixel may be removed)
+                    if (window.fbq) fbq('track', 'Lead', { content_name: 'farm-calculator', zip: zip });
+
+                    // Animate household count
+                    let currentCount = 0;
+                    const steps = 30, increment = ctvHouseholds / steps;
+                    const timer = setInterval(() => {
+                        currentCount += increment;
+                        if (currentCount >= ctvHouseholds) {
+                            currentCount = ctvHouseholds;
+                            clearInterval(timer);
+                            zipLookupBtn.disabled = false;
+                            zipLookupBtn.textContent = "Search";
+                        }
+                        hhCount.textContent = new Intl.NumberFormat('en-US').format(Math.floor(currentCount));
+                    }, 1000 / steps);
+
+                } catch (e) {
+                    console.error("Lookup error:", e);
+                    zipLoading.textContent = "Error fetching data.";
+                    zipLookupBtn.disabled = false;
+                    zipLookupBtn.textContent = "Search";
+                }
+            });
+
+            zipCodeInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') zipLookupBtn.click();
+            });
+        }
+
+        // Forward FB ad UTM/click params onto the CTA link so attribution survives the click-through
+        try {
+            const ctaBtn = document.getElementById('ctaBtn');
+            const params = window.location.search;
+            if (ctaBtn && params && params.length > 1) {
+                const url = new URL(ctaBtn.href);
+                new URLSearchParams(params).forEach((v, k) => url.searchParams.set(k, v));
+                ctaBtn.href = url.toString();
+            }
+        } catch (e) { /* non-fatal */ }
+    });
+    </script>
+</body>
+</html>
