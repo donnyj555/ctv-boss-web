@@ -265,15 +265,45 @@
             </div>
         </section>
 
-        <!-- Final CTA -->
-        <section class="section text-center">
+        <!-- Final CTA + inquiry form -->
+        <section class="section text-center" id="partner-contact">
             <div class="container" style="max-width:640px;">
                 <h2 class="section-title">Let&rsquo;s build the combined offer.</h2>
                 <p class="section-subtitle text-muted" style="margin-top:0.75rem;">Tell us who your customers are and we&rsquo;ll map the fastest path to a co-branded or white-labeled CTV product.</p>
-                <a href="mailto:donjordan@ctvhomes.com?subject=CTV%20Homes%20partnership" class="btn btn-primary btn-lg mt-6">Start the conversation</a>
-                <div class="text-muted text-sm" style="margin-top:1rem;">Don Jordan &middot; CTV Homes &middot; 610-755-5253 &middot; donjordan@ctvhomes.com</div>
+
+                <div id="partner-thanks" style="display:none; margin-top:2rem; padding:1.5rem; border-radius:12px; border:1px solid rgba(255,51,102,0.35); background:rgba(255,51,102,0.06); color:#fff; font-weight:600;">Thanks &mdash; we&rsquo;ve got it. Don will reach out shortly to talk through a partnership.</div>
+
+                <form id="partner-form" name="Partner_Inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/partners.html?submitted=1" style="margin-top:2rem; text-align:left;">
+                    <input type="hidden" name="form-name" value="Partner_Inquiry">
+                    <p style="display:none;"><label>Don&rsquo;t fill this out: <input name="bot-field"></label></p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+                        <input type="text" name="Name" placeholder="Your name" required style="width:100%; padding:0.85rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(0,0,0,0.3); color:#fff; font-size:1rem; font-family:inherit;">
+                        <input type="text" name="Company" placeholder="Company" required style="width:100%; padding:0.85rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(0,0,0,0.3); color:#fff; font-size:1rem; font-family:inherit;">
+                        <input type="email" name="Email" placeholder="Work email" required style="width:100%; padding:0.85rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(0,0,0,0.3); color:#fff; font-size:1rem; font-family:inherit;">
+                        <input type="tel" name="Phone" placeholder="Phone" style="width:100%; padding:0.85rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(0,0,0,0.3); color:#fff; font-size:1rem; font-family:inherit;">
+                    </div>
+                    <select name="Company_Type" required style="width:100%; padding:0.85rem 1rem; margin-bottom:1rem; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(0,0,0,0.3); color:#fff; font-size:1rem; font-family:inherit;">
+                        <option value="" disabled selected>What&rsquo;s your company?</option>
+                        <option value="Direct mail / postcard">Direct mail / postcard company</option>
+                        <option value="Marketing agency">Real estate marketing agency</option>
+                        <option value="Brokerage / team">Brokerage / team</option>
+                        <option value="MLS / proptech">MLS / proptech platform</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <textarea name="Message" rows="4" placeholder="Tell us about your customers and what you're already offering them." style="width:100%; padding:0.85rem 1rem; margin-bottom:1.25rem; border-radius:8px; border:1px solid rgba(255,255,255,0.12); background:rgba(0,0,0,0.3); color:#fff; font-size:1rem; font-family:inherit; resize:vertical;"></textarea>
+                    <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Send partnership inquiry</button>
+                </form>
+
+                <div class="text-muted text-sm" style="margin-top:1.25rem;">Or reach Don directly &middot; 610-755-5253 &middot; donjordan@ctvhomes.com</div>
             </div>
         </section>
+        <script>
+          if (new URLSearchParams(location.search).has('submitted')) {
+            var f = document.getElementById('partner-form'); if (f) f.style.display = 'none';
+            var t = document.getElementById('partner-thanks'); if (t) t.style.display = 'block';
+            document.getElementById('partner-contact').scrollIntoView();
+          }
+        </script>
     </main>
 
     <footer class="footer">
