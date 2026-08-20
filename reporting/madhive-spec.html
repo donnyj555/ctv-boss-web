@@ -1,0 +1,393 @@
+<title>CTV Homes Reporting Spec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap">
+
+<style>
+  :root{
+    --ground:#f7f8fa;
+    --surface:#ffffff;
+    --surface-2:#eef1f5;
+    --ink:#16202e;
+    --ink-2:#4a5768;
+    --ink-3:#78849a;
+    --line:#dde2ea;
+    --line-2:#c8d0dc;
+    --accent:#e11d48;
+    --accent-soft:rgba(225,29,72,.09);
+    --on-accent:#ffffff;
+    --have:#0f766e;
+    --have-soft:rgba(15,118,110,.11);
+    --gap:#b45309;
+    --gap-soft:rgba(180,83,9,.12);
+    --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --body:"Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0e1319;
+      --surface:#161d26;
+      --surface-2:#1d2631;
+      --ink:#e8ecf1;
+      --ink-2:#a8b4c4;
+      --ink-3:#7c8899;
+      --line:#28323f;
+      --line-2:#3a4655;
+      --accent:#fb7185;
+      --accent-soft:rgba(251,113,133,.13);
+      --on-accent:#0e1319;
+      --have:#5eead4;
+      --have-soft:rgba(94,234,212,.12);
+      --gap:#fbbf24;
+      --gap-soft:rgba(251,191,36,.13);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0e1319;
+    --surface:#161d26;
+    --surface-2:#1d2631;
+    --ink:#e8ecf1;
+    --ink-2:#a8b4c4;
+    --ink-3:#7c8899;
+    --line:#28323f;
+    --line-2:#3a4655;
+    --accent:#fb7185;
+    --accent-soft:rgba(251,113,133,.13);
+    --on-accent:#0e1319;
+    --have:#5eead4;
+    --have-soft:rgba(94,234,212,.12);
+    --gap:#fbbf24;
+    --gap-soft:rgba(251,191,36,.13);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:var(--body);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:4rem 1.5rem 6rem;display:flex;flex-direction:column;gap:3.5rem}
+  section{display:flex;flex-direction:column;gap:1.1rem}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:.7rem;font-weight:500;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--accent);
+  }
+  h1{
+    font-family:var(--display);font-weight:700;font-size:clamp(2.1rem,5vw,3.1rem);
+    line-height:1.05;letter-spacing:-.022em;margin:.55rem 0 0;text-wrap:balance;
+  }
+  h2{
+    font-family:var(--display);font-weight:600;font-size:1.4rem;
+    letter-spacing:-.012em;margin:0;text-wrap:balance;
+  }
+  h3{font-family:var(--display);font-weight:600;font-size:1.02rem;margin:0;letter-spacing:-.005em}
+  p{margin:0;max-width:66ch}
+  .lede{font-size:1.14rem;color:var(--ink-2);max-width:62ch}
+  .muted{color:var(--ink-2)}
+  .small{font-size:.92rem;color:var(--ink-2)}
+  strong{font-weight:600}
+  code{font-family:var(--mono);font-size:.85em;background:var(--surface-2);
+       padding:.12em .4em;border-radius:3px;border:1px solid var(--line)}
+
+  header{border-bottom:2px solid var(--ink);padding-bottom:2rem}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:.5rem 2rem;margin-top:1.6rem;
+    font-family:var(--mono);font-size:.76rem;color:var(--ink-3);
+    text-transform:uppercase;letter-spacing:.08em;
+  }
+  .meta b{color:var(--ink-2);font-weight:500}
+
+  .rule{display:flex;align-items:center;gap:.9rem}
+  .rule::after{content:"";flex:1;height:1px;background:var(--line-2)}
+
+  /* ---- the mockup device ---- */
+  .mock{
+    border:1px solid var(--line-2);border-radius:10px;overflow:hidden;
+    background:var(--surface);
+  }
+  .mock-bar{
+    background:var(--surface-2);border-bottom:1px solid var(--line);
+    padding:.6rem 1.1rem;font-family:var(--mono);font-size:.72rem;
+    letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+    display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  }
+  .mock-body{padding:1.9rem 1.6rem}
+  .mock-brand{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;
+              text-transform:uppercase;color:var(--accent);font-weight:700}
+  .mock-h{font-family:var(--display);font-weight:700;font-size:1.65rem;
+          letter-spacing:-.015em;margin:.4rem 0 .15rem}
+  .mock-sub{color:var(--ink-2);font-size:.95rem;margin-bottom:1.6rem}
+
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.85rem}
+  .tile{
+    border:1px solid var(--line);border-radius:7px;padding:.9rem .95rem;
+    background:var(--ground);display:flex;flex-direction:column;gap:.22rem;
+  }
+  .tile-l{font-family:var(--mono);font-size:.63rem;letter-spacing:.1em;
+          text-transform:uppercase;color:var(--ink-3);font-weight:500}
+  .tile-v{font-family:var(--display);font-weight:700;font-size:1.55rem;
+          letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+  .tile-s{font-size:.76rem;color:var(--ink-3)}
+  .tile.want{border-color:var(--accent);border-style:dashed;background:var(--accent-soft)}
+
+  .flag{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:1.15rem;height:1.15rem;padding:0 .28rem;margin-left:.35rem;
+    background:var(--accent);color:var(--on-accent);border-radius:3px;
+    font-family:var(--mono);font-size:.66rem;font-weight:700;
+    vertical-align:.15em;line-height:1;
+  }
+  
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px}
+  caption{text-align:left;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;
+          text-transform:uppercase;color:var(--ink-3);padding-bottom:.6rem}
+  th{
+    text-align:left;font-family:var(--mono);font-weight:500;font-size:.68rem;
+    letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);
+    padding:.55rem .7rem;border-bottom:1px solid var(--line-2);white-space:nowrap;
+  }
+  td{padding:.62rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  .n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.88rem}
+  .want-cell{background:var(--accent-soft);color:var(--accent);font-weight:600}
+
+  .chip{
+    display:inline-block;font-family:var(--mono);font-size:.65rem;font-weight:500;
+    letter-spacing:.07em;text-transform:uppercase;padding:.2rem .5rem;border-radius:3px;white-space:nowrap;
+  }
+  .chip-have{background:var(--have-soft);color:var(--have)}
+  .chip-gap{background:var(--gap-soft);color:var(--gap)}
+
+  ol.legend{list-style:none;counter-reset:f;margin:0;padding:0;display:flex;flex-direction:column;gap:.85rem}
+  ol.legend li{counter-increment:f;display:grid;grid-template-columns:1.6rem 1fr;gap:.75rem;align-items:start}
+  ol.legend li::before{
+    content:counter(f);background:var(--accent);color:var(--on-accent);
+    font-family:var(--mono);font-size:.68rem;font-weight:700;
+    width:1.35rem;height:1.35rem;border-radius:3px;
+    display:flex;align-items:center;justify-content:center;margin-top:.15rem;
+  }
+  ol.legend b{font-family:var(--mono);font-size:.86rem;font-weight:700;letter-spacing:-.01em}
+
+  .asks{display:flex;flex-direction:column;gap:1rem}
+  .ask{
+    border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:0 7px 7px 0;background:var(--surface);padding:1.1rem 1.3rem;
+    display:flex;flex-direction:column;gap:.45rem;
+  }
+  .ask-h{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+  .ask-n{font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.1em;
+         text-transform:uppercase;color:var(--accent)}
+  .fields{font-family:var(--mono);font-size:.82rem;color:var(--ink-2);
+          background:var(--surface-2);border:1px solid var(--line);
+          border-radius:5px;padding:.7rem .85rem;line-height:1.8}
+
+  footer{border-top:1px solid var(--line-2);padding-top:1.8rem;color:var(--ink-3);font-size:.88rem}
+
+  a{color:var(--accent)}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (max-width:560px){
+    body{font-size:16px}
+    .wrap{padding:2.5rem 1.1rem 4rem;gap:2.75rem}
+    .mock-body{padding:1.3rem 1rem}
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Reporting requirements · CTV Homes</div>
+    <h1>What our agents need to see</h1>
+    <p class="lede">CTV Homes sells connected-TV campaigns to individual real estate agents. Every agent gets a report on their own listings. This is the report we need to produce — and the four fields we currently can't fill from Madhive exports.</p>
+    <div class="meta">
+      <span><b>Advertiser</b> CtvHomes</span>
+      <span><b>Period</b> 13 Aug – 20 Aug 2026</span>
+      <span><b>Prepared for</b> Madhive account team</span>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="rule">The report we hand an agent</h2>
+    <p class="muted">Every figure below is pulled from our live Madhive exports for one brokerage. The four <span class="flag">1</span>–<span class="flag">4</span> markers show where we hit a wall.</p>
+
+    <div class="mock">
+      <div class="mock-bar">
+        <span>Agent-facing report · generated per client</span>
+        <span>Smart Way America Realty</span>
+      </div>
+      <div class="mock-body">
+        <div class="mock-brand">CTV Homes</div>
+        <div class="mock-h">Smart Way America Realty</div>
+        <div class="mock-sub">Streaming TV &amp; display performance · 5 listings + brand campaign</div>
+
+        <div class="tiles">
+          <div class="tile">
+            <span class="tile-l">Ad Views</span>
+            <span class="tile-v">27,623</span>
+            <span class="tile-s">Times their ads played</span>
+          </div>
+          <div class="tile">
+            <span class="tile-l">Households Reached</span>
+            <span class="tile-v">8,923</span>
+            <span class="tile-s">Unique devices</span>
+          </div>
+          <div class="tile">
+            <span class="tile-l">Avg. Frequency</span>
+            <span class="tile-v">2.0×</span>
+            <span class="tile-s">Views per household</span>
+          </div>
+          <div class="tile want">
+            <span class="tile-l">Completion Rate<span class="flag">1</span></span>
+            <span class="tile-v">98.7%</span>
+            <span class="tile-s">Account-wide only</span>
+          </div>
+        </div>
+
+        <div style="height:1.6rem"></div>
+
+        <div class="scroll">
+          <table>
+            <caption>Per-listing breakdown</caption>
+            <thead>
+              <tr>
+                <th>Listing</th>
+                <th class="n">Ad&nbsp;Views</th>
+                <th class="n">Reached&nbsp;(TV)</th>
+                <th class="n">Completion<span class="flag">1</span></th>
+                <th class="n">Spend<span class="flag">2</span></th>
+                <th>Networks<span class="flag">3</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1143 Horizon</td><td class="n">10,425</td><td class="n">3,113</td>
+                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
+              </tr>
+              <tr>
+                <td>321 Inverness Dr</td><td class="n">5,634</td><td class="n">1,895</td>
+                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
+              </tr>
+              <tr>
+                <td>Brand / All Networks</td><td class="n">5,009</td><td class="n">3,361</td>
+                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
+              </tr>
+              <tr>
+                <td>12 Beechwood</td><td class="n">3,843</td><td class="n">312</td>
+                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
+              </tr>
+              <tr>
+                <td>3509 High Hill Rd</td><td class="n">2,641</td><td class="n">210</td>
+                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
+              </tr>
+              <tr>
+                <td>5191 Spring Dr</td><td class="n">71</td><td class="n">32</td>
+                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="height:1.5rem"></div>
+        <h3>Where their ad ran<span class="flag">3</span></h3>
+        <p class="small" style="margin-top:.4rem">We can only say which networks the <em>whole account</em> ran on — 216 of them — not which carried this agent's listing. So the most persuasive part of the report is the part we can't personalise.</p>
+
+        <div style="height:1.2rem"></div>
+        <h3>Delivery against goal<span class="flag">4</span></h3>
+        <p class="small" style="margin-top:.4rem">Goals live in the pacing export, delivery lives in the campaign export, and nothing joins them. We reconcile the two by hand.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="rule">The four gaps</h2>
+    <ol class="legend">
+      <li>
+        <div>
+          <b>Completes and VCR, per campaign</b>
+          <p class="small">Our account-wide VCR is <strong>98.68%</strong> — the single most persuasive number we have. An unskippable ad that plays to the end is what an agent is buying. But it only exists on the topline export, so we can't attribute it to a listing. It needs to be a column on the campaign report.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <b>Spend, on impression-paced campaigns</b>
+          <p class="small">Spend appears only for budget-paced campaigns. All our listing campaigns are impression-paced, so <code>Delivered Spend</code> comes back empty. Without it there is no cost-per-view, no CPM, no efficiency story.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <b>Publisher broken out by campaign</b>
+          <p class="small">The publisher export is account-wide totals. "Your listing ran on Paramount, Hulu and Hallmark" is the line that sells a renewal, and we cannot say it truthfully for one agent. We need <code>Campaign</code> as a second dimension on that report.</p>
+        </div>
+      </li>
+      <li>
+        <div>
+          <b>One key that joins the reports</b>
+          <p class="small">Campaign ID appears in the pacing and conversion exports but not in the campaign or publisher exports, which carry names only. We currently run four separate campaigns named <code>Smart Way America Realty</code> and nothing distinguishes them. Add <code>Campaign ID</code> — plus <code>Advertiser ID</code> — to every export.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section>
+    <h2 class="rule">Field-by-field</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Field</th><th>Status today</th><th>Where we need it</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>Impressions</code></td><td><span class="chip chip-have">Available</span></td><td>Campaign report</td></tr>
+          <tr><td><code>Reach</code></td><td><span class="chip chip-have">Available</span></td><td>Campaign report</td></tr>
+          <tr><td><code>Avg. Frequency</code></td><td><span class="chip chip-have">Available</span></td><td>Campaign report</td></tr>
+          <tr><td><code>Total Conversions</code></td><td><span class="chip chip-have">Available</span></td><td>Campaign report</td></tr>
+          <tr><td><code>Completes</code>, <code>VCR</code></td><td><span class="chip chip-gap">Topline only</span></td><td>Campaign report</td></tr>
+          <tr><td><code>Delivered Spend</code></td><td><span class="chip chip-gap">Budget-paced only</span></td><td>Campaign + pacing report</td></tr>
+          <tr><td><code>Publisher</code> × <code>Campaign</code></td><td><span class="chip chip-gap">Account-wide only</span></td><td>Publisher report</td></tr>
+          <tr><td><code>Campaign ID</code></td><td><span class="chip chip-gap">Pacing only</span></td><td>Every report</td></tr>
+          <tr><td><code>Advertiser ID</code>, <code>Advertiser Name</code></td><td><span class="chip chip-gap">Missing</span></td><td>Every report</td></tr>
+          <tr><td><code>Impression Date</code></td><td><span class="chip chip-gap">Conversion export only</span></td><td>Campaign report</td></tr>
+          <tr><td><code>Clicks</code>, <code>CTR</code></td><td><span class="chip chip-gap">Missing</span></td><td>Display campaign report</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="rule">What we're asking for</h2>
+    <div class="asks">
+
+      <div class="ask">
+        <div class="ask-h"><span class="ask-n">Priority 1</span><h3>Add columns to the campaign report</h3></div>
+        <p class="small">This one change fills three of the four gaps and unblocks the agent report entirely.</p>
+        <div class="fields">Campaign ID · Advertiser ID · Advertiser Name · Impressions · Reach<br>Avg. Frequency · Completes · VCR · Delivered Spend · Impression Date<br>Total Conversions · Unique Conversions · Clicks · CTR</div>
+      </div>
+
+      <div class="ask">
+        <div class="ask-h"><span class="ask-n">Priority 2</span><h3>Add Campaign as a dimension on the publisher report</h3></div>
+        <p class="small">Same metrics, one extra dimension, so each row is a campaign-and-publisher pair rather than a publisher total. We understand this may need to be run server-side — a one-off export is fine to start.</p>
+        <div class="fields">Campaign ID · Campaign Name · Publisher · Impressions · Reach · Avg. Frequency</div>
+      </div>
+
+      <div class="ask">
+        <div class="ask-h"><span class="ask-n">Priority 3</span><h3>Schedule both as a daily CSV email</h3></div>
+        <p class="small">Previous day plus month-to-date, delivered each morning. This is what we need most until the API is ready — it turns a manual pull into something we can automate against.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <h2 class="rule">Why this matters to us</h2>
+    <p>Every agent who buys a campaign expects to see what their money did. Right now we can show them how many times their ad played and roughly how many households saw it — but not whether it played to the end, what it cost, or which networks carried it.</p>
+    <p>Those three answers are the difference between a report that renews a client and a report that raises questions. Everything else is already in your data; it just isn't in the export.</p>
+  </section>
+
+  <footer>
+    Prepared by CTV Homes · All figures are live Madhive data for advertiser <code>CtvHomes</code>, 13–20 August 2026.<br>
+    Reach figures are summed across campaigns and so are an upper bound on unique households.
+  </footer>
+
+</div>
