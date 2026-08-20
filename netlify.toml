@@ -5,6 +5,17 @@
 [dev]
   port = 8899
 
+# reporting/ is an internal operator tool, not part of the public site. Because
+# publish = "." serves everything committed at the repo root, campaign-map.json
+# — which carries client names and agent contact details — would otherwise be
+# downloadable from the live domain. force=true is required: the catch-all below
+# runs with force=false, so a static file on disk would win without it.
+[[redirects]]
+  from = "/reporting/*"
+  to = "/"
+  status = 404
+  force = true
+
 # Proxy rules for the per-listing landing page on Railway. Order matters —
 # Netlify processes top to bottom. Static-asset prefixes need to pass through
 # unchanged BEFORE the catch-all rewrites /{slug} → /l/{slug}; otherwise CSS
