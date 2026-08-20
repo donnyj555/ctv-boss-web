@@ -123,7 +123,43 @@ function loadMap() {
     const m = JSON.parse(fs.readFileSync(path.join(ROOT, 'campaign-map.json'), 'utf8'));
     const byName = new Map();
     for (const c of m.campaigns) byName.set(c.name, c);
-    return { agents: m.agents, byName };
+    return { agents: m.agents, byName, settings: m.settings || {} };
+}
+
+// Picks the networks to name in the lineup section. Ranking by impressions
+// alone surfaces whichever inventory happened to be cheapest that month, so an
+// optional `feature_networks` allowlist in campaign-map.json takes precedence
+// and lets the operator decide which brands represent the product.
+function buildLineup(publisherFiles, settings) {
+    if (settings.show_network_lineup === false) return null;
+
+    const ott = publisherFiles.filter(f => f.platform !== 'display');
+    if (!ott.length) return null;
+
+    const totals = new Map();
+    for (const f of ott) {
+        for (const row of f.rows) {
+            const name = row.Publishers || row.publishers;
+            if (!name) continue;
+            totals.set(name, (totals.get(name) || 0) + num(row.Impressions));
+        }
+    }
+    if (!totals.size) return null;
+
+    const featured = settings.feature_networks;
+    let names;
+    if (Array.isArray(featured) && featured.length) {
+        // Only name a network that actually appears in the export - never
+        // advertise inventory the account did not run on.
+        const missing = featured.filter(n => !totals.has(n));
+        if (missing.length) console.warn(`  ! feature_networks not found in the publisher export, skipped: ${missing.join(', ')}`);
+        names = featured.filter(n => totals.has(n));
+    } else {
+        names = [...totals.entries()].sort((a, b) => b[1] - a[1])
+            .slice(0, settings.lineup_count || 15).map(e => e[0]);
+    }
+
+    return { names, totalNetworks: totals.size };
 }
 
 // ---------------------------------------------------------------- aggregation
@@ -151,7 +187,7 @@ function addCampaign(t, name, listing, row) {
 function build() {
     console.log('Loading CSVs...');
     const data = loadAll();
-    const { agents, byName } = loadMap();
+    const { agents, byName, settings } = loadMap();
 
     const perAgent = {};
     const unmapped = [];
@@ -193,13 +229,22 @@ function build() {
     const ottTop = data.topline.find(t => t.platform === 'ott');
     if (ottTop && ottTop.rows.length) accountVcr = num(ottTop.rows[0].VCR);
 
+    // Madhive's publisher export carries no campaign dimension, so these are
+    // account-wide totals with the internal recruiting campaign mixed in. A
+    // publisher's impressions cannot be split between agents, so this is
+    // rendered as the network lineup CTV Homes buys across - never as a claim
+    // about where one agent's ad personally ran. Display publishers are
+    // deliberately excluded: a third of that inventory is mobile puzzle games,
+    // which undercuts the premium story rather than supporting it.
+    const networkLineup = buildLineup(data.publisher, settings);
+
     if (!fs.existsSync(OUT)) fs.mkdirSync(OUT, { recursive: true });
 
     console.log('\nWriting reports...');
     const written = [];
     for (const [key, agent] of Object.entries(perAgent)) {
         const file = path.join(OUT, `${key}.html`);
-        fs.writeFileSync(file, renderAgent(agent, accountVcr));
+        fs.writeFileSync(file, renderAgent(agent, accountVcr, networkLineup));
         const total = agent.ott.impressions + agent.display.impressions;
         console.log(`  ${file}  (${total.toLocaleString()} impressions)`);
         written.push({ key, agent, total });
@@ -239,7 +284,7 @@ function statCard(label, value, sub, accent) {
     </div>`;
 }
 
-function renderAgent(agent, accountVcr) {
+function renderAgent(agent, accountVcr, lineup) {
     const { ott, display, info } = agent;
     const totalImps = ott.impressions + display.impressions;
     const freq = ott.reach ? ott.impressions / ott.reach : 0;
@@ -297,6 +342,9 @@ function renderAgent(agent, accountVcr) {
   .pill{font-size:.68rem;padding:.2rem .55rem;border-radius:99px;white-space:nowrap}
   .pill-t{background:rgba(255,51,102,.15);color:#ff7a9c}
   .pill-d{background:rgba(160,160,171,.15);color:var(--muted)}
+  .nets{display:flex;flex-wrap:wrap;gap:.5rem}
+  .net{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.45rem .8rem;font-size:.85rem;white-space:nowrap}
+  .netnote{color:var(--muted);font-size:.8rem;margin:.9rem 0 0}
   .note{color:var(--muted);font-size:.8rem;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--line)}
   @media print{body{background:#fff;color:#000;padding:1rem}.stat,table{background:#fff;border-color:#ddd}
     .stat-label,.stat-sub,.note,th{color:#555}}
@@ -320,6 +368,11 @@ function renderAgent(agent, accountVcr) {
     <tbody>${rows}</tbody>
   </table>
   </div>
+
+  ${lineup ? `<h2>Where CTV Homes places listing ads</h2>
+  <div class="nets">${lineup.names.map(n => `<span class="net">${esc(n)}</span>`).join('')}</div>
+  <p class="netnote">${lineup.totalNetworks} streaming networks carried CTV Homes listing ads this period.
+  The specific mix for any one listing depends on its targeting and budget.</p>` : ''}
 
   <div class="note">
     <strong>Ad Views</strong> is the number of times your commercial played on a

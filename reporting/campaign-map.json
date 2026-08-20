@@ -1,6 +1,18 @@
 {
   "_README": "Maps a Madhive campaign name to the agent who should see it. 'exclude: true' keeps a campaign out of ALL agent reports (use it for your own internal campaigns). Any campaign found in a CSV but missing from this file is reported as UNMAPPED and is never shown to an agent.",
 
+  "settings": {
+    "_comment": "Madhive's publisher export has no campaign column, so networks cannot be attributed to an individual agent. The lineup section is therefore worded as where CTV Homes places listing ads, not where one agent's ad ran. Set show_network_lineup to false to drop the section. feature_networks is an allowlist of recognisable brands to name; any entry not present in the export is skipped with a warning rather than printed. Remove it to fall back to the top lineup_count networks by impressions.",
+    "show_network_lineup": true,
+    "lineup_count": 15,
+    "feature_networks": [
+      "Paramount+", "Hulu", "Peacock", "Disney+", "HBO Max",
+      "The Roku Channel", "Tubi", "Pluto", "Samsung TV Plus", "Philo",
+      "HGTV", "Food Network", "Hallmark Channel", "History Channel",
+      "A&E", "Discovery", "TLC", "ESPN", "CNN", "NBC", "ABC", "CBS"
+    ]
+  },
+
   "agents": {
     "smartway": {
       "business_name": "Smart Way America Realty",
