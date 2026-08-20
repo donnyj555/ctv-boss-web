@@ -210,11 +210,11 @@
   <header>
     <div class="eyebrow">Reporting requirements &middot; CTV Homes</div>
     <h1>What our agents need to see</h1>
-    <p class="lede">CTV Homes sells connected-TV campaigns to individual real estate agents. Every agent gets a report on their own listings. This page tracks what we can build from Madhive exports &mdash; and what still blocks us.</p>
+    <p class="lede">CTV Homes sells connected-TV campaigns to individual real estate agents. Every agent gets a report on their own listings. This page is the complete field specification for the custom report request &mdash; what we can build today, what still blocks us, and every column we need.</p>
     <div class="meta">
       <span><b>Advertiser</b> CtvHomes</span>
       <span><b>Data</b> 6&ndash;20 Aug 2026</span>
-      <span><b>Updated</b> 20 Aug, after the Delivery Details export</span>
+      <span><b>Updated</b> 20 Aug &middot; full field spec for Data Solutions</span>
     </div>
   </header>
 
@@ -346,32 +346,94 @@
   </section>
 
   <section>
-    <h2 class="rule">What we're asking for</h2>
-    <div class="asks">
+    <h2 class="rule">Report A &mdash; daily delivery by line item</h2>
+    <p class="muted">This is the primary report. It is the existing <code>Delivery&nbsp;Details</code> export with identifier columns added, extended to cover display as well as OTT.</p>
 
-      <div class="ask">
-        <div class="ask-h"><span class="ask-n">Priority 1</span><h3>Add ID columns to Delivery Details</h3></div>
-        <p class="small">Without these, listings whose line items share a name cannot be separated, and we lose one listing entirely. This is a column addition to a report that already exists.</p>
-        <div class="fields">Line Item ID &middot; Campaign ID &middot; Campaign Name &middot; Advertiser ID &middot; Advertiser Name</div>
-      </div>
-
-      <div class="ask">
-        <div class="ask-h"><span class="ask-n">Priority 2</span><h3>The same Delivery Details export for display</h3></div>
-        <p class="small">Same columns, display inventory, with clicks and CTR populated. Completion rate is not meaningful there and can be dropped.</p>
-      </div>
-
-      <div class="ask">
-        <div class="ask-h"><span class="ask-n">Priority 3</span><h3>Publisher broken out by campaign</h3></div>
-        <p class="small">Same metrics as the current publisher report with one extra dimension, so each row is a campaign-and-publisher pair. A one-off export is fine to start.</p>
-        <div class="fields">Campaign ID &middot; Campaign Name &middot; Publisher &middot; Impressions &middot; Reach &middot; Average Frequency</div>
-      </div>
-
-      <div class="ask">
-        <div class="ask-h"><span class="ask-n">Priority 4</span><h3>Schedule it daily</h3></div>
-        <p class="small">Previous day plus month-to-date, emailed as CSV each morning, so we can automate against it rather than pulling by hand.</p>
-      </div>
-
+    <div class="scroll">
+      <table>
+        <caption>Dimensions</caption>
+        <thead><tr><th>Field</th><th>Why we need it</th></tr></thead>
+        <tbody>
+          <tr><td><code>Advertiser ID</code></td><td>Tenant key &mdash; which client a row belongs to</td></tr>
+          <tr><td><code>Advertiser Name</code></td><td>Human-readable label</td></tr>
+          <tr><td><code>Campaign ID</code></td><td rowspan="2">The listing. Campaign names are not unique in our account</td></tr>
+          <tr><td><code>Campaign Name</code></td></tr>
+          <tr><td><code>Line Item ID</code></td><td rowspan="2"><strong>The blocking field.</strong> Line item names collide &mdash; ten row pairs currently share a name and a date</td></tr>
+          <tr><td><code>Line Item Name</code></td></tr>
+          <tr><td><code>Creative ID</code>, <code>Creative Name</code></td><td>Which cut of the ad ran</td></tr>
+          <tr><td><code>Date</code></td><td>Daily rows, so we can chart a trend</td></tr>
+          <tr><td><code>Platform</code> / <code>Inventory Type</code></td><td>OTT vs display, so one report covers both</td></tr>
+          <tr><td><code>Device Type</code></td><td>TV vs phone vs desktop</td></tr>
+        </tbody>
+      </table>
     </div>
+
+    <div class="scroll" style="margin-top:1.25rem">
+      <table>
+        <caption>Metrics</caption>
+        <thead><tr><th>Field</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><code>Total Impressions</code></td><td><span class="chip chip-have">Already in Delivery Details</span></td></tr>
+          <tr><td><code>Total Reach</code>, <code>Average Frequency</code></td><td><span class="chip chip-have">Already in</span></td></tr>
+          <tr><td><code>Total Completes</code>, <code>View Completion Rate</code></td><td><span class="chip chip-have">Already in</span></td></tr>
+          <tr><td><code>Total Spend</code>, <code>CPM</code></td><td><span class="chip chip-have">Already in</span></td></tr>
+          <tr><td><code>Media Cost</code>, <code>Audience Cost</code>, <code>Supplemental Cost</code></td><td><span class="chip chip-have">Already in</span></td></tr>
+          <tr><td><code>Total Conversions</code>, <code>Conversion Rate</code></td><td><span class="chip chip-have">Already in</span></td></tr>
+          <tr><td><code>Unique Conversions</code>, <code>Unique Conversion Rate</code></td><td><span class="chip chip-have">Already in</span></td></tr>
+          <tr><td><code>Cost Per Conversion</code></td><td><span class="chip chip-have">Already in</span></td></tr>
+          <tr><td><code>Total Clicks</code>, <code>CTR</code></td><td><span class="chip chip-gap">Needed for display</span></td></tr>
+          <tr><td><code>Goal</code> (line item impression goal)</td><td><span class="chip chip-gap">Add if available</span></td></tr>
+          <tr><td><code>Flight Start</code>, <code>Flight End</code></td><td><span class="chip chip-gap">Add if available</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small" style="margin-top:.9rem"><code>Goal</code> and the flight dates live in the pacing export today. Including them here would let us show delivery against what was sold without joining two files by hand.</p>
+  </section>
+
+  <section>
+    <h2 class="rule">Report B &mdash; publisher by campaign</h2>
+    <p class="muted">A second report, deliberately kept separate from Report A. This is the one that lets us tell an agent which networks carried their listing.</p>
+    <div class="fields">Advertiser ID &middot; Campaign ID &middot; Campaign Name &middot; Line Item ID<br>Publisher / App Name &middot; Publisher ID &middot; Platform<br>Impressions &middot; Completes &middot; View Completion Rate &middot; Spend</div>
+
+    <div class="ask" style="margin-top:1.25rem">
+      <div class="ask-h"><span class="ask-n">Please note</span><h3>Keep reach and frequency out of Report B</h3></div>
+      <p class="small">Unique reach cannot be summed across publishers &mdash; a household reached on two networks would be counted twice, and average frequency derived from it would be wrong. We would rather not receive those columns here than receive numbers we cannot use. Reach and frequency belong in Report A only.</p>
+    </div>
+
+    <div class="ask">
+      <div class="ask-h"><span class="ask-n">Please note</span><h3>Report B does not need daily rows</h3></div>
+      <p class="small">Campaign &times; publisher &times; day would run to tens of thousands of rows a month for very little benefit. Totals for the requested date range are fine, or monthly rows if that is simpler on your side.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="rule">Delivery</h2>
+    <div class="asks">
+      <div class="ask">
+        <div class="ask-h"><span class="ask-n">Format</span><h3>CSV, one header row</h3></div>
+        <p class="small">Quoted fields where values contain commas, as the current exports already do. No merged cells or subtotal rows.</p>
+      </div>
+      <div class="ask">
+        <div class="ask-h"><span class="ask-n">Cadence</span><h3>Daily, automatically</h3></div>
+        <p class="small">Previous day plus month-to-date, emailed or dropped to SFTP each morning. Manual pulls are what we are trying to get away from.</p>
+      </div>
+      <div class="ask">
+        <div class="ask-h"><span class="ask-n">History</span><h3>Backfill to campaign inception</h3></div>
+        <p class="small">One historical file covering everything to date, so we can report on campaigns that have already run.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="rule">Three questions for the Data Solutions team</h2>
+    <ol class="legend">
+      <li><div><b>Can the custom report be scheduled?</b>
+        <p class="small">We understand the ID fields are not available in standard scheduling. If the custom report can only be run on request, that is a problem &mdash; we need it arriving daily without anyone touching it. If scheduling is not possible, what are the options?</p></div></li>
+      <li><div><b>What timezone is the Date field?</b>
+        <p class="small">We reconcile these figures against our own records, so we need to know whether a day boundary is UTC, ET, or advertiser-local.</p></div></li>
+      <li><div><b>Can Report A cover OTT and display in one file?</b>
+        <p class="small">A <code>Platform</code> column would let us handle both from a single export. Two separate files works too &mdash; we just need to know which to build for.</p></div></li>
+    </ol>
   </section>
 
   <section>
