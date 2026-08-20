@@ -19,6 +19,6 @@
     { "name": "12 beechwood", "agent": "smartway", "listing": "12 Beechwood", "note": "INFERRED from creative name in the daily export - confirm this is Smart Way" },
     { "name": "321 Inverness Dr", "agent": "smartway", "listing": "321 Inverness Dr", "note": "INFERRED from creative name in the daily export - confirm this is Smart Way" },
 
-    { "name": "1143 Horizon", "agent": null, "listing": "1143 Horizon", "note": "UNKNOWN OWNER - creative is named '1143 Horizon', no client anywhere in the data. Fill in the agent key before this can be reported." }
+    { "name": "1143 Horizon", "agent": "smartway", "listing": "1143 Horizon", "note": "Confirmed by Donny - no client name appears anywhere in the Madhive data for this campaign." }
   ]
 }

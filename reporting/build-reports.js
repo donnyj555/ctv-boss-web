@@ -245,8 +245,24 @@ function renderAgent(agent, accountVcr) {
     const freq = ott.reach ? ott.impressions / ott.reach : 0;
     const conv = ott.conversions + display.conversions;
 
-    const rows = [...ott.campaigns.map(c => ({ ...c, platform: 'Streaming TV' })),
-                  ...display.campaigns.map(c => ({ ...c, platform: 'Display' }))]
+    // Several Madhive campaigns can share one listing label - the account has
+    // four separate campaigns all named "Smart Way America Realty". Left alone
+    // they render as identical duplicate rows, which reads as a bug to a client.
+    const merge = (list, platform) => {
+        const by = new Map();
+        for (const c of list) {
+            const k = c.listing;
+            const prev = by.get(k) || { listing: k, platform, impressions: 0, reach: 0, conversions: 0 };
+            prev.impressions += c.impressions;
+            prev.reach += c.reach;
+            prev.conversions += c.conversions;
+            by.set(k, prev);
+        }
+        return [...by.values()];
+    };
+
+    const rows = [...merge(ott.campaigns, 'Streaming TV'),
+                  ...merge(display.campaigns, 'Display')]
         .sort((a, b) => b.impressions - a.impressions)
         .map(c => `<tr>
             <td>${esc(c.listing)}</td>
