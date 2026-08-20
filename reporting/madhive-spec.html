@@ -194,55 +194,69 @@
     .wrap{padding:2.5rem 1.1rem 4rem;gap:2.75rem}
     .mock-body{padding:1.3rem 1rem}
   }
+
+  .status{
+    border:1px solid var(--have);background:var(--have-soft);border-radius:8px;
+    padding:1.1rem 1.3rem;display:flex;flex-direction:column;gap:.4rem;
+  }
+  .status b{font-family:var(--display);font-size:1rem}
+  .done{color:var(--have);font-weight:600}
+  .strike{text-decoration:line-through;text-decoration-thickness:1px;opacity:.55}
+  ol.legend li.resolved::before{background:var(--have)}
 </style>
 
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">Reporting requirements · CTV Homes</div>
+    <div class="eyebrow">Reporting requirements &middot; CTV Homes</div>
     <h1>What our agents need to see</h1>
-    <p class="lede">CTV Homes sells connected-TV campaigns to individual real estate agents. Every agent gets a report on their own listings. This is the report we need to produce — and the four fields we currently can't fill from Madhive exports.</p>
+    <p class="lede">CTV Homes sells connected-TV campaigns to individual real estate agents. Every agent gets a report on their own listings. This page tracks what we can build from Madhive exports &mdash; and what still blocks us.</p>
     <div class="meta">
       <span><b>Advertiser</b> CtvHomes</span>
-      <span><b>Period</b> 13 Aug – 20 Aug 2026</span>
-      <span><b>Prepared for</b> Madhive account team</span>
+      <span><b>Data</b> 6&ndash;20 Aug 2026</span>
+      <span><b>Updated</b> 20 Aug, after the Delivery Details export</span>
     </div>
   </header>
 
+  <div class="status">
+    <b>Two of the four gaps are closed.</b>
+    <p class="small">The <code>Delivery&nbsp;Details</code> export delivers completion rate <em>and</em> spend at line-item level, daily. That was the hard part, and it reconciles exactly against the pacing report &mdash; our internal campaign shows 13,930 impressions and $292.51 in both. Three things still block a per-listing agent report.</p>
+  </div>
+
   <section>
-    <h2 class="rule">The report we hand an agent</h2>
-    <p class="muted">Every figure below is pulled from our live Madhive exports for one brokerage. The four <span class="flag">1</span>–<span class="flag">4</span> markers show where we hit a wall.</p>
+    <h2 class="rule">What we can build now</h2>
+    <p class="muted">Real figures from <code>Delivery&nbsp;Details</code>. Every listing whose line items carry its name reports cleanly.</p>
 
     <div class="mock">
       <div class="mock-bar">
-        <span>Agent-facing report · generated per client</span>
+        <span>Agent-facing report &middot; streaming TV</span>
         <span>Smart Way America Realty</span>
       </div>
       <div class="mock-body">
         <div class="mock-brand">CTV Homes</div>
         <div class="mock-h">Smart Way America Realty</div>
-        <div class="mock-sub">Streaming TV &amp; display performance · 5 listings + brand campaign</div>
+        <div class="mock-sub">Streaming TV performance &middot; 6&ndash;20 August 2026</div>
 
         <div class="tiles">
           <div class="tile">
-            <span class="tile-l">Ad Views</span>
-            <span class="tile-v">27,623</span>
-            <span class="tile-s">Times their ads played</span>
+            <span class="tile-l">Completion Rate</span>
+            <span class="tile-v">98.7%</span>
+            <span class="tile-s">Now per listing <span class="done">&check;</span></span>
           </div>
           <div class="tile">
-            <span class="tile-l">Households Reached</span>
-            <span class="tile-v">8,923</span>
-            <span class="tile-s">Unique devices</span>
+            <span class="tile-l">Media Spend</span>
+            <span class="tile-v">$453.97</span>
+            <span class="tile-s">Now per listing <span class="done">&check;</span></span>
           </div>
           <div class="tile">
-            <span class="tile-l">Avg. Frequency</span>
-            <span class="tile-v">2.0×</span>
-            <span class="tile-s">Views per household</span>
+            <span class="tile-l">Daily Detail</span>
+            <span class="tile-v">15 days</span>
+            <span class="tile-s">Trend charts now possible</span>
           </div>
           <div class="tile want">
-            <span class="tile-l">Completion Rate<span class="flag">1</span></span>
-            <span class="tile-v">98.7%</span>
-            <span class="tile-s">Account-wide only</span>
+            <span class="tile-l">Display Ad Views<span class="flag">1</span></span>
+            <span class="tile-v">&mdash;</span>
+            <span class="tile-s">OTT export only</span>
           </div>
         </div>
 
@@ -250,82 +264,58 @@
 
         <div class="scroll">
           <table>
-            <caption>Per-listing breakdown</caption>
+            <caption>Per-listing breakdown &middot; streaming TV</caption>
             <thead>
               <tr>
                 <th>Listing</th>
                 <th class="n">Ad&nbsp;Views</th>
-                <th class="n">Reached&nbsp;(TV)</th>
-                <th class="n">Completion<span class="flag">1</span></th>
-                <th class="n">Spend<span class="flag">2</span></th>
-                <th>Networks<span class="flag">3</span></th>
+                <th class="n">Completion</th>
+                <th class="n">Spend</th>
+                <th>Networks<span class="flag">2</span></th>
               </tr>
             </thead>
             <tbody>
+              <tr><td>1143 Horizon</td><td class="n">5,168</td><td class="n">98.3%</td><td class="n">$145.23</td><td class="want-cell">&mdash;</td></tr>
+              <tr><td>12 Beechwood</td><td class="n">2,929</td><td class="n">98.7%</td><td class="n">$51.86</td><td class="want-cell">&mdash;</td></tr>
+              <tr><td>3509 High Hill Rd</td><td class="n">2,339</td><td class="n">98.2%</td><td class="n">$64.06</td><td class="want-cell">&mdash;</td></tr>
+              <tr><td>5191 Spring Dr</td><td class="n">85</td><td class="n">97.6%</td><td class="n">$1.81</td><td class="want-cell">&mdash;</td></tr>
+              <tr><td>Onondaga Way</td><td class="n">16</td><td class="n">100%</td><td class="n">$0.46</td><td class="want-cell">&mdash;</td></tr>
               <tr>
-                <td>1143 Horizon</td><td class="n">10,425</td><td class="n">3,113</td>
-                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
-              </tr>
-              <tr>
-                <td>321 Inverness Dr</td><td class="n">5,634</td><td class="n">1,895</td>
-                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
-              </tr>
-              <tr>
-                <td>Brand / All Networks</td><td class="n">5,009</td><td class="n">3,361</td>
-                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
-              </tr>
-              <tr>
-                <td>12 Beechwood</td><td class="n">3,843</td><td class="n">312</td>
-                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
-              </tr>
-              <tr>
-                <td>3509 High Hill Rd</td><td class="n">2,641</td><td class="n">210</td>
-                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
-              </tr>
-              <tr>
-                <td>5191 Spring Dr</td><td class="n">71</td><td class="n">32</td>
-                <td class="n want-cell">—</td><td class="n want-cell">—</td><td class="want-cell">—</td>
+                <td><strong>321 Inverness Dr</strong><span class="flag">3</span></td>
+                <td class="n want-cell">cannot&nbsp;compute</td>
+                <td class="n want-cell">&mdash;</td>
+                <td class="n want-cell">&mdash;</td>
+                <td class="want-cell">&mdash;</td>
               </tr>
             </tbody>
           </table>
         </div>
-
-        <div style="height:1.5rem"></div>
-        <h3>Where their ad ran<span class="flag">3</span></h3>
-        <p class="small" style="margin-top:.4rem">We can only say which networks the <em>whole account</em> ran on — 216 of them — not which carried this agent's listing. So the most persuasive part of the report is the part we can't personalise.</p>
-
-        <div style="height:1.2rem"></div>
-        <h3>Delivery against goal<span class="flag">4</span></h3>
-        <p class="small" style="margin-top:.4rem">Goals live in the pacing export, delivery lives in the campaign export, and nothing joins them. We reconcile the two by hand.</p>
+        <p class="small" style="margin-top:.9rem">One of our largest listings cannot be reported at all &mdash; see <span class="flag">3</span>.</p>
       </div>
     </div>
   </section>
 
   <section>
-    <h2 class="rule">The four gaps</h2>
+    <h2 class="rule">What still blocks us</h2>
     <ol class="legend">
       <li>
         <div>
-          <b>Completes and VCR, per campaign</b>
-          <p class="small">Our account-wide VCR is <strong>98.68%</strong> — the single most persuasive number we have. An unskippable ad that plays to the end is what an agent is buying. But it only exists on the topline export, so we can't attribute it to a listing. It needs to be a column on the campaign report.</p>
-        </div>
-      </li>
-      <li>
-        <div>
-          <b>Spend, on impression-paced campaigns</b>
-          <p class="small">Spend appears only for budget-paced campaigns. All our listing campaigns are impression-paced, so <code>Delivered Spend</code> comes back empty. Without it there is no cost-per-view, no CPM, no efficiency story.</p>
+          <b>The same export for display</b>
+          <p class="small">The file we received is <code>OTT_attribution_dashboard</code>. Every row has zero clicks and a completion rate, so there is no display in it. Our display campaigns ran <strong>9,806 impressions</strong> over the same period and are invisible here. We need the identical export for display &mdash; clicks and CTR matter there, completion rate does not.</p>
         </div>
       </li>
       <li>
         <div>
           <b>Publisher broken out by campaign</b>
-          <p class="small">The publisher export is account-wide totals. "Your listing ran on Paramount, Hulu and Hallmark" is the line that sells a renewal, and we cannot say it truthfully for one agent. We need <code>Campaign</code> as a second dimension on that report.</p>
+          <p class="small">Still outstanding. The publisher export is account-wide totals across 216 networks. &ldquo;Your listing ran on Paramount, Hulu and Hallmark&rdquo; is the line that renews a client, and we cannot say it truthfully for one agent. We need <code>Campaign</code> as a second dimension on that report.</p>
         </div>
       </li>
       <li>
         <div>
-          <b>One key that joins the reports</b>
-          <p class="small">Campaign ID appears in the pacing and conversion exports but not in the campaign or publisher exports, which carry names only. We currently run four separate campaigns named <code>Smart Way America Realty</code> and nothing distinguishes them. Add <code>Campaign ID</code> — plus <code>Advertiser ID</code> — to every export.</p>
+          <b>An ID on every row &mdash; this one is blocking real reporting</b>
+          <p class="small">The export carries <code>Line Item Name</code> and nothing else identifying. Line item names are not unique, so rows silently collapse: <strong>ten pairs of rows share a name and a date</strong>. On 12 August there are two separate rows both called <code>Smart Way America Realty &mdash; Premium</code>, at 381 and 190 impressions, belonging to different campaigns.</p>
+          <p class="small">The consequence is that <strong>321 Inverness Dr cannot be reported at all</strong>. Its delivery sits inside line items named <code>Smart Way America Realty &mdash; Premium</code> and <code>&mdash; Repeat CTV</code>, and the Premium line item is shared with another campaign. There is no way to separate them.</p>
+          <p class="small">Adding <code>Line Item ID</code>, <code>Campaign ID</code>, <code>Campaign Name</code> and <code>Advertiser ID</code> fixes this completely.</p>
         </div>
       </li>
     </ol>
@@ -335,21 +325,21 @@
     <h2 class="rule">Field-by-field</h2>
     <div class="scroll">
       <table>
-        <thead>
-          <tr><th>Field</th><th>Status today</th><th>Where we need it</th></tr>
-        </thead>
+        <thead><tr><th>Field</th><th>Status</th><th>Where</th></tr></thead>
         <tbody>
-          <tr><td><code>Impressions</code></td><td><span class="chip chip-have">Available</span></td><td>Campaign report</td></tr>
-          <tr><td><code>Reach</code></td><td><span class="chip chip-have">Available</span></td><td>Campaign report</td></tr>
-          <tr><td><code>Avg. Frequency</code></td><td><span class="chip chip-have">Available</span></td><td>Campaign report</td></tr>
-          <tr><td><code>Total Conversions</code></td><td><span class="chip chip-have">Available</span></td><td>Campaign report</td></tr>
-          <tr><td><code>Completes</code>, <code>VCR</code></td><td><span class="chip chip-gap">Topline only</span></td><td>Campaign report</td></tr>
-          <tr><td><code>Delivered Spend</code></td><td><span class="chip chip-gap">Budget-paced only</span></td><td>Campaign + pacing report</td></tr>
-          <tr><td><code>Publisher</code> × <code>Campaign</code></td><td><span class="chip chip-gap">Account-wide only</span></td><td>Publisher report</td></tr>
-          <tr><td><code>Campaign ID</code></td><td><span class="chip chip-gap">Pacing only</span></td><td>Every report</td></tr>
-          <tr><td><code>Advertiser ID</code>, <code>Advertiser Name</code></td><td><span class="chip chip-gap">Missing</span></td><td>Every report</td></tr>
-          <tr><td><code>Impression Date</code></td><td><span class="chip chip-gap">Conversion export only</span></td><td>Campaign report</td></tr>
-          <tr><td><code>Clicks</code>, <code>CTR</code></td><td><span class="chip chip-gap">Missing</span></td><td>Display campaign report</td></tr>
+          <tr><td><code>Total Impressions</code></td><td><span class="chip chip-have">Available</span></td><td>Delivery Details</td></tr>
+          <tr><td><code>Total Reach</code>, <code>Average Frequency</code></td><td><span class="chip chip-have">Available</span></td><td>Delivery Details</td></tr>
+          <tr><td><code>Total Completes</code>, <code>View Completion Rate</code></td><td><span class="chip chip-have">Now available</span></td><td>Delivery Details</td></tr>
+          <tr><td><code>Total Spend</code>, <code>CPM</code></td><td><span class="chip chip-have">Now available</span></td><td>Delivery Details</td></tr>
+          <tr><td><code>Media Cost</code>, <code>Audience Cost</code></td><td><span class="chip chip-have">Now available</span></td><td>Delivery Details</td></tr>
+          <tr><td><code>Date</code> (daily rows)</td><td><span class="chip chip-have">Now available</span></td><td>Delivery Details</td></tr>
+          <tr><td><code>Total Conversions</code></td><td><span class="chip chip-have">Available</span></td><td>Delivery Details</td></tr>
+          <tr><td><code>Line Item ID</code></td><td><span class="chip chip-gap">Missing</span></td><td>Delivery Details</td></tr>
+          <tr><td><code>Campaign ID</code>, <code>Campaign Name</code></td><td><span class="chip chip-gap">Missing</span></td><td>Delivery Details</td></tr>
+          <tr><td><code>Advertiser ID</code></td><td><span class="chip chip-gap">Missing</span></td><td>Every report</td></tr>
+          <tr><td>Display equivalent of this export</td><td><span class="chip chip-gap">Missing</span></td><td>New file</td></tr>
+          <tr><td><code>Clicks</code>, <code>CTR</code></td><td><span class="chip chip-gap">Zero on OTT</span></td><td>Display export</td></tr>
+          <tr><td><code>Publisher</code> &times; <code>Campaign</code></td><td><span class="chip chip-gap">Account-wide only</span></td><td>Publisher report</td></tr>
         </tbody>
       </table>
     </div>
@@ -360,34 +350,39 @@
     <div class="asks">
 
       <div class="ask">
-        <div class="ask-h"><span class="ask-n">Priority 1</span><h3>Add columns to the campaign report</h3></div>
-        <p class="small">This one change fills three of the four gaps and unblocks the agent report entirely.</p>
-        <div class="fields">Campaign ID · Advertiser ID · Advertiser Name · Impressions · Reach<br>Avg. Frequency · Completes · VCR · Delivered Spend · Impression Date<br>Total Conversions · Unique Conversions · Clicks · CTR</div>
+        <div class="ask-h"><span class="ask-n">Priority 1</span><h3>Add ID columns to Delivery Details</h3></div>
+        <p class="small">Without these, listings whose line items share a name cannot be separated, and we lose one listing entirely. This is a column addition to a report that already exists.</p>
+        <div class="fields">Line Item ID &middot; Campaign ID &middot; Campaign Name &middot; Advertiser ID &middot; Advertiser Name</div>
       </div>
 
       <div class="ask">
-        <div class="ask-h"><span class="ask-n">Priority 2</span><h3>Add Campaign as a dimension on the publisher report</h3></div>
-        <p class="small">Same metrics, one extra dimension, so each row is a campaign-and-publisher pair rather than a publisher total. We understand this may need to be run server-side — a one-off export is fine to start.</p>
-        <div class="fields">Campaign ID · Campaign Name · Publisher · Impressions · Reach · Avg. Frequency</div>
+        <div class="ask-h"><span class="ask-n">Priority 2</span><h3>The same Delivery Details export for display</h3></div>
+        <p class="small">Same columns, display inventory, with clicks and CTR populated. Completion rate is not meaningful there and can be dropped.</p>
       </div>
 
       <div class="ask">
-        <div class="ask-h"><span class="ask-n">Priority 3</span><h3>Schedule both as a daily CSV email</h3></div>
-        <p class="small">Previous day plus month-to-date, delivered each morning. This is what we need most until the API is ready — it turns a manual pull into something we can automate against.</p>
+        <div class="ask-h"><span class="ask-n">Priority 3</span><h3>Publisher broken out by campaign</h3></div>
+        <p class="small">Same metrics as the current publisher report with one extra dimension, so each row is a campaign-and-publisher pair. A one-off export is fine to start.</p>
+        <div class="fields">Campaign ID &middot; Campaign Name &middot; Publisher &middot; Impressions &middot; Reach &middot; Average Frequency</div>
+      </div>
+
+      <div class="ask">
+        <div class="ask-h"><span class="ask-n">Priority 4</span><h3>Schedule it daily</h3></div>
+        <p class="small">Previous day plus month-to-date, emailed as CSV each morning, so we can automate against it rather than pulling by hand.</p>
       </div>
 
     </div>
   </section>
 
   <section>
-    <h2 class="rule">Why this matters to us</h2>
-    <p>Every agent who buys a campaign expects to see what their money did. Right now we can show them how many times their ad played and roughly how many households saw it — but not whether it played to the end, what it cost, or which networks carried it.</p>
-    <p>Those three answers are the difference between a report that renews a client and a report that raises questions. Everything else is already in your data; it just isn't in the export.</p>
+    <h2 class="rule">Where this leaves us</h2>
+    <p>The Delivery Details export was the breakthrough &mdash; completion rate and spend per line item per day is exactly the substance of an agent report, and 98.7% of our streaming ads playing to the end is the most persuasive number we have.</p>
+    <p>What remains is plumbing. An ID column tells us which listing a row belongs to. A display file covers the other half of the buy. Both are additions to reports that already run.</p>
   </section>
 
   <footer>
-    Prepared by CTV Homes · All figures are live Madhive data for advertiser <code>CtvHomes</code>, 13–20 August 2026.<br>
-    Reach figures are summed across campaigns and so are an upper bound on unique households.
+    Prepared by CTV Homes &middot; Figures are live Madhive data for advertiser <code>CtvHomes</code>, 6&ndash;20 August 2026, streaming TV only.<br>
+    Internal campaigns are excluded from all client figures.
   </footer>
 
 </div>
