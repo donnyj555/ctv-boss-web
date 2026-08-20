@@ -10,3 +10,7 @@ venv/
 *.jpg
 *.jpeg
 *.webp
+
+# Madhive report data + generated client reports (never commit - repo root is published by Netlify)
+reporting/data/
+reporting/out/
