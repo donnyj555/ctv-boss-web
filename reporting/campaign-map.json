@@ -1,0 +1,36 @@
+{
+  "_README": "Maps a Madhive campaign name to the agent who should see it. 'exclude: true' keeps a campaign out of ALL agent reports (use it for your own internal campaigns). Any campaign found in a CSV but missing from this file is reported as UNMAPPED and is never shown to an agent.",
+
+  "settings": {
+    "_comment": "Madhive's publisher export has no campaign column, so networks cannot be attributed to an individual agent. The lineup section is therefore worded as where CTV Homes places listing ads, not where one agent's ad ran. Set show_network_lineup to false to drop the section. feature_networks is an allowlist of recognisable brands to name; any entry not present in the export is skipped with a warning rather than printed. Remove it to fall back to the top lineup_count networks by impressions.",
+    "show_network_lineup": true,
+    "lineup_count": 15,
+    "feature_networks": [
+      "Paramount+", "Hulu", "Peacock", "Disney+", "HBO Max",
+      "The Roku Channel", "Tubi", "Pluto", "Samsung TV Plus", "Philo",
+      "HGTV", "Food Network", "Hallmark Channel", "History Channel",
+      "A&E", "Discovery", "TLC", "ESPN", "CNN", "NBC", "ABC", "CBS"
+    ]
+  },
+
+  "agents": {
+    "smartway": {
+      "business_name": "Smart Way America Realty",
+      "contact_name": "",
+      "email": ""
+    }
+  },
+
+  "campaigns": [
+    { "name": "ctvhomes recruiting", "exclude": true, "note": "INTERNAL - CTV Homes agent recruiting. Never show to a client." },
+
+    { "name": "Smart Way America Realty", "agent": "smartway", "listing": "Brand / All Networks" },
+    { "name": "5191 Spring Dr — Smart Way America Realty", "agent": "smartway", "listing": "5191 Spring Dr" },
+    { "name": "3509 High Hill Rd — Smartway America Realty", "agent": "smartway", "listing": "3509 High Hill Rd" },
+
+    { "name": "12 beechwood", "agent": "smartway", "listing": "12 Beechwood", "note": "INFERRED from creative name in the daily export - confirm this is Smart Way" },
+    { "name": "321 Inverness Dr", "agent": "smartway", "listing": "321 Inverness Dr", "note": "INFERRED from creative name in the daily export - confirm this is Smart Way" },
+
+    { "name": "1143 Horizon", "agent": "smartway", "listing": "1143 Horizon", "note": "Confirmed by Donny - no client name appears anywhere in the Madhive data for this campaign." }
+  ]
+}
