@@ -73,6 +73,7 @@ function classify(rows, filename) {
     const keys = Object.keys(rows[0]);
     const has = k => keys.some(x => x.toLowerCase() === k);
 
+    if (has('pacing status')) return 'pacing';
     if (has('platform')) return 'topline';
     if (has('campaigns')) return 'campaign';
     if (has('publishers')) return 'publisher';
@@ -94,7 +95,7 @@ function loadAll() {
         process.exit(1);
     }
 
-    const out = { topline: [], campaign: [], publisher: [] };
+    const out = { topline: [], campaign: [], publisher: [], pacing: [] };
     for (const f of files) {
         const rows = parseCsv(fs.readFileSync(path.join(DATA, f), 'utf8'));
         const kind = classify(rows, f);
@@ -269,6 +270,69 @@ function build() {
     console.log(`  unmapped (dropped) : ${unm.toLocaleString()}`);
     console.log(`  total in CSVs      : ${(reported + exc + unm).toLocaleString()}`);
     console.log('--------------------------------------------------');
+
+    reportPacing(data.pacing, byName);
+}
+
+// Delivery pacing is an internal alert, never part of a client report - telling
+// an agent their campaign is at 10% of goal invites a refund conversation
+// before the campaign has had a chance to recover. Projection is a simple
+// linear run-rate: whatever the campaign has averaged per day so far, carried
+// forward to the end date. Madhive's own "Pace" column compares delivery to
+// where it should be *today*; this instead answers "will it finish".
+function reportPacing(pacingFiles, byName) {
+    if (!pacingFiles.length) return;
+    const rows = pacingFiles.flatMap(f => f.rows).filter(r => r.Name);
+    if (!rows.length) return;
+
+    // "9d 8h  ago" -> 9.33 ; "Completed" -> null
+    const elapsedDays = s => {
+        if (!s || /completed/i.test(s)) return null;
+        const d = (s.match(/(\d+)\s*d/) || [])[1];
+        const h = (s.match(/(\d+)\s*h/) || [])[1];
+        if (d === undefined && h === undefined) return null;
+        return (parseInt(d || 0, 10)) + (parseInt(h || 0, 10)) / 24;
+    };
+    const lengthDays = s => {
+        const d = (s.match(/(\d+)\s*d/) || [])[1];
+        return d === undefined ? null : parseInt(d, 10);
+    };
+
+    const alerts = [];
+    for (const r of rows) {
+        const entry = byName.get(r.Name);
+        const internal = entry && entry.exclude;
+        const goal = num(r.Goal);
+        const delivered = num(r['Delivered Impressions']);
+        const el = elapsedDays(r.Starting);
+        const len = lengthDays(r.Length || '');
+        const projected = (el && el > 0 && len) ? Math.round(delivered / el * len) : null;
+        const pctOfGoal = goal ? delivered / goal : null;
+        const projPct = (projected !== null && goal) ? projected / goal : null;
+        alerts.push({ r, internal, goal, delivered, projected, pctOfGoal, projPct, budgetPaced: /budget/i.test(r['Pacing Type'] || '') });
+    }
+
+    console.log('\n=== DELIVERY PACING (internal - never shown to agents) ===');
+    console.log('campaign                                   goal  delivered  projected  finish   status');
+    let goalSum = 0, projSum = 0;
+    for (const a of alerts.sort((x, y) => (x.projPct ?? 9) - (y.projPct ?? 9))) {
+        if (a.budgetPaced) {
+            const spend = num(a.r['Delivered Spend ($)']);
+            const cpm = a.delivered ? spend / a.delivered * 1000 : 0;
+            console.log(`  ${a.r.Name.slice(0, 40).padEnd(40)} ${a.r.Goal.padStart(8)} ${fmt(a.delivered).padStart(10)}  budget-paced, $${cpm.toFixed(2)} CPM`);
+            continue;
+        }
+        if (!a.internal) { goalSum += a.goal; projSum += a.projected ?? a.delivered; }
+        const flag = a.projPct === null ? '' :
+            a.projPct < 0.05 ? '  <<< NOT DELIVERING' :
+            a.projPct < 0.7 ? '  <<< WILL MISS GOAL' : '';
+        console.log(`  ${a.r.Name.slice(0, 40).padEnd(40)} ${fmt(a.goal).padStart(8)} ${fmt(a.delivered).padStart(10)} ${(a.projected === null ? '—' : fmt(a.projected)).padStart(10)}  ${(a.projPct === null ? '—' : Math.round(a.projPct * 100) + '%').padStart(6)}${flag}`);
+    }
+    if (goalSum) {
+        console.log(`\n  Client campaigns on current run-rate: ${fmt(projSum)} of ${fmt(goalSum)} contracted impressions (${Math.round(projSum / goalSum * 100)}%)`);
+        console.log(`  Shortfall: ${fmt(goalSum - projSum)} impressions`);
+    }
+    console.log('==========================================================');
 }
 
 // ------------------------------------------------------------------ rendering
