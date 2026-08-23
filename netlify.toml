@@ -16,6 +16,13 @@
   status = 404
   force = true
 
+# pwa-kit/ is a set of files to copy into the app repo, not part of this site.
+[[redirects]]
+  from = "/pwa-kit/*"
+  to = "/"
+  status = 404
+  force = true
+
 # Proxy rules for the per-listing landing page on Railway. Order matters —
 # Netlify processes top to bottom. Static-asset prefixes need to pass through
 # unchanged BEFORE the catch-all rewrites /{slug} → /l/{slug}; otherwise CSS

@@ -1,0 +1,16 @@
+{
+  "name": "CTV Homes — Ad Builder",
+  "short_name": "CTV Homes",
+  "description": "Turn any listing into a 30-second TV commercial and run it on streaming TV.",
+  "start_url": "/agents",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0a0a0f",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

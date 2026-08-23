@@ -1,0 +1,112 @@
+/* ---------------------------------------------------------------------------
+   CTV Homes — mobile polish
+   Three fixes that do most of the work of making a web flow feel native.
+   Every rule here is additive; nothing overrides existing layout.
+   --------------------------------------------------------------------------- */
+
+
+/* 1. Stop iOS zooming the page when a field is focused ----------------------
+   Safari zooms whenever a focused input's font-size is under 16px. It is the
+   single loudest "this is a website" tell, and it also leaves the layout
+   scrolled sideways afterwards. 16px minimum removes it entirely. */
+
+input,
+select,
+textarea {
+    font-size: max(16px, 1rem);
+}
+
+
+/* 2. Respect the notch and the home indicator -------------------------------
+   Without these, a bottom-pinned bar sits under the home indicator on any
+   iPhone without a physical button, and full-bleed headers slide under the
+   status bar when the app is launched from the home screen. */
+
+body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+}
+
+.app-bottom-bar {
+    padding-bottom: calc(0.9rem + env(safe-area-inset-bottom));
+}
+
+
+/* 3. A thumb-reachable primary action ---------------------------------------
+   The main button stays pinned to the bottom of the viewport rather than
+   living at the end of a long scroll. This is most of the difference between
+   a form and an app. Apply .app-bottom-bar to a wrapper holding the primary
+   button, and add .has-bottom-bar to the scrolling container so its last
+   element is not hidden behind the bar. */
+
+.app-bottom-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: flex;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    background: rgba(10, 10, 15, 0.92);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app-bottom-bar > * {
+    flex: 1;
+}
+
+.has-bottom-bar {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom));
+}
+
+
+/* Touch targets ------------------------------------------------------------
+   44px is Apple's minimum for a comfortable tap. Anything smaller gets
+   mis-tapped on a phone held one-handed. */
+
+button,
+[role="button"],
+a.btn {
+    min-height: 44px;
+}
+
+
+/* Small niceties -----------------------------------------------------------
+   Removes the grey flash Android draws on tap, stops a stray wide element
+   from letting the whole page slide sideways, and keeps momentum scrolling. */
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+.scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* Installed-app-only rules --------------------------------------------------
+   These apply only when launched from the home screen, never in the browser,
+   so they cannot affect ordinary web visitors. Useful for hiding an
+   "install this app" prompt once it has been installed. */
+
+@media (display-mode: standalone) {
+    .only-in-browser {
+        display: none !important;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

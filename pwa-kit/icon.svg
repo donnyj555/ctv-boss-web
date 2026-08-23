@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- CTV Homes app icon. Full-bleed background so the same artwork works as a
+       maskable icon; all content sits inside the centre 80% safe zone that
+       Android may crop to a circle. -->
+  <rect width="512" height="512" fill="#0a0a0f"/>
+
+  <!-- roofline: reads as "homes" and as a play caret at small sizes -->
+  <path d="M256 118 L406 214 H106 Z" fill="#ff3366"/>
+
+  <!-- the screen -->
+  <rect x="106" y="232" width="300" height="196" rx="26"
+        fill="none" stroke="#ff3366" stroke-width="22"/>
+
+  <!-- play triangle -->
+  <path d="M226 296 L316 330 L226 364 Z" fill="#fcfcfd"/>
+
+  <!-- stand -->
+  <rect x="216" y="446" width="80" height="18" rx="9" fill="#ff3366"/>
+</svg>
