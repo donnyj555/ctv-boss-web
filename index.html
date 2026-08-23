@@ -26,7 +26,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=15">
 
@@ -148,18 +147,21 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
     <main>
         <!-- Vision Hero Section -->
-        <section class="section" style="padding: 8rem 0 5rem;" class="hero">
+        <!-- Padding and type below use clamp() because these are inline styles,
+             which no media query can reach. The upper bound of each clamp is the
+             previous fixed value, so desktop is unchanged. -->
+        <section class="section" style="padding: clamp(3.5rem, 9vw, 8rem) 0 clamp(2.5rem, 6vw, 5rem);">
             <div class="container text-center">
-                <div class="card fade-in-up" style="padding: 3rem; background: linear-gradient(180deg, rgba(20,20,25,0.9) 0%, rgba(10,10,15,1) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: visible; position: relative;">
+                <div class="card fade-in-up" style="padding: clamp(1.15rem, 5vw, 3rem); background: linear-gradient(180deg, rgba(20,20,25,0.9) 0%, rgba(10,10,15,1) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: visible; position: relative;">
                     <!-- Angled REALTORS Stamp -->
                     <div class="realtor-stamp">
                         REALTORS
                     </div>
                     <div style="max-width: 800px; margin: 0 auto; position: relative; z-index: 2;">
                         <span class="badge fade-in-up" style="margin-bottom: 1rem;">AI ad creation + CTV farming for real estate</span>
-                        <h1 style="font-size: 3.5rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.2;">Become the agent<br>people already know.</h1>
-                        <h2 class="text-accent" style="font-size: 1.75rem; font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.5px;">Turn every listing into a branding campaign.</h2>
-                        <h3 style="font-size: 1.2rem; font-weight: 400; color: var(--text-muted); margin-bottom: 2.25rem;">CTV HOMES creates your commercial in minutes, runs it on connected TV in the neighborhoods you choose, and reinforces your name across phones, laptops, and tablets &mdash; so every postcard, social post, and call you make lands with someone who already recognizes you.</h3>
+                        <h1 style="font-size: clamp(2.1rem, 7.5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.15;">Become the agent<br>people already know.</h1>
+                        <h2 class="text-accent" style="font-size: clamp(1.25rem, 4.5vw, 1.75rem); font-weight: 800; margin-bottom: 0.75rem; letter-spacing: -0.5px;">Turn every listing into a branding campaign.</h2>
+                        <h3 style="font-size: clamp(1rem, 3vw, 1.2rem); font-weight: 400; color: var(--text-muted); margin-bottom: 2.25rem;">CTV HOMES creates your commercial in minutes, runs it on connected TV in the neighborhoods you choose, and reinforces your name across phones, laptops, and tablets &mdash; so every postcard, social post, and call you make lands with someone who already recognizes you.</h3>
                     </div>
 
                     <!-- The offer, stated up front. Both halves of it - free ad creation and
