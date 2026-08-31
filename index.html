@@ -77,6 +77,43 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
             background: rgba(20,20,25,0.9);
             border-radius: 8px;
         }
+        /* Facebook Boost starburst badge — top-right of the hero card */
+        .fb-burst {
+            position: absolute;
+            top: -24px;
+            right: -20px;
+            width: 162px;
+            height: 162px;
+            transform: rotate(11deg);
+            z-index: 6;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.55));
+            text-decoration: none;
+            transition: transform 0.25s ease;
+        }
+        .fb-burst:hover { transform: rotate(11deg) scale(1.05); }
+        .fb-burst svg { width: 100%; height: 100%; display: block; }
+        .fb-burst-text {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            line-height: 1.05;
+            padding: 0 14px;
+            pointer-events: none;
+        }
+        .fb-burst-new { font-size: 0.72rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; opacity: 0.95; }
+        .fb-burst-main { font-size: 1.2rem; font-weight: 900; letter-spacing: 0.2px; margin: 3px 0; text-transform: uppercase; }
+        .fb-burst-sub { font-size: 0.68rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; opacity: 0.95; }
+        @media (max-width: 768px) {
+            .fb-burst { width: 116px; height: 116px; top: -16px; right: -6px; }
+            .fb-burst-new, .fb-burst-sub { font-size: 0.55rem; letter-spacing: 1px; }
+            .fb-burst-main { font-size: 0.85rem; margin: 2px 0; }
+            .fb-burst:hover { transform: rotate(11deg); }
+        }
         @media (max-width: 768px) {
             .realtor-stamp {
                 position: relative;
@@ -152,6 +189,23 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <section class="section" style="padding: 8rem 0 5rem;" class="hero">
             <div class="container text-center">
                 <div class="card fade-in-up" style="padding: 3rem; background: linear-gradient(180deg, rgba(20,20,25,0.9) 0%, rgba(10,10,15,1) 100%); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; overflow: visible; position: relative;">
+                    <!-- NEW: Facebook Boost starburst badge (links to the section below) -->
+                    <a href="#facebook-boost" class="fb-burst" role="img" aria-label="New: Facebook Boost ad included">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="fbBurst" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0" stop-color="#2b8bff"/>
+                                    <stop offset="1" stop-color="#1877F2"/>
+                                </linearGradient>
+                            </defs>
+                            <polygon points="100.0,2.0 112.8,19.0 130.3,6.8 137.2,26.9 157.6,20.7 158.0,42.0 179.3,42.4 173.1,62.8 193.2,69.7 181.0,87.2 198.0,100.0 181.0,112.8 193.2,130.3 173.1,137.2 179.3,157.6 158.0,158.0 157.6,179.3 137.2,173.1 130.3,193.2 112.8,181.0 100.0,198.0 87.2,181.0 69.7,193.2 62.8,173.1 42.4,179.3 42.0,158.0 20.7,157.6 26.9,137.2 6.8,130.3 19.0,112.8 2.0,100.0 19.0,87.2 6.8,69.7 26.9,62.8 20.7,42.4 42.0,42.0 42.4,20.7 62.8,26.9 69.7,6.8 87.2,19.0" fill="url(#fbBurst)" stroke="#ffffff" stroke-width="3.5" stroke-opacity="0.9"/>
+                        </svg>
+                        <span class="fb-burst-text">
+                            <span class="fb-burst-new">New</span>
+                            <span class="fb-burst-main">Facebook<br>Boost</span>
+                            <span class="fb-burst-sub">Ad Included</span>
+                        </span>
+                    </a>
                     <!-- Angled REALTORS Stamp -->
                     <div class="realtor-stamp">
                         REALTORS
