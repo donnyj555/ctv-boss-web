@@ -91,7 +91,7 @@
     panel.classList.add("open");
     if (!started) {
       started = true;
-      bubble("assistant", "Hi, I'm Connie 👋 I can answer questions about putting your listings on TV, pricing, or owning your farm — or connect you with Don. What can I help with?");
+      bubble("assistant", "Hi, I'm Connie 👋 I can answer questions about putting your listings on TV, pricing, or owning your target area — or connect you with Don. What can I help with?");
     }
     setTimeout(function () { inEl.focus(); }, 50);
   }
