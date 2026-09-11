@@ -322,6 +322,53 @@ h1, h2, h3, h4 {
     font-weight: 800;
     letter-spacing: 2px;
     color: white;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Auto-scrolling network marquee (the "#platform" scroll effect) */
+.logo-marquee {
+    margin-top: 1.75rem;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    /* fade both edges so logos slide in/out softly */
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+}
+
+.logo-marquee .logo-track {
+    display: flex;
+    width: max-content;
+    align-items: center;
+    opacity: 0.6;
+    animation: logo-scroll 45s linear infinite;
+}
+
+/* each item carries its own right margin (not container gap) so the two
+   duplicated copies tile perfectly — translateX(-50%) loops seamlessly */
+.logo-marquee .logo-item {
+    margin-right: 4rem;
+}
+
+.logo-marquee:hover .logo-track {
+    animation-play-state: paused;
+}
+
+@keyframes logo-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-marquee { -webkit-mask-image: none; mask-image: none; }
+    .logo-marquee .logo-track {
+        animation: none;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        row-gap: 1.5rem;
+    }
 }
 
 /* Cards (How It Works) */
