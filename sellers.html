@@ -132,9 +132,16 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 
       .final{text-align:center;padding:3rem 0 4rem;}
       .final h2{font-size:2rem;margin-bottom:1.25rem;}
+      /* Co-brand header: brokerage logo + "Powered by CTV Homes" */
+      .cobrand{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+      .brand-logo{height:54px;width:auto;background:#fff;border-radius:10px;padding:6px 12px;object-fit:contain;box-shadow:0 4px 16px rgba(0,0,0,0.35);}
+      .powered{font-family:var(--font-heading);font-weight:700;font-size:0.8rem;letter-spacing:0.5px;color:var(--text-muted);text-transform:uppercase;}
+      .powered a{color:var(--text-main);text-decoration:none;}
+      .powered a span{color:var(--accent-red);}
       @media(max-width:680px){
         .hero h1{font-size:2.1rem;}
         .steps{grid-template-columns:1fr;}
+        .brand-logo{height:44px;}
       }
     </style>
     <!-- MNTN Tracking Pixel -->
@@ -162,7 +169,10 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <header><div class="wrap"><a href="index.html" class="logo">CTV <span>HOMES</span></a></div></header>
+    <header><div class="wrap cobrand">
+      <img src="smart-way-america-realty.jpg" alt="Smart Way America Realty" class="brand-logo">
+      <span class="powered">Powered by <a href="index.html">CTV <span>HOMES</span></a></span>
+    </div></header>
 
     <!-- HERO -->
     <section class="hero">
@@ -244,7 +254,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
     <section class="final">
       <div class="wrap">
         <h2>Your home, on the big screen.</h2>
-        <p class="sub" style="margin:0 auto 1.5rem;">This is how your agent is marketing your home with CTV Homes. Questions? Just ask them &mdash; they&rsquo;ll walk you through it.</p>
+        <p class="sub" style="margin:0 auto 1.5rem;">This is how your Smart Way America Realty agent markets your home &mdash; powered by CTV Homes. Questions? Just ask us &mdash; we&rsquo;ll walk you through it.</p>
         <a href="examples.html" class="cta" data-outbound="sellers-sample-bottom">See real listing ads &rarr;</a>
       </div>
     </section>
