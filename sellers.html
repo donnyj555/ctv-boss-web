@@ -138,6 +138,11 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       .powered{font-family:var(--font-heading);font-weight:700;font-size:0.8rem;letter-spacing:0.5px;color:var(--text-muted);text-transform:uppercase;}
       .powered a{color:var(--text-main);text-decoration:none;}
       .powered a span{color:var(--accent-red);}
+      /* Real-listing video gallery */
+      .vids{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin-top:1.25rem;}
+      .vid{background:var(--bg-card);border:1px solid rgba(255,255,255,0.06);border-radius:14px;overflow:hidden;}
+      .vid video{width:100%;display:block;aspect-ratio:16/9;background:#000;}
+      .vlabel{display:block;padding:0.65rem 0.95rem;font-size:0.85rem;color:var(--text-muted);font-family:var(--font-heading);font-weight:700;letter-spacing:0.3px;}
       @media(max-width:680px){
         .hero h1{font-size:2.1rem;}
         .steps{grid-template-columns:1fr;}
@@ -180,7 +185,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
         <div class="eyebrow">For home sellers</div>
         <h1>Your home deserves to be <span class="accent">on TV.</span></h1>
         <p class="sub">Your listing isn&rsquo;t just a yard sign and a spot on Zillow. It becomes a real 30-second television commercial &mdash; and it airs on the streaming shows and sports local buyers are watching every night. More of the right people see your home.</p>
-        <a href="sample.html" class="cta" data-outbound="sellers-sample">Watch a sample ad &rarr;</a>
+        <a href="#see-it" class="cta" data-outbound="sellers-sample">Watch a sample ad &rarr;</a>
         <span class="cta-note">This is part of the marketing your agent provides &mdash; at no cost to you.</span>
       </div>
     </section>
@@ -190,6 +195,19 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       <span>HULU</span><span>ESPN</span><span>PEACOCK</span><span>MAX</span><span>PARAMOUNT+</span><span>FOX</span><span>ROKU</span><span>TUBI</span>
       <span>HULU</span><span>ESPN</span><span>PEACOCK</span><span>MAX</span><span>PARAMOUNT+</span><span>FOX</span><span>ROKU</span><span>TUBI</span>
     </div></div>
+
+    <!-- REAL EXAMPLES -->
+    <section class="blk" id="see-it">
+      <div class="wrap">
+        <h2>See real listings on TV</h2>
+        <p class="lede">Real homes we&rsquo;ve marketed on streaming TV. Yours would look just like this &mdash; beautifully produced, on the big screen.</p>
+        <div class="vids">
+          <div class="vid"><video controls preload="metadata" playsinline><source src="https://irvolzdkypcagjblppac.supabase.co/storage/v1/object/public/ctvreel/renders/cmtkr0gbk0005mr0ep4aaj0rw/cmtkr0gbk0005mr0ep4aaj0rw-16x9.mp4" type="video/mp4"></video><span class="vlabel">2144 Onondaga Way</span></div>
+          <div class="vid"><video controls preload="metadata" playsinline><source src="https://irvolzdkypcagjblppac.supabase.co/storage/v1/object/public/ctvreel/renders/cmu5vb8g6000ymr0e7uu2mvlv/cmu5vb8g6000ymr0e7uu2mvlv-16x9.mp4" type="video/mp4"></video><span class="vlabel">9 Rockspring Ct</span></div>
+          <div class="vid"><video controls preload="metadata" playsinline><source src="https://irvolzdkypcagjblppac.supabase.co/storage/v1/object/public/ctvreel/renders/cmufn1is60001mz0eod7gar7u/cmufn1is60001mz0eod7gar7u-16x9.mp4" type="video/mp4"></video><span class="vlabel">913 Sarah St</span></div>
+        </div>
+      </div>
+    </section>
 
     <section class="blk">
       <div class="wrap">
@@ -255,7 +273,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
       <div class="wrap">
         <h2>Your home, on the big screen.</h2>
         <p class="sub" style="margin:0 auto 1.5rem;">This is how your Smart Way America Realty agent markets your home &mdash; powered by CTV Homes. Questions? Just ask us &mdash; we&rsquo;ll walk you through it.</p>
-        <a href="sample.html" class="cta" data-outbound="sellers-sample-bottom">Watch a sample ad &rarr;</a>
+        <a href="#see-it" class="cta" data-outbound="sellers-sample-bottom">Watch a sample ad &rarr;</a>
       </div>
     </section>
 
