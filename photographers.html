@@ -36,6 +36,15 @@
             'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '775904325592773');
         fbq('track', 'PageView');
+        // Lead: the photographer-partner inquiry form posts to this page with
+        // ?submitted=1, so a converted visitor lands here with that flag. Fire
+        // Lead once on that post-submit view — the signal the Meta ad optimizes
+        // for and the seed for a photographer-converter lookalike.
+        try {
+            if (/[?&]submitted=1\b/.test(window.location.search)) {
+                fbq('track', 'Lead', { content_name: 'Photographer Partner Inquiry', content_category: 'photographer-partner' });
+            }
+        } catch (e) { /* no-op */ }
     </script>
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=775904325592773&ev=PageView&noscript=1" /></noscript>
