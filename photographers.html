@@ -10,6 +10,9 @@
       gtag('js', new Date());
 
       gtag('config', 'G-C4NSY488WK');
+      // Google Ads — photographer YouTube campaign conversion tracking.
+      // TODO: replace AW-XXXXXXXXXX with your Google Ads conversion ID.
+      gtag('config', 'AW-XXXXXXXXXX');
     </script>
 
     <!-- Google Tag Manager -->
@@ -51,8 +54,13 @@
         // Lead once on that post-submit view — the signal the Meta ad optimizes
         // for and the seed for a photographer-converter lookalike.
         try {
-            if (/[?&]submitted=1\b/.test(window.location.search)) {
+            if (/[?&]submitted=(1|info)\b/.test(window.location.search)) {
                 fbq('track', 'Lead', { content_name: 'Photographer Partner Inquiry', content_category: 'photographer-partner' });
+                // Google Ads conversion — fires on the post-submit view, same as Meta Lead.
+                // TODO: replace AW-XXXXXXXXXX/XXXXXXXXXXXXXXXX with your conversion ID/label (send_to).
+                if (typeof gtag === 'function') {
+                    gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXXX/XXXXXXXXXXXXXXXX' });
+                }
             }
         } catch (e) { /* no-op */ }
     </script>
@@ -197,12 +205,16 @@
                 <span class="badge fade-in-up">For Real Estate Photographers</span>
                 <h1 class="hero-title mt-4 fade-in-up" style="font-size: 3rem;">Give Your Agents More Marketing Power<br><span class="text-gradient">And Create a New Revenue Stream</span></h1>
                 <p class="section-subtitle text-muted" style="max-width:720px;margin:1rem auto 2rem;">Your Photos. Their Listings. Now on TV.</p>
-                <a href="#photographer-contact" class="btn btn-primary btn-lg">Become a partner</a>
+                <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+                    <a href="#photographer-info" class="btn btn-primary btn-lg">Get the partner info</a>
+                    <a href="#photographer-walkthrough" class="btn btn-lg" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3);">See how it works &darr;</a>
+                </div>
+                <p class="text-muted text-sm" style="margin-top:0.9rem;">Free to look &middot; no call, no commitment.</p>
             </div>
         </section>
 
         <!-- 2-minute walkthrough video -->
-        <section class="section" style="padding-top:1rem;">
+        <section class="section" id="photographer-walkthrough" style="padding-top:1rem;">
             <div class="container text-center">
                 <h2 class="section-title">See how it works in 2 minutes</h2>
                 <p class="section-subtitle text-muted" style="max-width:680px;margin:0.75rem auto 2rem;">A quick walkthrough of exactly what your agents get &mdash; and how you earn on every ad.</p>
@@ -211,6 +223,24 @@
                         <source src="photographers-walkthrough.mp4" type="video/mp4">
                         Your browser doesn&rsquo;t support video playback. <a href="photographers-walkthrough.mp4">Download the walkthrough</a>.
                     </video>
+                </div>
+            </div>
+        </section>
+
+        <!-- Soft first step: low-friction info capture -->
+        <section class="section" id="photographer-info" style="padding-top:1.5rem;padding-bottom:1.5rem;">
+            <div class="container" style="max-width:640px;">
+                <div class="card" style="padding:2rem;text-align:center;border:1px solid rgba(255,51,102,0.3);">
+                    <h2 class="section-title" style="font-size:1.7rem;">Just exploring? Get the quick rundown.</h2>
+                    <p class="section-subtitle text-muted" style="margin:0.6rem auto 1.5rem;max-width:520px;">See exactly how it works, what your agents get, and what you earn &mdash; sent to your inbox. No call, no commitment.</p>
+                    <div id="photog-info-thanks" style="display:none;margin-bottom:1rem;color:#fff;font-weight:600;">Done &mdash; check your inbox. Don will follow up with the details.</div>
+                    <form id="photog-info-form" name="Photographer_Info" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/photographers.html?submitted=info" style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;">
+                        <input type="hidden" name="form-name" value="Photographer_Info">
+                        <p style="display:none;"><label>Don&rsquo;t fill this out: <input name="bot-field"></label></p>
+                        <input type="email" name="Email" placeholder="Your email" required style="flex:1 1 260px;padding:0.9rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.12);background:rgba(0,0,0,0.3);color:#fff;font-size:1rem;font-family:inherit;">
+                        <button type="submit" class="btn btn-primary" style="flex:0 0 auto;">Send me the info</button>
+                    </form>
+                    <div class="text-muted text-sm" style="margin-top:0.85rem;">Ready to sign up now? <a href="#photographer-contact" class="text-accent" style="text-decoration:underline;">Become a partner &rarr;</a></div>
                 </div>
             </div>
         </section>
@@ -327,11 +357,19 @@
             </div>
         </section>
         <script>
-          if (new URLSearchParams(location.search).has('submitted')) {
-            var f = document.getElementById('photog-form'); if (f) f.style.display = 'none';
-            var t = document.getElementById('photog-thanks'); if (t) t.style.display = 'block';
-            document.getElementById('photographer-contact').scrollIntoView();
-          }
+          (function(){
+            var val = new URLSearchParams(location.search).get('submitted');
+            if (!val) return;
+            if (val === 'info') {
+              var sf = document.getElementById('photog-info-form'); if (sf) sf.style.display = 'none';
+              var st = document.getElementById('photog-info-thanks'); if (st) st.style.display = 'block';
+              var si = document.getElementById('photographer-info'); if (si) si.scrollIntoView();
+            } else {
+              var f = document.getElementById('photog-form'); if (f) f.style.display = 'none';
+              var t = document.getElementById('photog-thanks'); if (t) t.style.display = 'block';
+              var c = document.getElementById('photographer-contact'); if (c) c.scrollIntoView();
+            }
+          })();
         </script>
     </main>
 
