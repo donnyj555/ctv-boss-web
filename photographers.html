@@ -11,8 +11,7 @@
 
       gtag('config', 'G-C4NSY488WK');
       // Google Ads — photographer YouTube campaign conversion tracking.
-      // TODO: replace AW-XXXXXXXXXX with your Google Ads conversion ID.
-      gtag('config', 'AW-XXXXXXXXXX');
+      gtag('config', 'AW-10890122795');
     </script>
 
     <!-- Google Tag Manager -->
@@ -56,10 +55,10 @@
         try {
             if (/[?&]submitted=(1|info)\b/.test(window.location.search)) {
                 fbq('track', 'Lead', { content_name: 'Photographer Partner Inquiry', content_category: 'photographer-partner' });
-                // Google Ads conversion — fires on the post-submit view, same as Meta Lead.
-                // TODO: replace AW-XXXXXXXXXX/XXXXXXXXXXXXXXXX with your conversion ID/label (send_to).
+                // Google Ads conversion (Photographer Partner Inquiry) — fires on the
+                // post-submit view, same as the Meta Lead above.
                 if (typeof gtag === 'function') {
-                    gtag('event', 'conversion', { send_to: 'AW-XXXXXXXXXX/XXXXXXXXXXXXXXXX' });
+                    gtag('event', 'conversion', { send_to: 'AW-10890122795/pf0jCOmTvK8dEKus6Mgo', value: 1.0, currency: 'USD' });
                 }
             }
         } catch (e) { /* no-op */ }
