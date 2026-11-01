@@ -199,16 +199,21 @@
 
     <main>
         <!-- Hero -->
-        <section class="section" style="padding-top: 8rem; padding-bottom: 3rem;">
+        <section class="section" id="photographer-hero" style="padding-top: 8rem; padding-bottom: 3rem;">
             <div class="container text-center">
                 <span class="badge fade-in-up">For Real Estate Photographers</span>
-                <h1 class="hero-title mt-4 fade-in-up" style="font-size: 3rem;">Give Your Agents More Marketing Power<br><span class="text-gradient">And Create a New Revenue Stream</span></h1>
-                <p class="section-subtitle text-muted" style="max-width:720px;margin:1rem auto 2rem;">Your Photos. Their Listings. Now on TV.</p>
-                <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
-                    <a href="#photographer-info" class="btn btn-primary btn-lg">Get the partner info</a>
-                    <a href="#photographer-walkthrough" class="btn btn-lg" style="background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.3);">See how it works &darr;</a>
-                </div>
-                <p class="text-muted text-sm" style="margin-top:0.9rem;">Free to look &middot; no call, no commitment.</p>
+                <h1 class="hero-title mt-4 fade-in-up" style="font-size: 3rem;">Add TV to your shoot menu &mdash;<br><span class="text-gradient">earn on every listing.</span></h1>
+                <p class="section-subtitle text-muted" style="max-width:720px;margin:1rem auto 1.75rem;">You shoot it. We put it on TV. You earn. A new done-for-you upsell for the agents you already serve &mdash; recurring commission for you, with nothing new to shoot, build, or manage.</p>
+                <!-- Low-friction capture, above the fold: one field, matches the ad's promise. -->
+                <div id="photog-hero-thanks" style="display:none;max-width:540px;margin:0 auto 1rem;color:#fff;font-weight:600;">Done &mdash; check your inbox. Don will follow up with the details.</div>
+                <form id="photog-hero-form" name="Photographer_Info" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/photographers.html?submitted=info" style="display:flex;gap:0.75rem;flex-wrap:wrap;justify-content:center;max-width:540px;margin:0 auto;">
+                    <input type="hidden" name="form-name" value="Photographer_Info">
+                    <p style="display:none;"><label>Don&rsquo;t fill this out: <input name="bot-field"></label></p>
+                    <input type="email" name="Email" placeholder="Your email" required style="flex:1 1 260px;padding:0.95rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.14);background:rgba(0,0,0,0.3);color:#fff;font-size:1rem;font-family:inherit;">
+                    <button type="submit" class="btn btn-primary btn-lg" style="flex:0 0 auto;">Send me the info</button>
+                </form>
+                <p class="text-muted text-sm" style="margin-top:0.9rem;">Free to look &middot; no call, no commitment &middot; we&rsquo;ll email you exactly how it works.</p>
+                <p style="margin-top:0.4rem;"><a href="#photographer-walkthrough" class="text-accent text-sm" style="text-decoration:underline;">Or watch the 2-minute walkthrough &darr;</a></p>
             </div>
         </section>
 
@@ -360,9 +365,10 @@
             var val = new URLSearchParams(location.search).get('submitted');
             if (!val) return;
             if (val === 'info') {
-              var sf = document.getElementById('photog-info-form'); if (sf) sf.style.display = 'none';
+              ['photog-hero-form','photog-info-form'].forEach(function(id){ var e = document.getElementById(id); if (e) e.style.display = 'none'; });
+              var ht = document.getElementById('photog-hero-thanks'); if (ht) ht.style.display = 'block';
               var st = document.getElementById('photog-info-thanks'); if (st) st.style.display = 'block';
-              var si = document.getElementById('photographer-info'); if (si) si.scrollIntoView();
+              var sh = document.getElementById('photographer-hero'); if (sh) sh.scrollIntoView();
             } else {
               var f = document.getElementById('photog-form'); if (f) f.style.display = 'none';
               var t = document.getElementById('photog-thanks'); if (t) t.style.display = 'block';
