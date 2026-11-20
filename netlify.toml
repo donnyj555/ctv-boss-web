@@ -5,6 +5,23 @@
 [dev]
   port = 8899
 
+# Sales team portal (ctv-sales on Railway, served under /team via basePath).
+[[redirects]]
+  from = "/team"
+  to = "https://ctv-sales-production.up.railway.app/team"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/team/*"
+  to = "https://ctv-sales-production.up.railway.app/team/:splat"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/team/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 # Proxy rules for the per-listing landing page on Railway. Order matters —
 # Netlify processes top to bottom. Static-asset prefixes need to pass through
 # unchanged BEFORE the catch-all rewrites /{slug} → /l/{slug}; otherwise CSS

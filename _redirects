@@ -14,6 +14,12 @@
 # /plans, /blog, etc.) and only paths that don't match a marketing-site
 # file fall through to the proxy.
 
+# Sales team portal: a separate Railway app (ctv-sales) served under /team via
+# its Next.js basePath. Proxy (200) so the address bar stays on ctvhomes.com.
+# Force (`!`) so these always win over marketing files and the catch-all below.
+/team       https://ctv-sales-production.up.railway.app/team        200!
+/team/*     https://ctv-sales-production.up.railway.app/team/:splat 200!
+
 # Defensive: bare /l (no slug after) shouldn't proxy to Railway with an
 # empty splat. Redirect to the homepage so the bad URL doesn't dead-end on
 # a 404 page. Specific rule matched before the catch-all.
